@@ -34,7 +34,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{ url('airports') }}" class="nav-link">
             <i class="bi bi-airplane"></i>
               <p>
                 Airports
@@ -43,7 +43,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{ url('embassiees') }}" class="nav-link">
             <i class="bi bi-bank"></i>
               <p>
                 Embassiees

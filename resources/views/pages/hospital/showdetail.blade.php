@@ -59,7 +59,7 @@
             </a>
 
             <!-- Button 7 -->
-            <a href="" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
             <i class="bi bi-bank fs-3"></i>
                 <small>Embassies</small>
             </a>

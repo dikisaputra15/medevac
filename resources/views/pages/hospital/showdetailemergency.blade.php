@@ -52,7 +52,7 @@
             </a>
 
             <!-- Button 7 -->
-            <a href="" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
             <i class="bi bi-bank fs-3"></i>
                 <small>Embassies</small>
             </a>
@@ -70,7 +70,7 @@
             <div class="card-body">
                 <h2><i class="fas fa-plane-arrival"></i><b>Nearest Airport</b></h2>
                 <p>
-                    <strong>{{ $hospital->nearest_airport }}</strong>
+                    <strong><a href="{{ $hospital->nearest_airport }}">{{ $hospital->nearest_airport }}</a></strong>
                 </p>
                 <p>
                     <strong>Distance:</strong> {{ $hospital->distance_with_ariport }}<br>
@@ -125,7 +125,7 @@
             <div class="card-body">
                 <h2><i class="fas fa-shuttle-van"></i> <b>Local Travel Support</b></h2>
                 <p>
-                    <strong>{{ $hospital->local_travel_support }}</strong>
+                    <strong><a href="{{ $hospital->local_travel_support }}">{{ $hospital->local_travel_support }}</a></strong>
                 </p>
             </div>
             </div>

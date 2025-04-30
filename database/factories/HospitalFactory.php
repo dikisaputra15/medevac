@@ -18,6 +18,7 @@ class HospitalFactory extends Factory
     {
         return [
             'name' => $this->faker->company . ' Hospital',
+            'classification_hospital' => $this->faker->randomElement(['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6']),
             'province' => $this->faker->state,
             'region' => $this->faker->city,
             'facility_level' => $this->faker->randomElement(['Primary', 'Secondary', 'Tertiary']),
@@ -84,6 +85,14 @@ class HospitalFactory extends Factory
                 'https://pg.concordreview.com/wp-content/uploads/2024/08/Foto_01.Misima-District-Hospital-Papua-Nugini-2024.jpg',
                 'https://pg.concordreview.com/wp-content/uploads/2024/08/Telefomin-District-Hospital.jpg',
                 'https://pg.concordreview.com/wp-content/uploads/2024/08/Foto_02.Kerema-Hospital.jpg',
+            ]),
+            'icon' => $this->faker->randomElement([
+                'https://pg.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-tosca-m.png',
+                'https://pg.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-orange-m.png',
+                'https://pg.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-green-m.png',
+                'https://pg.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple-m.png',
+                'https://pg.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-blue-m.png',
+                'https://pg.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-red-m.png',
             ]),
         ];
     }

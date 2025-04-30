@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','Hospitals')
+@section('title','Airports')
 
 @push('styles')
 
@@ -17,7 +17,7 @@
 
 <div class="card">
     <div class="card-header bg-white">
-        <h3 style="text-align: center;">Papua New Guinea Hospital</h3>
+        <h3 style="text-align: center;">Papua New Guinea Airports</h3>
     </div>
 
     <div id="map"></div>
@@ -37,8 +37,8 @@
         const totalControl = L.control({ position: 'topright' });
 
         totalControl.onAdd = function (map) {
-            const div = L.DomUtil.create('div', 'total-hospitals');
-            div.innerHTML = 'Loading hospital count...';
+            const div = L.DomUtil.create('div', 'total-airports');
+            div.innerHTML = 'Loading airports count...';
             div.style.background = 'white';
             div.style.padding = '8px 12px';
             div.style.borderRadius = '8px';
@@ -55,32 +55,31 @@
             maxZoom: 19,
         }).addTo(map);
 
-        fetch('/api/hospitals')
+        fetch('/api/airports')
             .then(res => res.json())
             .then(data => {
-                data.forEach(hospital => {
+                data.forEach(airport => {
 
-                     // icon custom
-                    const hospitalIcon = L.icon({
-                        iconUrl: hospital.icon, // ganti path ini sesuai lokasi ikon kamu
+                      // icon custom
+                    const airportIcon = L.icon({
+                        iconUrl: airport.icon, // ganti path ini sesuai lokasi ikon kamu
                         iconSize: [24, 24], // ukuran ikon
                         iconAnchor: [19, 45], // titik anchor ikon (bagian bawah-tengah)
                         popupAnchor: [0, -40] // posisi popup relatif terhadap ikon
                     });
 
-                    const marker = L.marker([hospital.latitude, hospital.longitude], {icon:hospitalIcon}).addTo(map);
+                    const marker = L.marker([airport.latitude, airport.longitude], {icon:airportIcon}).addTo(map);
                     marker.bindPopup(`
-                        <b>${hospital.name}</b><br>
-                        <img src="${hospital.image}" width="200" style="margin: 5px 0;"><br>
-                        <strong>Location:</strong> ${hospital.address}<br>
-                        <strong>Coords:</strong> ${hospital.latitude}, ${hospital.longitude}<br>
-                        <strong>Region:</strong> ${hospital.region}<br>
-                        <strong>Level:</strong> ${hospital.facility_level}<br>
-                        <a href="/hospitals/${hospital.id}" class="btn btn-primary btn-sm" style="color:white;">More Details</a>
+                        <b>${airport.airport_name}</b><br>
+                        <img src="${airport.image}" width="200" style="margin: 5px 0;"><br>
+                        <strong>Address:</strong> ${airport.address}<br>
+                        <strong>Telephone:</strong> ${airport.telephone}<br>
+                        <strong>Website:</strong><a href='${airport.website}' target='__blank'> ${airport.website} </a><br>
+                        <a href="/airports/${airport.id}/detail" class="btn btn-primary btn-sm" style="color:white;">More Details</a>
                     `);
                 });
 
-                document.querySelector('.total-hospitals').innerText = `Total Hospitals: ${data.length}`;
+                document.querySelector('.total-airports').innerText = `Total Airports: ${data.length}`;
 
             });
 
