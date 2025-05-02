@@ -31,3 +31,4 @@ Route::get('/api/embassiees', [EmbassieesController::class, 'api']);
 Route::get('/embassiees/{id}/detail', [EmbassieesController::class, 'showdetail']);
 Route::resource('airports', AirportsController::class);
 Route::get('/api/airports', [AirportsController::class, 'api']);
+Route::get('/airports/{id}/detail', [AirportsController::class, 'showdetail']);

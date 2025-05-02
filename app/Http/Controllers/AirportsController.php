@@ -67,4 +67,11 @@ class AirportsController extends Controller
     {
         return response()->json(Airport::all());
     }
+
+    public function showdetail($id)
+    {
+        $airport = Airport::findOrFail($id);
+        return view('pages.airports.showdetail', compact('airport'));
+    }
+
 }
