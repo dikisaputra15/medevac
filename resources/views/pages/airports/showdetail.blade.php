@@ -20,7 +20,7 @@
     <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
         <div class="d-flex gap-2">
             <!-- Button 1 -->
-            <a href="{{ url('hospital') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('airports') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-house-door-fill fs-3"></i>
                 <small>Home</small>
             </a>
@@ -32,19 +32,19 @@
             </a>
 
             <!-- Button 3 -->
-            <a href="" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('airports') }}/{{$airport->id}}/navigation" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-compass fs-3"></i>
                 <small>Navigation</small>
             </a>
 
              <!-- Button 4 -->
-             <a href="" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+             <a href="{{ url('airports') }}/{{$airport->id}}/airlinesdestination" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane-engines fs-3"></i>
                 <small>Airlines/Destination</small>
             </a>
 
             <!-- Button 5 -->
-            <a href="" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('airports') }}/{{$airport->id}}/emergency" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-chat-dots-fill fs-3"></i>
                 <small>Emergency Support</small>
             </a>
@@ -59,7 +59,7 @@
             </a>
 
             <!-- Button 6 -->
-            <a href="" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane-engines fs-3"></i>
                 <small>Air Charter</small>
             </a>

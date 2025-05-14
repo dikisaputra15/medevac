@@ -22,6 +22,14 @@ class DatabaseSeeder extends Seeder
             AirportsSeeder::class,
             HospitalSeeder::class,
             EmbassieesSeeder::class,
+            NearestairportsSeeder::class,
+            InternationalairlinesSeeder::class,
+            DomesticairlinesSeeder::class,
+            AirportcommunicationSeeder::class,
+            NavigationnearbyairportSeeder::class,
+            NavigationaidairportSeeder::class,
+            RunawayairportSeeder::class,
+            AircharterSeeder::class,
         ]);
     }
 }

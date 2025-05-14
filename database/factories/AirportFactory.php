@@ -51,6 +51,7 @@ class AirportFactory extends Factory
             )),
             'flight_information' => $this->faker->paragraph,
             'nearest_medical_facility' => $this->faker->company . ' Clinic',
+            'distance_with_airport' => $this->faker->numberBetween(1, 200) . ' km',
             'get_direction_medical_facility' => $this->faker->url,
             'nearest_police_station' => $this->faker->company . ' Police Station',
             'address_police_station' => $this->faker->address,

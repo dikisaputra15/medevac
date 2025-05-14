@@ -40,13 +40,13 @@
 
         <div class="d-flex gap-2 ms-auto">
             <!-- Button 5 -->
-            <a href="" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane fs-3"></i>
                 <small>Airports</small>
             </a>
 
             <!-- Button 6 -->
-            <a href="" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane-engines fs-3"></i>
                 <small>Air Charter</small>
             </a>

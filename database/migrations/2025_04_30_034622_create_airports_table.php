@@ -43,6 +43,7 @@ return new class extends Migration
             $table->text('nearest_accommodation')->nullable();
             $table->text('flight_information')->nullable();
             $table->text('nearest_medical_facility')->nullable();
+            $table->string('distance_with_airport')->nullable();
             $table->string('get_direction_medical_facility')->nullable();
             $table->text('nearest_police_station')->nullable();
             $table->string('address_police_station')->nullable();

@@ -3,6 +3,7 @@
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\EmbassieesController;
 use App\Http\Controllers\AirportsController;
+use App\Http\Controllers\AircharterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,3 +33,7 @@ Route::get('/embassiees/{id}/detail', [EmbassieesController::class, 'showdetail'
 Route::resource('airports', AirportsController::class);
 Route::get('/api/airports', [AirportsController::class, 'api']);
 Route::get('/airports/{id}/detail', [AirportsController::class, 'showdetail']);
+Route::get('/airports/{id}/emergency', [AirportsController::class, 'showdetailemergency']);
+Route::get('/airports/{id}/airlinesdestination', [AirportsController::class, 'showairlinesdestination']);
+Route::get('/airports/{id}/navigation', [AirportsController::class, 'shownavigation']);
+Route::resource('aircharter', AircharterController::class);
