@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('embassiees', function (Blueprint $table) {
             $table->id();
+            $table->integer('province_id');
             $table->string('name_embassiees')->nullable();
             $table->text('location')->nullable();
             $table->string('telephone')->nullable();

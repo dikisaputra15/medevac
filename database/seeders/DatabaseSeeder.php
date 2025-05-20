@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             NavigationaidairportSeeder::class,
             RunawayairportSeeder::class,
             AircharterSeeder::class,
+            ProvincesregionSeeder::class,
         ]);
     }
 }

@@ -17,6 +17,7 @@ class EmbassieesFactory extends Factory
     public function definition(): array
     {
         return [
+            'province_id' => $this->faker->numberBetween(1, 22),
             'name_embassiees' => $this->faker->company . ' Embassy',
             'location' => $this->faker->address,
             'telephone' => $this->faker->phoneNumber,

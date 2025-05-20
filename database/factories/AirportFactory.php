@@ -17,6 +17,7 @@ class AirportFactory extends Factory
     public function definition(): array
     {
         return [
+            'province_id' => $this->faker->numberBetween(1, 22),
             'airport_name' => $this->faker->city . ' International Airport',
             'address' => $this->faker->address,
             'latitude' => $this->faker->latitude(-11.0, -1.0), // Papua New Guinea

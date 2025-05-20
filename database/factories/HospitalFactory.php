@@ -17,6 +17,7 @@ class HospitalFactory extends Factory
     public function definition(): array
     {
         return [
+            'province_id' => $this->faker->numberBetween(1, 22),
             'name' => $this->faker->company . ' Hospital',
             'classification_hospital' => $this->faker->randomElement(['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6']),
             'province' => $this->faker->state,
