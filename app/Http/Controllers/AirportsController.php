@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Airport;
+use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 
 class AirportsController extends Controller
@@ -13,7 +14,8 @@ class AirportsController extends Controller
      */
     public function index(Request $request)
     {
-        return view('pages.airports.index');
+        $provinces = Provincesregion::all();
+        return view('pages.airports.index', compact('provinces'));
     }
 
     /**
@@ -101,6 +103,53 @@ class AirportsController extends Controller
         $navigationaidairports = DB::table('navigationaidairports')->where('airport_id', $id)->get();
         $navigationnearbyairports = DB::table('navigationnearbyairports')->where('airport_id', $id)->get();
         return view('pages.airports.shownavigation', compact('airportcommunications','runawayairports','navigationaidairports','navigationnearbyairports','airport'));
+    }
+
+    public function getAirports(Request $request)
+    {
+        $query = Airport::query();
+
+        // Filter nama bandara
+        if ($request->has('name') && $request->name) {
+            $query->where('airport_name', 'like', '%' . $request->name . '%');
+        }
+
+        // Filter kategori
+        if ($request->has('category') && $request->category) {
+            $query->where('category', 'like', '%' . $request->category . '%');
+        }
+
+        // Filter lokasi (berdasarkan address)
+        if ($request->has('location') && $request->location) {
+            $query->where('address', 'like', '%' . $request->location . '%');
+        }
+
+        // Filter provinsi dan radius
+        if ($request->has('provinces') && !empty($request->provinces) && $request->has('radius') && $request->radius > 0) {
+            $provinces = Provincesregion::whereIn('id', $request->provinces)->get();
+            $radius = $request->radius;
+
+            $query->where(function ($subQuery) use ($provinces, $radius) {
+                foreach ($provinces as $province) {
+                    if ($province->latitude && $province->longitude) {
+                        $subQuery->orWhereRaw("
+                            6371 * acos(
+                                cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) +
+                                sin(radians(?)) * sin(radians(latitude))
+                            ) <= ?",
+                            [$province->latitude, $province->longitude, $province->latitude, $radius]
+                        );
+                    }
+                }
+            });
+        } elseif ($request->has('provinces') && !empty($request->provinces)) {
+            // Jika tidak ada radius, filter hanya berdasarkan provinsi
+            $query->whereIn('province_id', $request->provinces);
+        }
+
+        $airports = $query->get();
+
+        return response()->json($airports);
     }
 
 }

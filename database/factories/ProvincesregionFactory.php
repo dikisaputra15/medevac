@@ -42,6 +42,8 @@ class ProvincesregionFactory extends Factory
                 'Port Moresby, Southern Region',
                 'West Sepik (Sandaun), Momase Region'
             ]),
+            'latitude' => $this->faker->latitude(-11.0, -1.0), // Papua New Guinea
+            'longitude' => $this->faker->longitude(140.0, 155.0),
         ];
     }
 }

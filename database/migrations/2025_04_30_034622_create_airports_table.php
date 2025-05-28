@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('airports', function (Blueprint $table) {
             $table->id();
-            $table->integer('province_id');
+            $table->foreignId('province_id')->constrained()->onDelete('cascade');
             $table->string('airport_name')->nullable();
             $table->text('address')->nullable();
             $table->decimal('latitude', 10, 6)->nullable();
