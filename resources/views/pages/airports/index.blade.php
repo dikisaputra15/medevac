@@ -5,9 +5,30 @@
 @push('styles')
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
 <style>
     #map {
         height: 700px;
+    }
+    .filter-container {
+        margin-bottom: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    }
+    .form-check-scrollable {
+        max-height: 150px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    .total-airports {
+        background: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        box-shadow: 0 0 6px rgba(0,0,0,0.2);
+        font-weight: bold;
     }
 </style>
 
@@ -20,41 +41,47 @@
         <h3 style="text-align: center;">Papua New Guinea Airports</h3>
     </div>
 
-    <form id="filterForm" class="p-3">
-        <div class="row">
-            <div class="col-md-4">
-                <input type="text" id="name" class="form-control" placeholder="Airport Name">
-            </div>
-            <div class="col-md-4">
-                <input type="text" id="category" class="form-control" placeholder="Category">
-            </div>
-            <div class="col-md-4">
-                <input type="text" id="location" class="form-control" placeholder="Location">
-            </div>
-           <div class="col-md-6">
-                <label for="radiusRange">Search in radius <span id="radiusValue">0</span> kilometers</label>
-                <input type="range" id="radiusRange" name="radius" class="form-range" min="0" max="200" value="1" style="width: 100%; accent-color: darkred;">
-            </div>
+    <div class="filter-container p-3">
+        <form id="filterForm">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label for="name" class="form-label">Airport Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Airport Name">
+                </div>
+                <div class="col-md-4">
+                    <label for="category" class="form-label">Category</label>
+                    <input type="text" id="category" class="form-control" placeholder="Category">
+                </div>
+                <div class="col-md-4">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" id="location" class="form-control" placeholder="Location">
+                </div>
+                <div class="col-md-6">
+                    <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
+                    <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="200" value="0">
+                </div>
 
-            <div class="col-md-6">
-                <label><strong>Provinces Region</strong></label>
-                <div class="form-check" style="max-height: 150px; overflow-y: auto; border: 1px solid #ddd; border-radius: 5px;">
-                    @foreach ($provinces as $province)
-                        <div>
-                            <input class="form-check-input province-checkbox" type="checkbox" name="provinces[]" value="{{ $province->id }}" id="province_{{ $province->id }}">
-                            <label class="form-check-label" for="province_{{ $province->id }}">
-                                {{ $province->provinces_region }}
-                            </label>
-                        </div>
-                    @endforeach
+                <div class="col-md-6">
+                    <label class="form-label"><strong>Provinces Region</strong></label>
+                    <div class="form-check-scrollable">
+                        @foreach ($provinces as $province)
+                            <div class="form-check">
+                                <input class="form-check-input province-checkbox" type="checkbox" name="provinces[]" value="{{ $province->id }}" id="province_{{ $province->id }}">
+                                <label class="form-check-label" for="province_{{ $province->id }}">
+                                    {{ $province->provinces_region }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary">Apply Filter</button>
+                    <button type="button" id="resetFilter" class="btn btn-secondary">Reset Filter</button>
                 </div>
             </div>
-
-            <div class="col-md-">
-                <button type="submit" class="btn btn-primary btn-block">Filter</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 
 
     <div id="map"></div>
@@ -66,176 +93,230 @@
 
 @push('service')
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <!-- <script>
-        const radiusSlider = document.getElementById('radiusRange');
-        const radiusDisplay = document.getElementById('radiusValue');
 
-        radiusSlider.addEventListener('input', function () {
-            radiusDisplay.innerText = this.value;
-        });
-    </script> -->
-
-    <!-- <script>
-        // Inisialisasi peta
+    <script>
         const map = L.map('map').setView([-6.80188562253168, 144.0733101155011], 6);
-
-        // Buat custom control
-        const totalControl = L.control({ position: 'topright' });
-
-        totalControl.onAdd = function (map) {
-            const div = L.DomUtil.create('div', 'total-airports');
-            div.innerHTML = 'Loading airports count...';
-            div.style.background = 'white';
-            div.style.padding = '8px 12px';
-            div.style.borderRadius = '8px';
-            div.style.boxShadow = '0 0 6px rgba(0,0,0,0.2)';
-            div.style.fontWeight = 'bold';
-            return div;
-        };
-
-        totalControl.addTo(map);
-
-
-        // Tambahkan layer peta
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
             maxZoom: 19,
         }).addTo(map);
 
-        fetch('/api/airports')
-            .then(res => res.json())
-            .then(data => {
-                data.forEach(airport => {
+        let airportMarkers = L.featureGroup().addTo(map);
+        let centerMarker = null; // Ini adalah variabel yang harus Anda modifikasi
+        let lastClickedAirport = null; // Menyimpan koordinat bandara yang terakhir diklik
+        let destinationMarker = null; // Tambahkan variabel untuk marker tujuan
+        let destinationCoordinates = null; // Tambahkan variabel untuk menyimpan koordinat tujuan
 
-                      // icon custom
-                    const airportIcon = L.icon({
-                        iconUrl: airport.icon, // ganti path ini sesuai lokasi ikon kamu
-                        iconSize: [24, 24], // ukuran ikon
-                        iconAnchor: [19, 45], // titik anchor ikon (bagian bawah-tengah)
-                        popupAnchor: [0, -40] // posisi popup relatif terhadap ikon
-                    });
+        const totalControl = L.control({ position: 'topright' });
+            totalControl.onAdd = function (map) {
+        const div = L.DomUtil.create('div', 'total-airports');
+            div.innerHTML = 'Loading airports count...';
+            return div;
+        };
+            totalControl.addTo(map);
 
-                    const marker = L.marker([airport.latitude, airport.longitude], {icon:airportIcon}).addTo(map);
-                    marker.bindPopup(`
-                        <b>${airport.airport_name}</b><br>
-                        <img src="${airport.image}" width="200" style="margin: 5px 0;"><br>
-                        <strong>Address:</strong> ${airport.address}<br>
-                        <strong>Telephone:</strong> ${airport.telephone}<br>
-                        <strong>Website:</strong><a href='${airport.website}' target='__blank'> ${airport.website} </a><br>
-                        <a href="/airports/${airport.id}/detail" class="btn btn-primary btn-sm" style="color:white;">More Details</a>
-                    `);
-                });
-
-                document.querySelector('.total-airports').innerText = `Total Airports: ${data.length}`;
-
+            // Fungsi untuk membuat ikon penanda tujuan
+            const destinationIcon = L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // Contoh ikon tujuan (ganti dengan ikon Anda)
+                iconSize: [32, 32],
+                iconAnchor: [16, 32],
+                popupAnchor: [0, -32]
             });
 
-    </script> -->
+            // Fungsi untuk menetapkan dan menampilkan penanda tujuan
+            function setDestination(lat, lng) {
+                if (destinationMarker) {
+                    map.removeLayer(destinationMarker); // Hapus marker tujuan yang ada
+                }
+                destinationCoordinates = [lat, lng];
+                destinationMarker = L.marker(destinationCoordinates, { icon: destinationIcon }).addTo(map);
+                destinationMarker.bindPopup("<b>Destination</b>").openPopup();
 
-     <script>
-        // Inisialisasi peta
-        const map = L.map('map').setView([-6.80188562253168, 144.0733101155011], 6);
-        let markers = []; // Array untuk menyimpan marker
-
-        // Buat custom control untuk total bandara
-        const totalControl = L.control({ position: 'topright' });
-        totalControl.onAdd = function (map) {
-            const div = L.DomUtil.create('div', 'total-airports');
-            div.innerHTML = 'Loading airports count...';
-            div.style.background = 'white';
-            div.style.padding = '8px 12px';
-            div.style.borderRadius = '8px';
-            div.style.boxShadow = '0 0 6px rgba(0,0,0,0.2)';
-            div.style.fontWeight = 'bold';
-            return div;
-        };
-        totalControl.addTo(map);
-
-        // Tambahkan layer peta
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
-
-        // Fungsi untuk menghapus semua marker dari peta
-        function clearMarkers() {
-            markers.forEach(marker => map.removeLayer(marker));
-            markers = [];
-        }
-
-        // Fungsi untuk memuat data bandara berdasarkan filter
-        function loadAirports(filters = {}) {
-            const query = new URLSearchParams();
-            if (filters.name) query.append('name', filters.name);
-            if (filters.category) query.append('category', filters.category);
-            if (filters.location) query.append('location', filters.location);
-            if (filters.radius) query.append('radius', filters.radius);
-            if (filters.provinces) {
-                filters.provinces.forEach(province => query.append('provinces[]', province));
+                // Opsional: Sesuaikan tampilan peta untuk menyertakan tujuan
+                if (airportMarkers.getLayers().length > 0) {
+                    const bounds = airportMarkers.getBounds().extend(destinationCoordinates);
+                    map.fitBounds(bounds, { padding: [50, 50] });
+                } else {
+                    map.setView(destinationCoordinates, 10); // Jika tidak ada bandara lain, fokus ke tujuan
+                }
             }
 
-            fetch(`/api/airports?${query.toString()}`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+
+            // Fungsi untuk memperbarui lingkaran radius
+            function updateRadiusCircle() {
+                const radius = parseInt(document.getElementById('radiusRange').value);
+                const center = lastClickedAirport ?? map.getCenter(); // Gunakan bandara terakhir diklik, atau pusat peta
+
+                // Pastikan centerMarker dihapus sebelum membuat yang baru, jika ada
+                if (centerMarker) {
+                    map.removeLayer(centerMarker);
+                    centerMarker = null;
                 }
-            })
-                .then(res => res.json())
-                .then(data => {
-                    clearMarkers();
 
-                    data.forEach(airport => {
-                        const airportIcon = L.icon({
-                            iconUrl: airport.icon || '/images/default-airport-icon.png',
-                            iconSize: [24, 24],
-                            iconAnchor: [19, 45],
-                            popupAnchor: [0, -40]
-                        });
+                if (radius > 0) {
+                    centerMarker = L.circle(center, {
+                        color: 'red',
+                        fillColor: '#f03',
+                        fillOpacity: 0.3,
+                        radius: radius * 1000 // Konversi km ke meter
+                    }).addTo(map);
+                }
+            }
 
-                        const marker = L.marker([airport.latitude, airport.longitude], { icon: airportIcon }).addTo(map);
-                        marker.bindPopup(`
-                            <b>${airport.airport_name}</b><br>
-                            <img src="${airport.image || '/images/default-airport.jpg'}" width="200" style="margin: 5px 0;"><br>
-                            <strong>Address:</strong> ${airport.address}<br>
-                            <strong>Telephone:</strong> ${airport.telephone || 'N/A'}<br>
-                            <strong>Website:</strong> <a href="${airport.website || '#'}" target="_blank">${airport.website || 'N/A'}</a><br>
-                            <a href="/airports/${airport.id}/detail" class="btn btn-primary btn-sm" style="color:white;">More Details</a>
-                        `);
-                        markers.push(marker);
-                    });
-
-                    document.querySelector('.total-airports').innerText = `Total Airports: ${data.length}`;
-                })
-                .catch(error => {
-                    console.error('Error fetching airports:', error);
-                    document.querySelector('.total-airports').innerText = 'Error loading airports';
-                });
-        }
-
-        // Panggil loadAirports saat halaman dimuat
-        loadAirports();
-
-        // Tangani submit form filter
-        document.getElementById('filterForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Kumpulkan nilai filter
-            const filters = {
-                name: document.getElementById('name').value.trim(),
-                category: document.getElementById('category').value.trim(),
-                location: document.getElementById('location').value.trim(),
-                radius: document.getElementById('radiusRange').value,
-                provinces: Array.from(document.querySelectorAll('.province-checkbox:checked'))
-                    .map(checkbox => checkbox.value)
-            };
-
-            // Panggil fungsi loadAirports dengan filter
-            loadAirports(filters);
+        document.getElementById('radiusRange').addEventListener('input', function() {
+        document.getElementById('radiusValue').textContent = this.value;
+                updateRadiusCircle(); // Panggil fungsi untuk memperbarui lingkaran saat slider digeser
         });
 
-        // Update nilai radius secara real-time
-        const radiusSlider = document.getElementById('radiusRange');
-        const radiusDisplay = document.getElementById('radiusValue');
-        radiusSlider.addEventListener('input', function () {
-            radiusDisplay.innerText = this.value;
+            // Event listener untuk klik pada peta untuk menentukan pusat radius secara manual
+            map.on('click', function(e) {
+                lastClickedAirport = { lat: e.latlng.lat, lng: e.latlng.lng }; // Set pusat radius ke lokasi klik
+                updateRadiusCircle(); // Perbarui lingkaran radius
+            });
+
+        async function fetchAndDisplayAirports(filters = {}) {
+        airportMarkers.clearLayers();
+        // centerMarker tidak perlu dihapus di sini, karena updateRadiusCircle() akan menanganinya
+        // atau akan dihapus jika radius 0 saat filterForm disubmit atau reset.
+
+        const params = new URLSearchParams();
+        Object.keys(filters).forEach(key => {
+            if (Array.isArray(filters[key])) {
+                filters[key].forEach(value => {
+                 params.append(`${key}[]`, value);
+            });
+            } else {
+                params.append(key, filters[key]);
+            }
+        });
+
+        const response = await fetch(`/api/airports?${params.toString()}`);
+        const airports = await response.json();
+
+        document.querySelector('.total-airports').innerText = `Total Airports: ${airports.length}`;
+
+        if (airports.length === 0) {
+            alert('No airports found with the current filters.');
+            return;
+        }
+
+        airports.forEach(airport => {
+            const airportIcon = L.icon({
+            iconUrl: airport.icon || 'https://unpkg.com/leaflet/dist/images/marker-icon.png',
+            iconSize: [24, 24],
+            iconAnchor: [12, 24],
+            popupAnchor: [0, -20]
+         });
+
+         const marker = L.marker([airport.latitude, airport.longitude], { icon: airportIcon }).addTo(airportMarkers);
+
+         // Simpan airport terakhir yang diklik
+         marker.on('click', () => {
+            lastClickedAirport = {
+            lat: airport.latitude,
+            lng: airport.longitude
+         };
+                        updateRadiusCircle(); // Perbarui lingkaran saat marker bandara diklik
+        });
+
+                    // Tambahkan tombol "Set as Destination" ke popup
+                    marker.bindPopup(`
+                        <b>${airport.airport_name || 'N/A'}</b><br>
+                        ${airport.image ? `<img src="${airport.image}" width="200" style="margin: 5px 0;"><br>` : ''}
+                        <strong>Address:</strong> ${airport.address || 'N/A'}<br>
+                        <strong>Telephone:</strong> ${airport.telephone || 'N/A'}<br>
+                        ${airport.website ? `<strong>Website:</strong><a href='${airport.website}' target='__blank'> ${airport.website} </a><br>` : ''}
+                        ${airport.id ? `<a href="/airports/${airport.id}/detail" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
+
+                    `);
+            });
+
+                // Event listener untuk tombol "Set as Destination" (setelah semua marker dibuat)
+                airportMarkers.eachLayer(function(layer) {
+                    layer.on('popupopen', function() {
+                        const setDestinationBtn = layer.getPopup().getElement().querySelector('.set-destination-btn');
+                        if (setDestinationBtn) {
+                            setDestinationBtn.addEventListener('click', function() {
+                                const lat = parseFloat(this.dataset.lat);
+                                const lng = parseFloat(this.dataset.lng);
+                                setDestination(lat, lng);
+                                map.closePopup(); // Tutup popup setelah tombol diklik
+                            });
+                        }
+                    });
+                });
+
+                if (airportMarkers.getLayers().length > 0) {
+                let bounds = airportMarkers.getBounds();
+                    if (destinationCoordinates) { // Perluas batas jika ada penanda tujuan
+                        bounds.extend(destinationCoordinates);
+                    }
+                    map.fitBounds(bounds, { padding: [50, 50] });
+                 } else if (destinationCoordinates) { // Jika hanya ada tujuan tanpa bandara lain
+                    map.setView(destinationCoordinates, 10);
+                }
+             }
+
+            document.getElementById('filterForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const category = document.getElementById('category').value;
+                const location = document.getElementById('location').value;
+                const radius = parseInt(document.getElementById('radiusRange').value);
+
+                 const selectedProvinces = Array.from(document.querySelectorAll('.province-checkbox:checked'))
+                 .map(checkbox => checkbox.value);
+
+                let filters = {
+                    name: name,
+                    category: category,
+                    location: location,
+                    provinces: selectedProvinces
+                };
+
+                // Ketika form disubmit, pusat radius akan menjadi pusat peta saat ini (jika tidak ada bandara yang diklik)
+                // atau bandara terakhir yang diklik. updateRadiusCircle() akan menanganinya.
+                // Tidak perlu lagi blok if/else radius di sini karena updateRadiusCircle() sudah mengelola logika itu.
+                // Anda hanya perlu memastikan filter radius terkirim ke backend.
+                if (radius > 0) {
+                    const center = lastClickedAirport ?? map.getCenter();
+                    filters.radius = radius;
+                    filters.center_lat = center.lat;
+                    filters.center_lng = center.lng;
+                }
+
+        await fetchAndDisplayAirports(filters);
+                updateRadiusCircle(); // Panggil fungsi untuk memperbarui lingkaran setelah fetch data selesai
+         });
+
+         document.getElementById('resetFilter').addEventListener('click', async function() {
+         document.getElementById('filterForm').reset();
+         document.getElementById('radiusValue').textContent = '0';
+         document.querySelectorAll('.province-checkbox').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+
+        // Pastikan centerMarker dan destinationMarker dihapus
+            if (centerMarker) {
+                 map.removeLayer(centerMarker);
+                    centerMarker = null;
+             }
+                if (destinationMarker) {
+                    map.removeLayer(destinationMarker);
+                    destinationMarker = null;
+                    destinationCoordinates = null;
+                }
+
+            lastClickedAirport = null; // Reset pusat radius juga
+                 map.setView([-6.80188562253168, 144.0733101155011], 6);
+                 await fetchAndDisplayAirports();
+                updateRadiusCircle(); // Panggil ini untuk memastikan lingkaran hilang (karena radius 0)
+             });
+
+         document.addEventListener('DOMContentLoaded', () => {
+             fetchAndDisplayAirports();
+                updateRadiusCircle(); // Pastikan lingkaran ditampilkan jika ada nilai radius awal
         });
     </script>
 @endpush

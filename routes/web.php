@@ -37,3 +37,6 @@ Route::get('/airports/{id}/emergency', [AirportsController::class, 'showdetailem
 Route::get('/airports/{id}/airlinesdestination', [AirportsController::class, 'showairlinesdestination']);
 Route::get('/airports/{id}/navigation', [AirportsController::class, 'shownavigation']);
 Route::resource('aircharter', AircharterController::class);
+Route::get('/api/airports', [AirportsController::class, 'filter']);
+Route::get('/api/embassy', [EmbassieesController::class, 'filter']);
+Route::get('/api/hospital', [HospitalController::class, 'filter']);

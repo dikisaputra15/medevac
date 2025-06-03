@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('provincesregions', function (Blueprint $table) {
             $table->id();
             $table->string('provinces_region');
-            $table->decimal('latitude', 10, 6)->nullable();
-            $table->decimal('longitude', 10, 6)->nullable();
             $table->timestamps();
         });
     }
