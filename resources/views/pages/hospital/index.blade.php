@@ -5,6 +5,8 @@
 @push('styles')
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 <style>
     #map {
         height: 700px;
@@ -29,6 +31,21 @@
         box-shadow: 0 0 6px rgba(0,0,0,0.2);
         font-weight: bold;
     }
+    .select2-container .select2-selection--single {
+        height: 45px;
+        padding: 6px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 10px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 30px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 45px;
+        right: 10px;
+    }
 </style>
 
 @endpush
@@ -44,17 +61,34 @@
         <form id="filterForm">
             <div class="row g-3 align-items-end">
                 <div class="col-md-4">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" id="name" class="form-control" placeholder="Hospital Name">
-                </div>
-                <div class="col-md-4">
-                    <label for="category" class="form-label">Facility Level</label>
-                    <input type="text" id="category" class="form-control" placeholder="Facility Level">
-                </div>
-                <div class="col-md-4">
-                    <label for="location" class="form-label">Location</label>
-                    <input type="text" id="location" class="form-control" placeholder="Location">
-                </div>
+                        <label for="name" class="form-label">Hospital Name</label>
+                        <select id="name" class="form-select select2-search" name="name">
+                            <option value="">🔍 All Hospital</option>
+                            @foreach($hospitalNames as $name)
+                                <option value="{{ $name }}">{{ $name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="category" class="form-label">Facility Level</label>
+                        <select id="category" class="form-select select2-search" name="category">
+                            <option value="">🔍 All Facility Level</option>
+                            @foreach($hospitalCategories as $category)
+                                <option value="{{ $category }}">{{ $category }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="location" class="form-label">Location</label>
+                        <select id="location" class="form-select select2-search" name="location">
+                            <option value="">🔍 All Locations</option>
+                            @foreach($hospitalLocations as $location)
+                                <option value="{{ $location }}">{{ $location }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 <div class="col-md-6">
                     <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
                     <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="200" value="0">
@@ -91,6 +125,7 @@
 
 @push('service')
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         const map = L.map('map').setView([-6.80188562253168, 144.0733101155011], 6);
@@ -314,8 +349,16 @@
              });
 
          document.addEventListener('DOMContentLoaded', () => {
-             fetchAndDisplayhospital();
-                updateRadiusCircle(); // Pastikan lingkaran ditampilkan jika ada nilai radius awal
+            $(document).ready(function() {
+                $('.select2-search').select2({
+                    placeholder: "🔍 Search...",
+                    allowClear: true,
+                    width: '100%',
+                });
+            });
+
+            fetchAndDisplayhospital();
+            updateRadiusCircle(); // Pastikan lingkaran ditampilkan jika ada nilai radius awal
         });
     </script>
 @endpush

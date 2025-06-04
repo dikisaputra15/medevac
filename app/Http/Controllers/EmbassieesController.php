@@ -14,8 +14,11 @@ class EmbassieesController extends Controller
      */
     public function index(Request $request)
     {
+        $embassyNames = DB::table('embassiees')->distinct()->pluck('name_embassiees')->filter()->sort()->values();
+        $embassyLocations = DB::table('embassiees')->distinct()->pluck('location')->filter()->sort()->values();
+
         $provinces = Provincesregion::all();
-        return view('pages.embassiees.index', compact('provinces'));
+        return view('pages.embassiees.index', compact('provinces','embassyNames','embassyLocations'));
     }
 
     /**
