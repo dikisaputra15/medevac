@@ -46,7 +46,7 @@
             $('#airportTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('airportdata.index') }}",
+                ajax: "/airportdata",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',

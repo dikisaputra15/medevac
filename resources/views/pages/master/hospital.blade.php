@@ -46,7 +46,7 @@
             $('#hospitalTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('hospitaldata.index') }}",
+                ajax: "/hospitaldata",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
