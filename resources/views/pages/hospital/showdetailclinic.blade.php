@@ -45,12 +45,6 @@
                 <small>Airports</small>
             </a>
 
-            <!-- Button 6 -->
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-airplane-engines fs-3"></i>
-                <small>Air Charter</small>
-            </a>
-
             <!-- Button 7 -->
             <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
             <i class="bi bi-bank fs-3"></i>
@@ -80,7 +74,7 @@
                     </tr>
                     <tr>
                         <td>24 hr ER Service</td>
-                        <td>{{ $hospital->hr_ER_services }}</td>
+                        <td>{{ $hospital->hour_emergency_services }}</td>
                     </tr>
                     <tr>
                         <td>Ambulance</td>

@@ -52,12 +52,6 @@
                 <small>Airports</small>
             </a>
 
-            <!-- Button 6 -->
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-airplane-engines fs-3"></i>
-                <small>Air Charter</small>
-            </a>
-
             <!-- Button 7 -->
             <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
             <i class="bi bi-bank fs-3"></i>
@@ -79,7 +73,7 @@
                 <p>
                     <strong>Address:</strong>
                     {{ $hospital->address }},
-                    {{ $hospital->region }}, Papua New Guinea
+                    {{ $province->provinces_region }}, Papua New Guinea
                 </p>
                 <p>
                     <strong>Latitude:</strong> {{ $hospital->latitude }}<br>
@@ -92,20 +86,11 @@
             <div class="card">
             <div class="card-body">
                 <h5>📞 Contact Details</h5>
-                @php
-                    $telephoneNumbers = $hospital->telephone;
-                    $numbersArray = explode(', ', $telephoneNumbers);
-                @endphp
-                    <strong>Telephone:</strong><br>
-                    <ul>
-                        @foreach ($numbersArray as $tlp)
-                            <li>{{ $tlp }}</li>
-                        @endforeach
-                    </ul>
-                <p>
-                    <strong>Email:</strong> {{ $hospital->email ?? '-' }}<br>
-                    <strong>Website:</strong>
-                    <a href="{{ $hospital->website }}" target="_blank">{{ $hospital->website }}</a>
+
+                    <strong>Telephone:</strong> {{$hospital->telephone}} <br>
+                    <strong>Email:</strong> <?php echo $hospital->email; ?> <br>
+                    <strong>Website:</strong> <?php echo $hospital->website; ?> <br>
+
                 </p>
             </div>
             </div>
@@ -128,14 +113,15 @@
                 <p>
                     <strong>Facility Level:</strong> {{ $hospital->facility_level }} <br>
                     <strong>Status:</strong> {{ $hospital->status }} <br>
-                    <strong>House Of Operations:</strong> {{ $hospital->house_of_operations }} <br>
-                    <strong>- Emergency Services:</strong> {{ $hospital->emergency_services }} <br>
-                    <strong>- Outpatient Services:</strong> {{ $hospital->outpatient_services_general }} <br>
-                    <strong>- Inpatient Services:</strong> {{ $hospital->inpatient_services_general }} <br>
                     <strong>Number Of Beds:</strong> {{ $hospital->number_of_beds }} <br>
                     <strong>Population Catchment:</strong> {{ $hospital->population_catchment }} <br>
                     <strong>Ownership:</strong> {{ $hospital->ownership }}
                 </p>
+                <p>
+                    <strong>Hours Of Operation:</strong><br>
+                    <?php echo $hospital->hrs_of_operation; ?>
+                </p>
+                <p>
             </div>
             </div>
         </div>
@@ -144,16 +130,7 @@
             <div class="card-body">
                 <h5 class="card-title">🏨 Nearest Accommodation(s)</h5>
                 <br>
-                @php
-                    $nearests = $hospital->nearest_accommodations;
-                    $nearestsexp = explode(', ', $nearests);
-                @endphp
-
-                    <ul>
-                        @foreach ($nearestsexp as $near)
-                            <li>{{ $near }}</li>
-                        @endforeach
-                    </ul>
+                <?php echo $hospital->nearest_accommodation; ?>
             </div>
             </div>
         </div>

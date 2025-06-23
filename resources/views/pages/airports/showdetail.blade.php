@@ -9,6 +9,15 @@
     #map {
         height: 700px;
     }
+
+    table {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    td {
+        border: 1px solid black;
+        padding: 4px;
+    }
 </style>
 
 @endpush
@@ -59,7 +68,7 @@
             </a>
 
             <!-- Button 6 -->
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('airports') }}/{{$airport->id}}/aircharter" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane-engines fs-3"></i>
                 <small>Air Charter</small>
             </a>
@@ -98,11 +107,11 @@
             <div class="card-body">
                 <h5>📞 Contact Details</h5>
                 <p>
-                    <strong>Telephone:</strong> {{ $airport->email ?? '-' }}<br>
+                    <strong>Telephone:</strong> {{ $airport->telephone ?? '-' }}<br>
                     <strong>Fax:</strong> {{ $airport->fax ?? '-' }}<br>
-                    <strong>Email:</strong> {{ $airport->email ?? '-' }}<br>
+                    <strong>Email:</strong> <?php echo $airport->email; ?> <br>
                     <strong>Website:</strong>
-                    <a href="{{ $airport->website }}" target="_blank">{{ $airport->website }}</a>
+                        <?php echo $airport->website; ?>
                 </p>
             </div>
             </div>
@@ -129,16 +138,9 @@
                     <strong>ICAO Code:</strong> {{ $airport->icao_code }} <br>
                     <strong>Hrs of operation:</strong> {{ $airport->hrs_of_operation }} <br>
                 </p>
-                @php
-                    $distance = $airport->distance_from;
-                    $distanceexp = explode(', ', $distance);
-                @endphp
-
-                    <ul>
-                        @foreach ($distanceexp as $dist)
-                            <li>{{ $dist }}</li>
-                        @endforeach
-                    </ul>
+                 <p>
+                    <strong>Distance From:</strong> {{ $airport->distance_from }}
+                </p>
             </div>
             </div>
         </div>
@@ -164,33 +166,20 @@
                 <h5 class="card-title">🏥 Support Services</h5><br>
                 <p>
                     <strong>Air Traffic:</strong> {{ $airport->air_traffic }} <br>
-                    <strong>Meteorological:</strong> {{ $airport->meteorological }} <br>
-                    <strong>Air Fuel Depot:</strong> {{ $airport->air_fuel_depot }} <br>
-                    <strong>Supplies/Equipment:</strong> {{ $airport->supplies_eqipment }} <br>
-                    <strong>Internet:</strong> {{ $airport->internet }}
+                    <strong>Meteorological:</strong> {{ $airport->meteorology_services }} <br>
+                    <strong>Aviation Fuel Depot:</strong> {{ $airport->aviation_fuel_depot }} <br>
+                    <strong>Internet:</strong> {{ $airport->internet_services }}
                 </p>
+                <p>
+                    <strong>Supplies / Equipment:</strong>
+                </p>
+                    <?php echo $airport->supplies_eqipment; ?>
 
-                @php
-                    $publicfac = $airport->public_facilities;
-                    $publicfacexp = explode(', ', $publicfac);
-                @endphp
-                <p>Public Facilities:</p>
-                    <ul>
-                        @foreach ($publicfacexp as $pub)
-                            <li>{{ $pub }}</li>
-                        @endforeach
-                    </ul>
+                <p><strong>Public Facilities:</strong></p>
+                   <?php echo $airport->public_facilities; ?>
 
-                @php
-                    $publictran = $airport->public_transportation;
-                    $publictranexp = explode(', ', $publictran);
-                @endphp
-                <p>Public Transportation:</p>
-                    <ul>
-                        @foreach ($publictranexp as $pubtran)
-                            <li>{{ $pubtran }}</li>
-                        @endforeach
-                    </ul>
+                <p><strong>Public Transportation:</strong></p>
+                   <?php echo $airport->public_transportation; ?>
 
             </div>
             </div>
@@ -198,18 +187,8 @@
         <div class="col-sm-4">
             <div class="card">
             <div class="card-body">
-                <h5 class="card-title">🏨 Other Airport Info</h5>
-                <br>
-                @php
-                    $otherair = $airport->other_airport_info;
-                    $otherairexp = explode(', ', $otherair);
-                @endphp
-
-                    <ul>
-                        @foreach ($otherairexp as $oair)
-                            <li><a href="{{ $oair }}" target="__blank">{{ $oair }}</a></li>
-                        @endforeach
-                    </ul>
+                <h5 class="card-title">🏨 Other Airport Info</h5><br>
+                <?php echo $airport->other_reference_website; ?>
             </div>
             </div>
         </div>
@@ -217,17 +196,7 @@
             <div class="card">
             <div class="card-body">
                 <h5 class="card-title">🏥 Nearest Accomodation(s)</h5><br>
-                <br>
-                @php
-                    $nearest = $airport->nearest_accommodation;
-                    $nearestexp = explode(', ', $nearest);
-                @endphp
-
-                    <ul>
-                        @foreach ($nearestexp as $near)
-                            <li><a href="{{ $near }}" target="__blank">{{ $near }}</a></li>
-                        @endforeach
-                    </ul>
+                <?php echo $airport->nearest_accommodation; ?>
             </div>
             </div>
         </div>

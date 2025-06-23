@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Airport;
+
+class MasterairportController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+         if(request()->ajax()) {
+            return datatables()->of(Airport::select('*'))
+            ->addColumn('action', function($row){
+                 $updateButton = '<a href="' . route('airportdata.edit', $row->id) . '" class="btn btn-primary btn-sm">Edit</a>';
+                 return $updateButton;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('pages.master.airport');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $airport = Airport::findOrFail($id);
+        return view('pages.master.editairport', [
+            'airport' => $airport
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        // Cari data airport berdasarkan ID
+        $airport = Airport::findOrFail($id);
+
+        // Update data
+        $airport->update([
+            'airport_name' => $request->input('airport_name'),
+            'nearest_airport' => $request->input('nearest_airport'),
+        ]);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('airportdata.index')->with('success', 'Data berhasil diupdate');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

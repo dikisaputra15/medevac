@@ -24,6 +24,36 @@
             </a>
           </li>
 
+           <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Master Data
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('airportdata') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Airport</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('hospitaldata') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hospital</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="{{ url('embessydata') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Embassy</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-item">
             <a href="{{ url('hospital') }}" class="nav-link">
             <i class="bi bi-hospital"></i>

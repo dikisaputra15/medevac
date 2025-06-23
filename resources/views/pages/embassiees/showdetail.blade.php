@@ -26,7 +26,7 @@
             </a>
 
             <!-- Button 2 -->
-            <a href="{{ url('embassiees') }}/{{$embassy->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('embassiees') }}/{{$embassy->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-file-earmark-text-fill fs-3"></i>
                 <small>General</small>
             </a>
@@ -38,12 +38,6 @@
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane fs-3"></i>
                 <small>Airports</small>
-            </a>
-
-            <!-- Button 6 -->
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-airplane-engines fs-3"></i>
-                <small>Air Charter</small>
             </a>
 
             <!-- Button 7 -->

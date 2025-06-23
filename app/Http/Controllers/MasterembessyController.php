@@ -3,17 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Airport;
+use App\Models\Embassiees;
 
-class AircharterController extends Controller
+class MasterembessyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
-        $airport = Airport::findOrFail($id);
-        return view('pages.aircharter.index', compact('airport'));
+         if(request()->ajax()) {
+            return datatables()->of(Embassiees::select('*'))
+            ->addColumn('action', function($row){
+                 $updateButton = '<a href="#" class="btn btn-primary btn-sm">Edit</a>';
+                 return $updateButton;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('pages.master.embessy');
     }
 
     /**

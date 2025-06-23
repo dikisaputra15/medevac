@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('airports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('province_id')->constrained()->onDelete('cascade');
+            $table->integer('province_id');
             $table->string('airport_name')->nullable();
             $table->text('address')->nullable();
             $table->decimal('latitude', 10, 6)->nullable();
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('air_traffic')->nullable();
             $table->string('meteorological')->nullable();
             $table->string('air_fuel_depot')->nullable();
-            $table->string('supplies_eqipment')->nullable();
+            $table->text('supplies_eqipment')->nullable();
             $table->string('internet')->nullable();
             $table->text('public_facilities')->nullable();
             $table->text('public_transportation')->nullable();
@@ -44,7 +44,7 @@ return new class extends Migration
             $table->text('nearest_accommodation')->nullable();
             $table->text('flight_information')->nullable();
             $table->text('nearest_medical_facility')->nullable();
-            $table->string('distance_with_airport')->nullable();
+            $table->text('nearest_airport')->nullable();
             $table->string('get_direction_medical_facility')->nullable();
             $table->text('nearest_police_station')->nullable();
             $table->string('address_police_station')->nullable();

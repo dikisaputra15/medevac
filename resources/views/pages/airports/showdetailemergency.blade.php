@@ -9,6 +9,15 @@
     #map {
         height: 700px;
     }
+
+    table {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    td {
+        border: 1px solid black;
+        padding: 4px;
+    }
 </style>
 
 @endpush
@@ -59,7 +68,7 @@
             </a>
 
             <!-- Button 6 -->
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('airports') }}/{{$airport->id}}/aircharter" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane-engines fs-3"></i>
                 <small>Air Charter</small>
             </a>
@@ -82,13 +91,7 @@
             <div class="card">
             <div class="card-body">
                 <h2><i class="fas fa-plane-arrival"></i><b>Nearest Medical Facility</b></h2>
-                <p>
-                    <strong><a href="{{ $airport->nearest_medical_facility }}">{{ $airport->nearest_medical_facility }}</a></strong>
-                </p>
-                <p>
-                    <strong>Distance:</strong> {{ $airport->distance_with_airport }}<br>
-                    <strong><a href="{{ $airport->get_direction_medical_facility }}">Get directions</a></strong>
-                </p>
+                <?php echo $airport->nearest_medical_facility; ?>
             </div>
             </div>
         </div>
@@ -96,21 +99,7 @@
             <div class="card">
             <div class="card-body">
                 <h2><i class="fas fa-user-shield"></i><b>Nearest Police Station</b></h2>
-                <p>
-                    {{ $airport->nearest_police_station }}
-                </p>
-                <p>
-                    <strong>Address: </strong>{{ $airport->address_police_station }}
-                </p>
-                <p>
-                    <strong>Phone: </strong>{{ $airport->phone_police_station }}
-                </p>
-                <p>
-                    <strong>Hours Of Operations: </strong>{{ $airport->hours_of_operation_police }}
-                </p>
-                <p>
-                    <strong><a href="{{ $airport->get_direction_police_station }}">Get directions</a></strong>
-                </p>
+                 <?php echo $airport->nearest_police_station; ?>
             </div>
             </div>
         </div>
@@ -118,22 +107,7 @@
             <div class="card">
             <div class="card-body">
                 <h2><i class="bi bi-airplane fs-3"></i> <b>Nearest Airports</b></h2>
-                <table class="table">
-                    <tr>
-                        <td>Name</td>
-                        <td>ID</td>
-                        <td>Heading</td>
-                        <td>Distance</td>
-                    </tr>
-                    @foreach($nearests as $near)
-                        <tr>
-                            <td>{{ $near->name }}</td>
-                            <td>{{ $near->id }}</td>
-                            <td>{{ $near->heading }}</td>
-                            <td>{{ $near->distance_km }}</td>
-                        </tr>
-                    @endforeach
-                </table>
+                <?php echo $airport->nearest_airport; ?>
             </div>
             </div>
         </div>

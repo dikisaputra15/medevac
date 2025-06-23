@@ -147,7 +147,7 @@
         draw: {
             polygon: true,
             polyline: false,
-            rectangle: true,
+            rectangle: false,
             circle: false,
             marker: false,
             circlemarker: false

@@ -59,7 +59,7 @@
             </a>
 
             <!-- Button 6 -->
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('airports') }}/{{$airport->id}}/aircharter" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane-engines fs-3"></i>
                 <small>Air Charter</small>
             </a>
@@ -81,20 +81,7 @@
             <div class="card">
             <div class="card-body">
                 <h2><i class="fas fa-globe"></i><b>International</b></h2>
-                <table class="table">
-                    <tr>
-                        <td>Country</td>
-                        <td>Destination City</td>
-                        <td>Airline</td>
-                    </tr>
-                    @foreach($internationals as $inter)
-                        <tr>
-                            <td>{{ $inter->country }}</td>
-                            <td>{{ $inter->destination_city }}</td>
-                            <td>{{ $inter->airlines }}</td>
-                        </tr>
-                    @endforeach
-                </table>
+                <?php echo $airport->international_flight; ?>
             </div>
             </div>
         </div>
@@ -102,18 +89,7 @@
             <div class="card">
             <div class="card-body">
                 <h2><i class="fas fa-plane"></i><b>Domestic</b></h2>
-                <table class="table">
-                    <tr>
-                        <td>Destination Airport</td>
-                        <td>Airline</td>
-                    </tr>
-                    @foreach($domestics as $dom)
-                        <tr>
-                            <td>{{ $dom->destination_airport }}</td>
-                            <td>{{ $dom->airlines }}</td>
-                        </tr>
-                    @endforeach
-                </table>
+                <?php echo $airport->domestic_flights; ?>
             </div>
             </div>
         </div>
@@ -124,16 +100,15 @@
             <div class="card">
             <div class="card-body">
                 <h2><i class="fas fa-plane-arrival"></i><b>Flight Information</b></h2>
-                @php
-                    $flight = $airport->flight_information;
-                    $flightexp = explode(', ', $flight);
-                @endphp
-
-                    <ul>
-                        @foreach ($flightexp as $fli)
-                            <li><a href="{{ $fli }}">{{ $fli }}</a></li>
-                        @endforeach
-                    </ul>
+                <?php echo $airport->flight_information; ?>
+            </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+            <div class="card-body">
+                <h2><i class="fas fa-plane-arrival"></i><b>Other Flight Information</b></h2>
+                <?php echo $airport->other_flight_information; ?>
             </div>
             </div>
         </div>

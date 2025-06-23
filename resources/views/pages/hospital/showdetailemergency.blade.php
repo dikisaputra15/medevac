@@ -45,12 +45,6 @@
                 <small>Airports</small>
             </a>
 
-            <!-- Button 6 -->
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-airplane-engines fs-3"></i>
-                <small>Air Charter</small>
-            </a>
-
             <!-- Button 7 -->
             <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
             <i class="bi bi-bank fs-3"></i>
@@ -69,13 +63,7 @@
             <div class="card">
             <div class="card-body">
                 <h2><i class="fas fa-plane-arrival"></i><b>Nearest Airport</b></h2>
-                <p>
-                    <strong><a href="{{ $hospital->nearest_airport }}">{{ $hospital->nearest_airport }}</a></strong>
-                </p>
-                <p>
-                    <strong>Distance:</strong> {{ $hospital->distance_with_ariport }}<br>
-                    <strong><a href="{{ $hospital->get_direction_airport }}">Get directions</a></strong>
-                </p>
+                    <?php echo $hospital->nearest_airfield; ?>
             </div>
             </div>
         </div>
@@ -83,20 +71,7 @@
             <div class="card">
             <div class="card-body">
                 <h2><i class="fas fa-user-shield"></i><b>Nearest Police Station</b></h2>
-                <p>
-                    <strong>{{ $hospital->nearest_police_station }}</strong><br>
-                    <strong>Distance: </strong>{{ $hospital->distance_with_police_station }}<br>
-                    <strong><a href="{{ $hospital->get_direction_police_station }}">Get directions</a></strong>
-                </p>
-                <p>
-                    <strong>Address: </strong>{{ $hospital->address_police_station }}
-                </p>
-                <p>
-                    <strong>Phone: </strong>{{ $hospital->phone_police_station }}
-                </p>
-                <p>
-                    <strong>Hours Of Operations: </strong>{{ $hospital->hours_of_operation_police }}
-                </p>
+                    <?php echo $hospital->nearest_police_station; ?>
             </div>
             </div>
         </div>
@@ -104,16 +79,7 @@
             <div class="card">
             <div class="card-body">
                 <h2><i class="fas fa-notes-medical"></i> <b>Medical Support Websites</b></h2>
-                @php
-                    $websites = $hospital->medical_support_websites;
-                    $websitesexp = explode(', ', $websites);
-                @endphp
-                    <ul>
-                        @foreach ($websitesexp as $websupport)
-                            <li><a href="{{ $websupport }}">{{ $websupport }}</a></li>
-                        @endforeach
-                    </ul>
-                <p>Note: Click the Air Charter button located on the top right section of this webpage for more information on Air Charter companies providing MEDEVAC or Air EVAC</p>
+                    <?php echo $hospital->medical_support_website; ?>
             </div>
             </div>
         </div>
@@ -124,9 +90,7 @@
             <div class="card">
             <div class="card-body">
                 <h2><i class="fas fa-shuttle-van"></i> <b>Local Travel Support</b></h2>
-                <p>
-                    <strong><a href="{{ $hospital->local_travel_support }}">{{ $hospital->local_travel_support }}</a></strong>
-                </p>
+                    <?php echo $hospital->travel_agent; ?>
             </div>
             </div>
         </div>

@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
 
 <style>
     #map {
@@ -125,6 +126,7 @@
 
 @push('service')
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
@@ -139,6 +141,47 @@
         let lastClickedhospital = null; // Menyimpan koordinat bandara yang terakhir diklik
         let destinationMarker = null; // Tambahkan variabel untuk marker tujuan
         let destinationCoordinates = null; // Tambahkan variabel untuk menyimpan koordinat tujuan
+        let drawnPolygonGeoJSON = null; // Changed from window.drawnPolygon to a local variable
+
+        const drawnItems = new L.FeatureGroup().addTo(map);
+
+        const drawControl = new L.Control.Draw({
+            draw: {
+                polygon: true,
+                polyline: false,
+                rectangle: false,
+                circle: false,
+                marker: false,
+                circlemarker: false
+            },
+            edit: {
+                featureGroup: drawnItems,
+                remove: true
+            }
+        });
+        map.addControl(drawControl);
+
+        map.on(L.Draw.Event.CREATED, function (event) {
+            const layer = event.layer;
+            drawnItems.clearLayers();
+            drawnItems.addLayer(layer);
+            drawnPolygonGeoJSON = layer.toGeoJSON();
+            applyFilters();
+        });
+
+        map.on(L.Draw.Event.EDITED, function (event) {
+            const layers = event.layers;
+            layers.eachLayer(function (layer) {
+                drawnPolygonGeoJSON = layer.toGeoJSON();
+            });
+            applyFilters();
+        });
+
+        map.on(L.Draw.Event.DELETED, function (event) {
+            drawnItems.clearLayers();
+            drawnPolygonGeoJSON = null;
+            applyFilters();
+        });
 
         const totalControl = L.control({ position: 'topright' });
             totalControl.onAdd = function (map) {
@@ -223,13 +266,18 @@
             }
         });
 
+         // **Crucial Change:** Send the drawn polygon GeoJSON to the server
+        if (drawnPolygonGeoJSON) {
+            params.append('polygon', JSON.stringify(drawnPolygonGeoJSON));
+        }
+
         const response = await fetch(`/api/hospital?${params.toString()}`);
         const hospital = await response.json();
 
         document.querySelector('.total-hospital').innerText = `Total hospital: ${hospital.length}`;
 
         if (hospital.length === 0) {
-            alert('No hospital found with the current filters.');
+            hospitalMarkers.clearLayers();
             return;
         }
 
@@ -246,10 +294,10 @@
          // Simpan hospital terakhir yang diklik
          marker.on('click', () => {
             lastClickedhospital = {
-            lat: hospital.latitude,
-            lng: hospital.longitude
-         };
-                        updateRadiusCircle(); // Perbarui lingkaran saat marker bandara diklik
+                lat: hospital.latitude,
+                lng: hospital.longitude
+            };
+            updateRadiusCircle(); // Perbarui lingkaran saat marker bandara diklik
         });
 
                     // Tambahkan tombol "Set as Destination" ke popup
@@ -258,7 +306,7 @@
                         ${hospital.image ? `<img src="${hospital.image}" width="200" style="margin: 5px 0;"><br>` : ''}
                         <strong>Location:</strong> ${hospital.address || 'N/A'}<br>
                         <strong>Coords:</strong> ${hospital.latitude}, ${hospital.longitude}<br>
-                        <strong>Region:</strong> ${hospital.region || 'N/A'}<br>
+                        <strong>Province:</strong> ${hospital.provinces_region || 'N/A'}<br>
                         <strong>Level:</strong> ${hospital.facility_level || 'N/A'}<br>
                         ${hospital.id ? `<a href="/hospitals/${hospital.id}" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
 
@@ -291,15 +339,18 @@
                 }
              }
 
-            document.getElementById('filterForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+            document.getElementById('filterForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                applyFilters();
+            });
 
+            function applyFilters() {
                 const name = document.getElementById('name').value;
                 const category = document.getElementById('category').value;
                 const location = document.getElementById('location').value;
                 const radius = parseInt(document.getElementById('radiusRange').value);
 
-                 const selectedProvinces = Array.from(document.querySelectorAll('.province-checkbox:checked'))
+                const selectedProvinces = Array.from(document.querySelectorAll('.province-checkbox:checked'))
                  .map(checkbox => checkbox.value);
 
                 let filters = {
@@ -320,11 +371,11 @@
                     filters.center_lng = center.lng;
                 }
 
-        await fetchAndDisplayhospital(filters);
+                fetchAndDisplayhospital(filters);
                 updateRadiusCircle(); // Panggil fungsi untuk memperbarui lingkaran setelah fetch data selesai
-         });
+        }
 
-         document.getElementById('resetFilter').addEventListener('click', async function() {
+    document.getElementById('resetFilter').addEventListener('click', function() {
          document.getElementById('filterForm').reset();
          document.getElementById('radiusValue').textContent = '0';
          document.querySelectorAll('.province-checkbox').forEach(checkbox => {
@@ -336,17 +387,22 @@
                  map.removeLayer(centerMarker);
                     centerMarker = null;
              }
-                if (destinationMarker) {
+            if (destinationMarker) {
                     map.removeLayer(destinationMarker);
                     destinationMarker = null;
                     destinationCoordinates = null;
-                }
+            }
 
             lastClickedhospital = null; // Reset pusat radius juga
-                 map.setView([-6.80188562253168, 144.0733101155011], 6);
-                 await fetchAndDisplayhospital();
-                updateRadiusCircle(); // Panggil ini untuk memastikan lingkaran hilang (karena radius 0)
-             });
+
+            // Clear drawn polygon from map and variable
+            drawnItems.clearLayers();
+            drawnPolygonGeoJSON = null; // Reset the stored GeoJSON
+
+            map.setView([-6.80188562253168, 144.0733101155011], 6);
+            fetchAndDisplayhospital();
+            updateRadiusCircle(); // Panggil ini untuk memastikan lingkaran hilang (karena radius 0)
+    });
 
          document.addEventListener('DOMContentLoaded', () => {
             $(document).ready(function() {

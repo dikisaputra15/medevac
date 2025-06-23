@@ -78,7 +78,9 @@ class HospitalController extends Controller
     public function showdetail($id)
     {
         $hospital = Hospital::findOrFail($id);
-        return view('pages.hospital.showdetail', compact('hospital'));
+        $idprov = $hospital->province_id;
+        $province = DB::table('provincesregions')->where('id', $idprov)->first();
+        return view('pages.hospital.showdetail', compact('hospital','province'));
     }
 
     public function showdetailclinic($id)
@@ -96,6 +98,8 @@ class HospitalController extends Controller
     public function filter(Request $request)
     {
         $query = Hospital::query();
+        $query->join('provincesregions', 'hospitals.province_id', '=', 'provincesregions.id');
+        $query->select('hospitals.*', 'provincesregions.provinces_region');
 
         // Filter by name
         $query->when($request->filled('name'), function ($q) use ($request) {
@@ -112,9 +116,13 @@ class HospitalController extends Controller
             $q->where('address', 'like', '%' . $request->input('location') . '%');
         });
 
-        // Filter by province IDs
+         // 4. Filter by Province IDs
         $query->when($request->filled('provinces'), function ($q) use ($request) {
-            $q->whereIn('province_id', $request->input('provinces'));
+            // Ensure province IDs are an array and valid integers
+            $provinceIds = array_filter((array) $request->input('provinces'), 'is_numeric');
+            if (!empty($provinceIds)) {
+                $q->whereIn('province_id', $provinceIds);
+            }
         });
 
         // Filter by radius (Haversine Formula)
@@ -142,6 +150,53 @@ class HospitalController extends Controller
                 ->orderBy('distance');
         }
 
-        return response()->json($query->get());
+        if ($request->filled('polygon')) {
+            try {
+                $polygonGeoJSON = json_decode($request->input('polygon'), true);
+
+                if (json_last_error() === JSON_ERROR_NONE && isset($polygonGeoJSON['geometry']['coordinates'])) {
+                    $geometryType = $polygonGeoJSON['geometry']['type'];
+
+                    if ($geometryType === 'Polygon') {
+                        // Ambil koordinat luar dari polygon
+                        $coordinates = $polygonGeoJSON['geometry']['coordinates'][0]; // Koordinat luar (outer ring)
+
+                        // Konversi ke format WKT: "lng lat"
+                        $wktCoords = implode(',', array_map(function ($point) {
+                            return $point[0] . ' ' . $point[1]; // lng lat
+                        }, $coordinates));
+
+                        // Buat string WKT POLYGON
+                        $wktPolygon = "POLYGON(($wktCoords))";
+
+                        // Gunakan ST_Within + ST_GeomFromText (MySQL Spatial)
+                        $query->whereRaw("ST_Within(POINT(longitude, latitude), ST_GeomFromText(?))", [$wktPolygon]);
+
+                    } elseif ($geometryType === 'Point' && isset($polygonGeoJSON['properties']['radius'])) {
+                        // Tangani Circle (Leaflet.draw) menggunakan Haversine
+                        $centerLat = $polygonGeoJSON['geometry']['coordinates'][1]; // y = lat
+                        $centerLng = $polygonGeoJSON['geometry']['coordinates'][0]; // x = lng
+                        $radiusMeters = $polygonGeoJSON['properties']['radius'];
+
+                        $haversine = "(6371 * acos(cos(radians(?)) * cos(radians(latitude))
+                                        * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude))))";
+
+                        $query->whereRaw("$haversine < ?", [
+                            $centerLat, $centerLng, $centerLat, $radiusMeters / 1000 // m to km
+                        ]);
+                    } else {
+                        // \Log::warning("Unsupported GeoJSON geometry type: " . $geometryType);
+                    }
+                } else {
+                    // \Log::warning("Invalid or malformed GeoJSON: " . $request->input('polygon'));
+                }
+            } catch (Exception $e) {
+                // \Log::error("Error processing polygon filter: " . $e->getMessage());
+            }
+        }
+
+         // Execute the query and return JSON response
+        $hospitals = $query->get();
+        return response()->json($hospitals);
     }
 }

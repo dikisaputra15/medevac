@@ -94,9 +94,13 @@ class EmbassieesController extends Controller
             $q->where('location', 'like', '%' . $request->input('location') . '%');
         });
 
-        // Filter by province IDs
+       // 4. Filter by Province IDs
         $query->when($request->filled('provinces'), function ($q) use ($request) {
-            $q->whereIn('province_id', $request->input('provinces'));
+            // Ensure province IDs are an array and valid integers
+            $provinceIds = array_filter((array) $request->input('provinces'), 'is_numeric');
+            if (!empty($provinceIds)) {
+                $q->whereIn('province_id', $provinceIds);
+            }
         });
 
         // Filter by radius (Haversine Formula)
@@ -124,6 +128,53 @@ class EmbassieesController extends Controller
                 ->orderBy('distance');
         }
 
-        return response()->json($query->get());
+         if ($request->filled('polygon')) {
+            try {
+                $polygonGeoJSON = json_decode($request->input('polygon'), true);
+
+                if (json_last_error() === JSON_ERROR_NONE && isset($polygonGeoJSON['geometry']['coordinates'])) {
+                    $geometryType = $polygonGeoJSON['geometry']['type'];
+
+                    if ($geometryType === 'Polygon') {
+                        // Ambil koordinat luar dari polygon
+                        $coordinates = $polygonGeoJSON['geometry']['coordinates'][0]; // Koordinat luar (outer ring)
+
+                        // Konversi ke format WKT: "lng lat"
+                        $wktCoords = implode(',', array_map(function ($point) {
+                            return $point[0] . ' ' . $point[1]; // lng lat
+                        }, $coordinates));
+
+                        // Buat string WKT POLYGON
+                        $wktPolygon = "POLYGON(($wktCoords))";
+
+                        // Gunakan ST_Within + ST_GeomFromText (MySQL Spatial)
+                        $query->whereRaw("ST_Within(POINT(longitude, latitude), ST_GeomFromText(?))", [$wktPolygon]);
+
+                    } elseif ($geometryType === 'Point' && isset($polygonGeoJSON['properties']['radius'])) {
+                        // Tangani Circle (Leaflet.draw) menggunakan Haversine
+                        $centerLat = $polygonGeoJSON['geometry']['coordinates'][1]; // y = lat
+                        $centerLng = $polygonGeoJSON['geometry']['coordinates'][0]; // x = lng
+                        $radiusMeters = $polygonGeoJSON['properties']['radius'];
+
+                        $haversine = "(6371 * acos(cos(radians(?)) * cos(radians(latitude))
+                                        * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude))))";
+
+                        $query->whereRaw("$haversine < ?", [
+                            $centerLat, $centerLng, $centerLat, $radiusMeters / 1000 // m to km
+                        ]);
+                    } else {
+                        // \Log::warning("Unsupported GeoJSON geometry type: " . $geometryType);
+                    }
+                } else {
+                    // \Log::warning("Invalid or malformed GeoJSON: " . $request->input('polygon'));
+                }
+            } catch (Exception $e) {
+                // \Log::error("Error processing polygon filter: " . $e->getMessage());
+            }
+        }
+
+         // Execute the query and return JSON response
+        $embessy = $query->get();
+        return response()->json($embessy);
     }
 }
