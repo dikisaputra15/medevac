@@ -32,12 +32,32 @@
                 <textarea id="summernote" name="nearest_police_station">
                     <?php echo $hospital->nearest_police_station; ?>
                 </textarea>
-                <button type="submit" class="btn btn-primary">Update Data</button>
 
             </div>
 
           </div>
         </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Nearest Airport
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote2" name="nearest_airport">
+                    <?php echo $hospital->nearest_airfield; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Data</button>
     </div>
 </form>
 </div>
@@ -48,6 +68,8 @@
   $(function () {
     // Summernote
     $('#summernote').summernote()
+
+    $('#summernote2').summernote()
 
   })
 </script>
