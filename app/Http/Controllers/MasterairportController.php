@@ -72,6 +72,7 @@ class MasterairportController extends Controller
         $airport->update([
             'airport_name' => $request->input('airport_name'),
             'nearest_airport' => $request->input('nearest_airport'),
+            'navigation_aids' => $request->input('navigation_aids'),
         ]);
 
         // Redirect dengan pesan sukses
