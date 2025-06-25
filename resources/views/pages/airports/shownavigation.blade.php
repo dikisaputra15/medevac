@@ -85,8 +85,8 @@
     <div class="row">
         <div class="col-md-6 d-flex flex-column gap-3">
             <div class="card h-100">
+             <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Navigation Aids (NAVAIDs)</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
-                <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Navigation Aids (NAVAIDs)</div>
                 <?php echo $airport->navigation_aids; ?>
             </div>
             </div>
@@ -94,8 +94,8 @@
 
         <div class="col-md-6 d-flex flex-column gap-3">
             <div class="card h-100">
+             <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Navigation Aids for nearby airports</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
-                 <div class="card-header fw-bold"><i class="bi bi-airplane fs-3"></i>Navigation Aids for nearby airports</div>
                 <?php echo $airport->nearby_airport_navigation_aids; ?>
             </div>
             </div>
@@ -103,8 +103,8 @@
 
       <div class="col-md-6 d-flex flex-column gap-3">
             <div class="card h-100">
+            <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Runway</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
-                <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Runway</div>
                 <?php echo $airport->runways; ?>
             </div>
             </div>
@@ -112,8 +112,8 @@
 
         <div class="col-md-6 d-flex flex-column gap-3">
             <div class="card h-100">
+            <div class="card-header fw-bold"><i class="fas fa-comment"></i>Communication</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
-                <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Communication</div>
                 <?php echo $airport->communication; ?>
             </div>
             </div>

@@ -92,7 +92,7 @@
                 <!-- Location -->
                 <div class="col-md-6">
                     <div class="card h-100">
-                        <div class="card-header fw-bold">📍 Location</div>
+                        <div class="card-header fw-bold"><i class="fas fa-map-marker-alt"></i> Location</div>
                         <div class="card-body overflow-auto" style="max-height: 300px;">
                             <p><strong>Address:</strong>
                                 {{ $airport->address }}, Papua New Guinea
@@ -106,7 +106,7 @@
                 <!-- Contact -->
                 <div class="col-md-6">
                     <div class="card h-100">
-                        <div class="card-header fw-bold">📞 Contact Details</div>
+                        <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Details</div>
                         <div class="card-body overflow-auto" style="max-height: 300px;">
                             <p><strong>Telephone:</strong> {{ $airport->telephone ?? '-' }}</p>
                             <p><strong>Fax:</strong> {{ $airport->fax ?? '-' }} </p>
@@ -119,7 +119,7 @@
 
             <!-- General Info -->
             <div class="card h-100">
-                <div class="card-header fw-bold">ℹ️ General Airport Info</div>
+                <div class="card-header fw-bold"><i class="fas fa-plane"></i> General Airport Info</div>
                 <div class="card-body overflow-auto" style="max-height: 300px;">
                     <div class="col-md-6">
                         <p><strong>Category:</strong> {{ $airport->category }} </p>
@@ -143,7 +143,7 @@
         <!-- Right Column (col-md-6): Map full height -->
         <div class="col-md-6">
             <div class="card h-100" style="max-height: 620px;">
-                <div class="card-header fw-bold">🗺️ Airport Location Map</div>
+                <div class="card-header fw-bold"><i class="fas fa-map"></i> Airport Location Map</div>
                 <div class="card-body p-0" id="map">
 
                 </div>
@@ -152,8 +152,8 @@
 
          <div class="col-sm-4">
             <div class="card h-100">
+            <div class="card-header fw-bold"><i class="fas fa-info-circle"></i> Support Services</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
-                <div class="card-header fw-bold">🏥 Support Services</div>
                 <p>
                     <strong>Air Traffic:</strong> {{ $airport->air_traffic }} <br>
                     <strong>Meteorological:</strong> {{ $airport->meteorology_services }} <br>
@@ -176,16 +176,16 @@
         </div>
         <div class="col-sm-4">
             <div class="card h-100">
+            <div class="card-header fw-bold"><i class="fas fa-plane"></i> Other Airport Info</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
-                <div class="card-header fw-bold">🏨 Other Airport Info</div>
                 <?php echo $airport->other_reference_website; ?>
             </div>
             </div>
         </div>
         <div class="col-sm-4">
             <div class="card h-100">
+            <div class="card-header fw-bold"><i class="fas fa-hotel"></i> Nearest Accomodation</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
-               <div class="card-header fw-bold">🏥 Nearest Accomodation</div>
                 <?php echo $airport->nearest_accommodation; ?>
             </div>
             </div>

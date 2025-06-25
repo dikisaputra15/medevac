@@ -69,7 +69,7 @@
             <div class="row g-3">
                 <div class="col-md-6 d-flex flex-column gap-3">
                     <div class="card h-100">
-                        <div class="card-header fw-bold">📍 Location</div>
+                        <div class="card-header fw-bold"><i class="fas fa-map-marker-alt"></i> Location</div>
                         <div class="card-body overflow-auto" style="max-height: 350px;">
                              <p>
                                 <strong>Address:</strong>
@@ -88,7 +88,7 @@
 
                 <div class="col-md-6 d-flex flex-column gap-3">
                     <div class="card h-100">
-                        <div class="card-header fw-bold">📞 Contact Details</div>
+                        <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Details</div>
                         <div class="card-body overflow-auto" style="max-height: 350px;">
                             <p>
                                 <strong>Telephone:</strong> {{$hospital->telephone}}
@@ -108,7 +108,7 @@
             <div class="row g-3">
                 <div class="col-md-6 d-flex flex-column gap-3">
                     <div class="card h-100">
-                        <div class="card-header fw-bold">🏥 General Medical Facility Info</div>
+                        <div class="card-header fw-bold"><i class="fas fa-notes-medical"></i> General Medical Facility Info</div>
                         <div class="card-body overflow-auto" style="max-height: 350px;">
                             <p>
                                 <strong>Facility Level:</strong> {{ $hospital->facility_level }}
@@ -135,7 +135,7 @@
 
                 <div class="col-md-6 d-flex flex-column gap-3">
                     <div class="card h-100">
-                        <div class="card-header fw-bold">🏨 Nearest Accommodation</div>
+                        <div class="card-header fw-bold"><i class="fas fa-hotel"></i>  Nearest Accommodation</div>
                         <div class="card-body overflow-auto" style="max-height: 350px;">
                            <?php echo $hospital->nearest_accommodation; ?>
                         </div>
@@ -147,7 +147,7 @@
         <!-- RIGHT: 4 columns, Map -->
         <div class="col-md-4">
             <div class="card h-100">
-                <div class="card-header fw-bold">🗺️ Map</div>
+                <div class="card-header fw-bold"><i class="fas fa-map"></i> Map</div>
                 <div class="card-body p-0">
                     <div id="map" style="width: 100%; height: 100%; min-height: 500px;"></div>
                 </div>
