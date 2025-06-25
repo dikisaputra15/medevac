@@ -18,14 +18,6 @@
 <div class="card">
 
     <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
-        <div class="d-flex gap-2">
-            <!-- Button 1 -->
-            <a href="{{ url('airports') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-house-door-fill fs-3"></i>
-                <small>Home</small>
-            </a>
-
-        </div>
 
         <div class="d-flex gap-2 ms-auto">
             <!-- Button 5 -->

@@ -38,6 +38,25 @@
           </div>
         </div>
 
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Nearest Police Station
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote3" name="nearest_police_station">
+                    <?php echo $airport->nearest_police_station; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
          <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
@@ -69,6 +88,7 @@
     // Summernote
     $('#summernote').summernote()
     $('#summernote2').summernote()
+    $('#summernote3').summernote()
 
   })
 </script>

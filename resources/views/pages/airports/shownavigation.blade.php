@@ -28,11 +28,6 @@
 
     <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
         <div class="d-flex gap-2">
-            <!-- Button 1 -->
-            <a href="{{ url('airports') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-house-door-fill fs-3"></i>
-                <small>Home</small>
-            </a>
 
             <!-- Button 2 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
@@ -81,47 +76,48 @@
         </div>
     </div>
 
-    <div class="card-header bg-white">
-        <h3>{{ $airport->airport_name }}</h3>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-plane-arrival"></i><b>Communication</b></h2>
-                <?php echo $airport->communication; ?>
-            </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-user-shield"></i><b>Runway</b></h2>
-                <?php echo $airport->runways; ?>
-            </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="bi bi-airplane fs-3"></i> <b>Navigation Aids for nearby airports</b></h2>
-                <?php echo $airport->nearby_airport_navigation_aids; ?>
-            </div>
-            </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title fw-bold">{{ $airport->airport_name }}</h4>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-plane-arrival"></i><b>Navigation Aids (NAVAIDs)</b></h2>
+        <div class="col-md-6 d-flex flex-column gap-3">
+            <div class="card h-100">
+            <div class="card-body overflow-auto" style="max-height: 300px;">
+                <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Navigation Aids (NAVAIDs)</div>
                 <?php echo $airport->navigation_aids; ?>
             </div>
             </div>
         </div>
 
+        <div class="col-md-6 d-flex flex-column gap-3">
+            <div class="card h-100">
+            <div class="card-body overflow-auto" style="max-height: 300px;">
+                 <div class="card-header fw-bold"><i class="bi bi-airplane fs-3"></i>Navigation Aids for nearby airports</div>
+                <?php echo $airport->nearby_airport_navigation_aids; ?>
+            </div>
+            </div>
+        </div>
+
+      <div class="col-md-6 d-flex flex-column gap-3">
+            <div class="card h-100">
+            <div class="card-body overflow-auto" style="max-height: 300px;">
+                <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Runway</div>
+                <?php echo $airport->runways; ?>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 d-flex flex-column gap-3">
+            <div class="card h-100">
+            <div class="card-body overflow-auto" style="max-height: 300px;">
+                <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Communication</div>
+                <?php echo $airport->communication; ?>
+            </div>
+            </div>
+        </div>
     </div>
 
 </div>

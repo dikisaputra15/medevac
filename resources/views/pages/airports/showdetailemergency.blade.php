@@ -18,6 +18,7 @@
         border: 1px solid black;
         padding: 4px;
     }
+
 </style>
 
 @endpush
@@ -28,11 +29,6 @@
 
     <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
         <div class="d-flex gap-2">
-            <!-- Button 1 -->
-            <a href="{{ url('airports') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-house-door-fill fs-3"></i>
-                <small>Home</small>
-            </a>
 
             <!-- Button 2 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
@@ -81,32 +77,34 @@
         </div>
     </div>
 
-    <div class="card-header bg-white">
-        <h3>{{ $airport->airport_name }} - Papua New Guinea <small><i>Last Updated</i></small></h3>
-        <small><i>{{ $airport->created_at->format('M Y') }}</i></small>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title fw-bold">{{ $airport->airport_name }} - Papua New Guinea <small><i>Last Updated</i></small></h4>
+            <small><i>{{ $airport->created_at->format('M Y') }}</i></small>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-plane-arrival"></i><b>Nearest Medical Facility</b></h2>
+        <div class="col-sm-4 d-flex flex-column gap-3">
+            <div class="card h-100">
+                <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Nearest Medical Facility</div>
+            <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->nearest_medical_facility; ?>
             </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-user-shield"></i><b>Nearest Police Station</b></h2>
+        <div class="col-sm-4 d-flex flex-column gap-3">
+            <div class="card h-100">
+                <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Nearest Police Station</div>
+            <div class="card-body overflow-auto" style="max-height: 300px;">
                  <?php echo $airport->nearest_police_station; ?>
             </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="bi bi-airplane fs-3"></i> <b>Nearest Airports</b></h2>
+        <div class="col-sm-4 d-flex flex-column gap-3">
+            <div class="card h-100">
+                <div class="card-header fw-bold"><i class="bi bi-airplane fs-3"></i>Nearest Airports</div>
+             <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->nearest_airport; ?>
             </div>
             </div>

@@ -24,15 +24,9 @@
 
 @section('conten')
 
-<div class="card">
 
     <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
         <div class="d-flex gap-2">
-            <!-- Button 1 -->
-            <a href="{{ url('airports') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-house-door-fill fs-3"></i>
-                <small>Home</small>
-            </a>
 
             <!-- Button 2 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
@@ -81,89 +75,85 @@
         </div>
     </div>
 
-    <div class="card-header bg-white">
-        <h3>{{ $airport->airport_name }} - Papua New Guinea <small><i>Last Updated</i></small></h3>
-        <small><i>{{ $airport->created_at->format('M Y') }}</i></small>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5>📍 Location</h5>
-                <p>
-                    <strong>Address:</strong>
-                    {{ $airport->address }}, Papua New Guinea
-                </p>
-                <p>
-                    <strong>Latitude:</strong> {{ $airport->latitude }}<br>
-                    <strong>Longitude:</strong> {{ $airport->longitude }}
-                </p>
-            </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5>📞 Contact Details</h5>
-                <p>
-                    <strong>Telephone:</strong> {{ $airport->telephone ?? '-' }}<br>
-                    <strong>Fax:</strong> {{ $airport->fax ?? '-' }}<br>
-                    <strong>Email:</strong> <?php echo $airport->email; ?> <br>
-                    <strong>Website:</strong>
-                        <?php echo $airport->website; ?>
-                </p>
-            </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5>🗺️ Map</h5>
-                <div id="map" style="height: 300px;"></div>
-            </div>
-            </div>
+<div class="card">
+    <!-- Header -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title fw-bold">{{ $airport->airport_name }} - Papua New Guinea <small><i>Last Updated</i></small></h4>
+            <small><i>{{ $airport->created_at->format('M Y') }}</i></small>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">🏥 General Airport Info</h5><br>
-                <p>
-                    <strong>Category:</strong> {{ $airport->category }} <br>
-                    <strong>Classification:</strong> {{ $airport->classification }} <br>
-                    <strong>IATA Code:</strong> {{ $airport->iata_code }} <br>
-                    <strong>ICAO Code:</strong> {{ $airport->icao_code }} <br>
-                    <strong>Hrs of operation:</strong> {{ $airport->hrs_of_operation }} <br>
-                </p>
-                 <p>
-                    <strong>Distance From:</strong> {{ $airport->distance_from }}
-                </p>
-            </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <p>
-                    <strong>Time Zone:</strong> {{ $airport->time_zone }} <br>
-                    <strong>Operator:</strong> {{ $airport->operator }} <br>
-                    <strong>Magnetic Variation:</strong> {{ $airport->magnetic_variation }} <br>
-                    <strong>Beacon:</strong> {{ $airport->beacon }} <br>
-                    <strong>Max Aircraft Capability:</strong> {{ $airport->max_aircraft_capability }}
-                </p>
-            </div>
-            </div>
-        </div>
-    </div>
+    <div class="row g-3">
+        <!-- Left Column (col-md-6): Location + Contact + General Info -->
+        <div class="col-md-6 d-flex flex-column gap-3">
+            <!-- Row: Location + Contact -->
+            <div class="row g-3">
+                <!-- Location -->
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header fw-bold">📍 Location</div>
+                        <div class="card-body overflow-auto" style="max-height: 300px;">
+                            <p><strong>Address:</strong>
+                                {{ $airport->address }}, Papua New Guinea
+                            </p>
+                            <p><strong>Latitude:</strong> {{ $airport->latitude }} </p>
+                            <p><strong>Longitude:</strong> {{ $airport->longitude }} </p>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">🏥 Support Services</h5><br>
+                <!-- Contact -->
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header fw-bold">📞 Contact Details</div>
+                        <div class="card-body overflow-auto" style="max-height: 300px;">
+                            <p><strong>Telephone:</strong> {{ $airport->telephone ?? '-' }}</p>
+                            <p><strong>Fax:</strong> {{ $airport->fax ?? '-' }} </p>
+                            <p><strong>Email:</strong> <?php echo $airport->email; ?> </p>
+                            <p><strong>Website:</strong> <?php echo $airport->website; ?> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- General Info -->
+            <div class="card h-100">
+                <div class="card-header fw-bold">ℹ️ General Airport Info</div>
+                <div class="card-body overflow-auto" style="max-height: 300px;">
+                    <div class="col-md-6">
+                        <p><strong>Category:</strong> {{ $airport->category }} </p>
+                        <p><strong>Classification:</strong> {{ $airport->classification }} </p>
+                        <p><strong>IATA Code:</strong> {{ $airport->iata_code }} </p>
+                        <p><strong>ICAO Code:</strong> {{ $airport->icao_code }} </p>
+                        <p><strong>Hrs of Operation:</strong> {{ $airport->hrs_of_operation }} </p>
+                        <p><strong>Distance from:</strong><br>
+                            {{ $airport->distance_from }}
+                        </p>
+                        <p><strong>Time Zone:</strong> UTC +10.0</p>
+                        <p><strong>Operator:</strong> National Airports Corporation</p>
+                        <p><strong>Magnetic Variation:</strong> 5.7 E</p>
+                        <p><strong>Beacon:</strong> Yes</p>
+                        <p><strong>Max Aircraft Capability:</strong> Boeing 767</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column (col-md-6): Map full height -->
+        <div class="col-md-6">
+            <div class="card h-100" style="max-height: 620px;">
+                <div class="card-header fw-bold">🗺️ Airport Location Map</div>
+                <div class="card-body p-0" id="map">
+
+                </div>
+            </div>
+        </div>
+
+         <div class="col-sm-4">
+            <div class="card h-100">
+            <div class="card-body overflow-auto" style="max-height: 300px;">
+                <div class="card-header fw-bold">🏥 Support Services</div>
                 <p>
                     <strong>Air Traffic:</strong> {{ $airport->air_traffic }} <br>
                     <strong>Meteorological:</strong> {{ $airport->meteorology_services }} <br>
@@ -185,25 +175,24 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">🏨 Other Airport Info</h5><br>
+            <div class="card h-100">
+            <div class="card-body overflow-auto" style="max-height: 300px;">
+                <div class="card-header fw-bold">🏨 Other Airport Info</div>
                 <?php echo $airport->other_reference_website; ?>
             </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">🏥 Nearest Accomodation(s)</h5><br>
+            <div class="card h-100">
+            <div class="card-body overflow-auto" style="max-height: 300px;">
+               <div class="card-header fw-bold">🏥 Nearest Accomodation</div>
                 <?php echo $airport->nearest_accommodation; ?>
             </div>
             </div>
         </div>
+
     </div>
-
 </div>
-
 
 @endsection
 

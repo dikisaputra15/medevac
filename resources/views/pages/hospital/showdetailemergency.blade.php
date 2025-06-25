@@ -12,11 +12,6 @@
 
     <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
         <div class="d-flex gap-2">
-            <!-- Button 1 -->
-            <a href="{{ url('hospital') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-house-door-fill fs-3"></i>
-                <small>Home</small>
-            </a>
 
             <!-- Button 2 -->
             <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
@@ -53,43 +48,43 @@
         </div>
     </div>
 
-    <div class="card-header bg-white">
-        <h3>{{ $hospital->name }} - Papua New Guinea <small><i>Last Updated</i></small></h3>
-        <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
+     <div class="card mb-4 d-flex flex-column gap-3">
+        <div class="card-body overflow-auto" style="max-height: 350px;">
+            <h4 class="card-title fw-bold">{{ $hospital->name }} - Papua New Guinea <small><i>Last Updated</i></small></h4>
+             <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-plane-arrival"></i><b>Nearest Airport</b></h2>
+        <div class="col-sm-4 d-flex flex-column gap-3">
+            <div class="card h-100">
+              <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Nearest Airport</div>
+             <div class="card-body overflow-auto" style="max-height: 350px;">
                     <?php echo $hospital->nearest_airfield; ?>
             </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-user-shield"></i><b>Nearest Police Station</b></h2>
+        <div class="col-sm-4 d-flex flex-column gap-3">
+            <div class="card h-100">
+                <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Nearest Police Station</div>
+              <div class="card-body overflow-auto" style="max-height: 350px;">
                     <?php echo $hospital->nearest_police_station; ?>
             </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-notes-medical"></i> <b>Medical Support Websites</b></h2>
+        <div class="col-sm-4 d-flex flex-column gap-3">
+            <div class="card h-100">
+              <div class="card-header fw-bold"><i class="fas fa-notes-medical"></i>Medical Support Websites</div>
+              <div class="card-body overflow-auto" style="max-height: 350px;">
                     <?php echo $hospital->medical_support_website; ?>
             </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-shuttle-van"></i> <b>Local Travel Support</b></h2>
+        <div class="col-sm-4 d-flex flex-column gap-3">
+            <div class="card h-100">
+            <div class="card-header fw-bold"><i class="fas fa-shuttle-van"></i>Local Travel Support</div>
+              <div class="card-body overflow-auto" style="max-height: 350px;">
                     <?php echo $hospital->travel_agent; ?>
             </div>
             </div>

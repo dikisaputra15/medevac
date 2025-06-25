@@ -9,6 +9,16 @@
     #map {
         height: 700px;
     }
+
+    table {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 4px;
+    }
 </style>
 
 @endpush
@@ -19,11 +29,6 @@
 
     <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
         <div class="d-flex gap-2">
-            <!-- Button 1 -->
-            <a href="{{ url('airports') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-house-door-fill fs-3"></i>
-                <small>Home</small>
-            </a>
 
             <!-- Button 2 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
@@ -72,42 +77,42 @@
         </div>
     </div>
 
-    <div class="card-header bg-white">
-        <h3>{{ $airport->airport_name }}</h3>
+     <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title fw-bold">{{ $airport->airport_name }}</h4>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-globe"></i><b>International</b></h2>
+        <div class="col-md-6 d-flex flex-column gap-3">
+            <div class="card h-100">
+             <div class="card-body overflow-auto" style="max-height: 300px;">
+                 <div class="card-header fw-bold"><i class="fas fa-globe"></i>International</div>
                 <?php echo $airport->international_flight; ?>
             </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-plane"></i><b>Domestic</b></h2>
+        <div class="col-md-6 d-flex flex-column gap-3">
+            <div class="card h-100">
+             <div class="card-body overflow-auto" style="max-height: 300px;">
+                <div class="card-header fw-bold"><i class="fas fa-plane"></i>Domestic</div>
                 <?php echo $airport->domestic_flights; ?>
             </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-plane-arrival"></i><b>Flight Information</b></h2>
+        <div class="col-md-6 d-flex flex-column gap-3">
+            <div class="card h-100">
+             <div class="card-body overflow-auto" style="max-height: 300px;">
+                 <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Flight Information</div>
                 <?php echo $airport->flight_information; ?>
             </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-plane-arrival"></i><b>Other Flight Information</b></h2>
+        <div class="col-md-6 d-flex flex-column gap-3">
+            <div class="card h-100">
+             <div class="card-body overflow-auto" style="max-height: 300px;">
+                 <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Other Flight Information</div>
                 <?php echo $airport->other_flight_information; ?>
             </div>
             </div>

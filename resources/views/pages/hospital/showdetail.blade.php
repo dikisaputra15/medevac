@@ -19,11 +19,6 @@
 
     <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
         <div class="d-flex gap-2">
-            <!-- Button 1 -->
-            <a href="{{ url('hospital') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-house-door-fill fs-3"></i>
-                <small>Home</small>
-            </a>
 
             <!-- Button 2 -->
             <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
@@ -60,78 +55,102 @@
         </div>
     </div>
 
-    <div class="card-header bg-white">
-        <h3>{{ $hospital->name }} - Papua New Guinea <small><i>Last Updated</i></small></h3>
-        <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5>📍 Location</h5>
-                <p>
-                    <strong>Address:</strong>
-                    {{ $hospital->address }},
-                    {{ $province->provinces_region }}, Papua New Guinea
-                </p>
-                <p>
-                    <strong>Latitude:</strong> {{ $hospital->latitude }}<br>
-                    <strong>Longitude:</strong> {{ $hospital->longitude }}
-                </p>
-            </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5>📞 Contact Details</h5>
-
-                    <strong>Telephone:</strong> {{$hospital->telephone}} <br>
-                    <strong>Email:</strong> <?php echo $hospital->email; ?> <br>
-                    <strong>Website:</strong> <?php echo $hospital->website; ?> <br>
-
-                </p>
-            </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5>🗺️ Map</h5>
-                <div id="map" style="height: 300px;"></div>
-            </div>
-            </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title fw-bold">{{ $hospital->name }} - Papua New Guinea <small><i>Last Updated</i></small></h4>
+             <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">🏥 General Medical Facility Info</h5><br>
-                <p>
-                    <strong>Facility Level:</strong> {{ $hospital->facility_level }} <br>
-                    <strong>Status:</strong> {{ $hospital->status }} <br>
-                    <strong>Number Of Beds:</strong> {{ $hospital->number_of_beds }} <br>
-                    <strong>Population Catchment:</strong> {{ $hospital->population_catchment }} <br>
-                    <strong>Ownership:</strong> {{ $hospital->ownership }}
-                </p>
-                <p>
-                    <strong>Hours Of Operation:</strong><br>
-                    <?php echo $hospital->hrs_of_operation; ?>
-                </p>
-                <p>
+    <div class="row g-3">
+        <!-- LEFT: 8 columns -->
+        <div class="col-md-8 d-flex flex-column gap-3">
+            <!-- Baris atas: Location + Contact -->
+            <div class="row g-3">
+                <div class="col-md-6 d-flex flex-column gap-3">
+                    <div class="card h-100">
+                        <div class="card-header fw-bold">📍 Location</div>
+                        <div class="card-body overflow-auto" style="max-height: 350px;">
+                             <p>
+                                <strong>Address:</strong>
+                                {{ $hospital->address }},
+                                {{ $province->provinces_region }}, Papua New Guinea
+                            </p>
+                            <p>
+                                <strong>Latitude:</strong> {{ $hospital->latitude }}
+                            </p>
+                            <p>
+                                <strong>Longitude:</strong> {{ $hospital->longitude }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 d-flex flex-column gap-3">
+                    <div class="card h-100">
+                        <div class="card-header fw-bold">📞 Contact Details</div>
+                        <div class="card-body overflow-auto" style="max-height: 350px;">
+                            <p>
+                                <strong>Telephone:</strong> {{$hospital->telephone}}
+                            </p>
+                            <p>
+                                <strong>Email:</strong> <?php echo $hospital->email; ?>
+                            </p>
+                            <p>
+                                <strong>Website:</strong> <?php echo $hospital->website; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Baris bawah: General Info + Nearest Accommodation -->
+            <div class="row g-3">
+                <div class="col-md-6 d-flex flex-column gap-3">
+                    <div class="card h-100">
+                        <div class="card-header fw-bold">🏥 General Medical Facility Info</div>
+                        <div class="card-body overflow-auto" style="max-height: 350px;">
+                            <p>
+                                <strong>Facility Level:</strong> {{ $hospital->facility_level }}
+                            </p>
+                            <p>
+                                <strong>Status:</strong> {{ $hospital->status }}
+                            </p>
+                            <p>
+                                <strong>Number Of Beds:</strong> {{ $hospital->number_of_beds }} <br>
+                            </p>
+                            <p>
+                                <strong>Population Catchment:</strong> {{ $hospital->population_catchment }}
+                            </p>
+                            <p>
+                                <strong>Ownership:</strong> {{ $hospital->ownership }}
+                            </p>
+                            <p>
+                                <strong>Hours Of Operation:</strong><br>
+                                <?php echo $hospital->hrs_of_operation; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 d-flex flex-column gap-3">
+                    <div class="card h-100">
+                        <div class="card-header fw-bold">🏨 Nearest Accommodation</div>
+                        <div class="card-body overflow-auto" style="max-height: 350px;">
+                           <?php echo $hospital->nearest_accommodation; ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">🏨 Nearest Accommodation(s)</h5>
-                <br>
-                <?php echo $hospital->nearest_accommodation; ?>
-            </div>
+
+        <!-- RIGHT: 4 columns, Map -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-header fw-bold">🗺️ Map</div>
+                <div class="card-body p-0">
+                    <div id="map" style="width: 100%; height: 100%; min-height: 500px;"></div>
+                </div>
             </div>
         </div>
     </div>

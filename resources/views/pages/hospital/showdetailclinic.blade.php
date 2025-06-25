@@ -12,11 +12,6 @@
 
     <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
         <div class="d-flex gap-2">
-            <!-- Button 1 -->
-            <a href="{{ url('hospital') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
-                <i class="bi bi-house-door-fill fs-3"></i>
-                <small>Home</small>
-            </a>
 
             <!-- Button 2 -->
             <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
@@ -53,16 +48,18 @@
         </div>
     </div>
 
-    <div class="card-header bg-white">
-        <h3>{{ $hospital->name }} - Papua New Guinea <small><i>Last Updated</i></small></h3>
-        <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
+     <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title fw-bold">{{ $hospital->name }} - Papua New Guinea <small><i>Last Updated</i></small></h4>
+             <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-sm-6">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-stethoscope"></i><b> Clinical Services </b></h2>
+            <div class="card h-400">
+                <div class="card-header fw-bold"><i class="fas fa-stethoscope"></i>Clinical Services</div>
+              <div class="card-body overflow-auto" style="max-height: 400px;">
                 <table class="table table-hover">
                     <tr>
                         <td>Inpatient Services</td>
@@ -130,9 +127,9 @@
         </div>
 
         <div class="col-sm-6">
-            <div class="card">
-            <div class="card-body">
-                <h2><i class="fas fa-user-nurse"></i> <b>Medical Personnel</b></h2>
+            <div class="card h-400">
+                  <div class="card-header fw-bold"><i class="fas fa-user-nurse"></i>Medical Personnel</div>
+             <div class="card-body overflow-auto" style="max-height: 400px;">
                 <table class="table table-hover">
                     <tr>
                         <td>Doctors</td>
