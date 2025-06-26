@@ -18,6 +18,11 @@
         border: 1px solid black;
         padding: 4px;
     }
+
+     p{
+        margin-bottom: 8px;
+        line-height: 18px;
+    }
 </style>
 
 @endpush
@@ -25,7 +30,7 @@
 @section('conten')
 
 
-    <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
+    <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
         <div class="d-flex gap-2">
 
             <!-- Button 2 -->
@@ -62,7 +67,7 @@
             </a>
 
             <!-- Button 6 -->
-            <a href="{{ url('airports') }}/{{$airport->id}}/aircharter" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane-engines fs-3"></i>
                 <small>Air Charter</small>
             </a>

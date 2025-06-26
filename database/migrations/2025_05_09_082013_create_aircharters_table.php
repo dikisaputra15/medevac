@@ -13,13 +13,7 @@ return new class extends Migration
     {
         Schema::create('aircharters', function (Blueprint $table) {
             $table->id();
-            $table->string('charter_company_name')->nullable();
-            $table->string('aircraft_fixed_wing')->nullable();
-            $table->string('aircraft_rotary')->nullable();
-            $table->string('service_passenger')->nullable();
-            $table->string('service_cargo')->nullable();
-            $table->string('other_info_notes')->nullable();
-            $table->string('icon')->nullable();
+            $table->text('charter_info')->nullable();
             $table->timestamps();
         });
     }

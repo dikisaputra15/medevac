@@ -7,6 +7,7 @@ use App\Http\Controllers\AircharterController;
 use App\Http\Controllers\MasterairportController;
 use App\Http\Controllers\MasterhospitalController;
 use App\Http\Controllers\MasterembessyController;
+use App\Http\Controllers\MasteraircharterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +36,7 @@ Route::resource('airports', AirportsController::class);
 Route::get('/api/airports', [AirportsController::class, 'api']);
 Route::get('/airports/{id}/detail', [AirportsController::class, 'showdetail']);
 Route::get('/airports/{id}/emergency', [AirportsController::class, 'showdetailemergency']);
-Route::get('/airports/{id}/aircharter', [AircharterController::class, 'index']);
+Route::resource('aircharter', AircharterController::class);
 Route::get('/airports/{id}/airlinesdestination', [AirportsController::class, 'showairlinesdestination']);
 Route::get('/airports/{id}/navigation', [AirportsController::class, 'shownavigation']);
 Route::get('/api/airports', [AirportsController::class, 'filter']);
@@ -45,3 +46,4 @@ Route::get('/api/hospital', [HospitalController::class, 'filter']);
 Route::resource('airportdata', MasterairportController::class);
 Route::resource('hospitaldata', MasterhospitalController::class);
 Route::resource('embessydata', MasterembessyController::class);
+Route::resource('aircharterdata', MasteraircharterController::class);

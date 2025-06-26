@@ -17,13 +17,18 @@
 
 <div class="card">
 
-    <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
+    <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
 
         <div class="d-flex gap-2 ms-auto">
             <!-- Button 5 -->
             <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-hospital fs-3"></i>
                 <small>Medical Facilities</small>
+            </a>
+
+            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+                <i class="bi bi-airplane fs-3"></i>
+                <small>Airports</small>
             </a>
 
             <!-- Button 7 -->
@@ -41,7 +46,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
-                <?php echo $airport->charter_aircraft_providers; ?>
+                <?php echo $airport->charter_info; ?>
             </div>
         </div>
     </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Aircharter;
 
-class AircharterController extends Controller
+class MasteraircharterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class AircharterController extends Controller
     public function index()
     {
         $airport =  Aircharter::orderBy('created_at', 'desc')->first();
-        return view('pages.aircharter.index', compact('airport'));
+        return view('pages.master.aircharter', compact('airport'));
     }
 
     /**
@@ -51,9 +51,18 @@ class AircharterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+         // Cari data airport berdasarkan ID
+        $airport = Aircharter::findOrFail($id);
+
+        // Update data
+        $airport->update([
+            'charter_info' => $request->input('charter_info'),
+        ]);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('aircharterdata.index')->with('success', 'Data berhasil diupdate');
     }
 
     /**

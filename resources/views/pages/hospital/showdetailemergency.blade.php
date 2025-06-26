@@ -3,14 +3,19 @@
 @section('title','Emergency Support')
 
 @push('styles')
-
+<style>
+    p{
+        margin-bottom: 8px;
+        line-height: 18px;
+    }
+</style>
 @endpush
 
 @section('conten')
 
 <div class="card">
 
-    <div class="d-flex justify-content-between p-3" style="background-color: #fbeeee;">
+    <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
         <div class="d-flex gap-2">
 
             <!-- Button 2 -->
@@ -38,6 +43,11 @@
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane fs-3"></i>
                 <small>Airports</small>
+            </a>
+
+            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+                <i class="bi bi-airplane-engines fs-3"></i>
+                <small>Air Charter</small>
             </a>
 
             <!-- Button 7 -->
@@ -86,6 +96,15 @@
             <div class="card-header fw-bold"><i class="fas fa-shuttle-van"></i>Local Travel Support</div>
               <div class="card-body overflow-auto" style="max-height: 350px;">
                     <?php echo $hospital->travel_agent; ?>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 d-flex flex-column gap-3">
+            <div class="card h-100">
+            <div class="card-header fw-bold"><i class="fas fa-running"></i>Evacuation Option</div>
+              <div class="card-body overflow-auto" style="max-height: 350px;">
+                    <?php echo $hospital->evacuation_option; ?>
             </div>
             </div>
         </div>
