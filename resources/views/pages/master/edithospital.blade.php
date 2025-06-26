@@ -57,6 +57,25 @@
           </div>
         </div>
 
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Evacuation Option
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote3" name="evacuation_option">
+                    <?php echo $hospital->evacuation_option; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Update Data</button>
     </div>
 </form>
@@ -70,6 +89,8 @@
     $('#summernote').summernote()
 
     $('#summernote2').summernote()
+
+    $('#summernote3').summernote()
 
   })
 </script>

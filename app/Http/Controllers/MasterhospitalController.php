@@ -71,6 +71,7 @@ class MasterhospitalController extends Controller
         // Update data
         $hospital->update([
             'name' => $request->input('name'),
+            'evacuation_option' => $request->input('evacuation_option'),
             'nearest_airfield' => $request->input('nearest_airport'),
             'nearest_police_station' => $request->input('nearest_police_station'),
         ]);
