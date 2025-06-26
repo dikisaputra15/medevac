@@ -5,6 +5,7 @@
 @push('styles')
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
 <style>
     #map {
         height: 700px;
@@ -198,13 +199,15 @@
 @push('service')
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 <script>
     const latitude = {{ $hospital->latitude }};
     const longitude = {{ $hospital->longitude }};
     const hospitalName = '{{ $hospital->name }}'; // Menggunakan nama rumah sakit dari data Anda
 
-    // Inisialisasi peta
-    const map = L.map('map').setView([latitude, longitude], 16); // Zoom level 16 untuk detail yang baik
+    const map = L.map('map', {
+        fullscreenControl: true
+    }).setView([latitude, longitude], 16);
 
     // --- Tile Layers ---
     // 1. Peta Jalan (OpenStreetMap)
@@ -225,8 +228,8 @@
     // --- Kontrol Layer ---
     // Definisikan base layers yang bisa dipilih pengguna
     const baseLayers = {
-        "Peta Satelit": satelliteLayer,
-        "Peta Jalan": osmLayer
+        "Satelit Map": satelliteLayer,
+        "Street Map": osmLayer
     };
 
     // Tambahkan kontrol layer ke peta. Ini akan muncul di pojok kanan atas peta.

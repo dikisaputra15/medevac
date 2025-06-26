@@ -5,6 +5,7 @@
 @push('styles')
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
 <style>
     #map {
         height: 700px;
@@ -130,13 +131,15 @@
 @push('service')
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 <script>
     const latitude = {{ $embassy->latitude }};
     const longitude = {{ $embassy->longitude }};
     const embassyName = '{{ $embassy->name_embassiees }}'; // Using the embassy name from your data
 
-    // Initialize the map
-    const map = L.map('map').setView([latitude, longitude], 16); // Zoom level 16 for good detail
+    const map = L.map('map', {
+        fullscreenControl: true
+    }).setView([latitude, longitude], 16);
 
     // --- Define Tile Layers ---
     // 1. Street Map (OpenStreetMap)
@@ -156,8 +159,8 @@
 
     // --- Add Layer Control ---
     // Define the base layers that the user can switch between
-    const baseLayers = {
-        "Satellite Map": satelliteLayer,
+   const baseLayers = {
+        "Satelit Map": satelliteLayer,
         "Street Map": osmLayer
     };
 

@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
 
 <style>
     #map {
@@ -126,20 +127,47 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 
 <script>
-    const map = L.map('map').setView([-6.80188562253168, 144.0733101155011], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors',
+
+    const map = L.map('map', {
+        fullscreenControl: true
+    }).setView([-6.80188562253168, 144.0733101155011], 16);
+
+    // --- Define Tile Layers ---
+    // 1. OpenStreetMap (Default Street Map)
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19,
-    }).addTo(map);
+    });
+
+    // 2. Esri World Imagery (Satellite Map) - Recommended, no API key needed
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+        maxZoom: 19,
+    });
+
+    // Add the default street map (OpenStreetMap) to the map initially
+    osmLayer.addTo(map);
+
+    // --- Layer Control for switching map types ---
+    // Define the base layers that the user can switch between
+    const baseLayers = {
+        "Street Map": osmLayer,
+        "Satelit Map": satelliteLayer
+    };
+
+    // Add the layer control to the map. This will appear in the top-right corner.
+    L.control.layers(baseLayers).addTo(map);
+
 
     let airportMarkers = L.featureGroup().addTo(map);
     let centerMarker = null;
     let lastClickedAirport = null;
     let destinationMarker = null;
     let destinationCoordinates = null;
-    let drawnPolygonGeoJSON = null; // Changed from window.drawnPolygon to a local variable
+    let drawnPolygonGeoJSON = null;
 
     const drawnItems = new L.FeatureGroup().addTo(map);
 
@@ -255,7 +283,6 @@
             }
         });
 
-        // **Crucial Change:** Send the drawn polygon GeoJSON to the server
         if (drawnPolygonGeoJSON) {
             params.append('polygon', JSON.stringify(drawnPolygonGeoJSON));
         }
@@ -263,14 +290,9 @@
         const response = await fetch(`/api/airports?${params.toString()}`);
         const airports = await response.json();
 
-        // No need for client-side turf.booleanPointInPolygon filtering here
-        // as it should be handled by the backend.
-
         document.querySelector('.total-airports').innerText = `Total Airports: ${airports.length}`;
 
         if (airports.length === 0) {
-            // alert('No airports found with the current filters.'); // Consider a less intrusive message
-            // Optionally, clear existing markers to show no results
             airportMarkers.clearLayers();
             return;
         }
@@ -379,9 +401,8 @@
 
         lastClickedAirport = null;
 
-        // Clear drawn polygon from map and variable
         drawnItems.clearLayers();
-        drawnPolygonGeoJSON = null; // Reset the stored GeoJSON
+        drawnPolygonGeoJSON = null;
 
         map.setView([-6.80188562253168, 144.0733101155011], 6);
         fetchAndDisplayAirports();

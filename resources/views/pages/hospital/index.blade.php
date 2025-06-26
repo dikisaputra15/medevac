@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
 
 <style>
     #map {
@@ -128,20 +129,46 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 
     <script>
-        const map = L.map('map').setView([-6.80188562253168, 144.0733101155011], 6);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors',
+
+        const map = L.map('map', {
+            fullscreenControl: true
+        }).setView([-6.80188562253168, 144.0733101155011], 16);
+
+        // --- Define Tile Layers ---
+        // 1. OpenStreetMap (Peta Jalan) - Ini akan menjadi default
+        const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             maxZoom: 19,
-        }).addTo(map);
+        });
+
+        // 2. Esri World Imagery (Peta Satelit)
+        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+            maxZoom: 19,
+        });
+
+        // --- Perubahan di sini: Jadikan osmLayer (Peta Jalan) sebagai default ---
+        osmLayer.addTo(map);
+
+        // --- Layer Control for switching map types ---
+        const baseLayers = {
+            "Satelit Map": satelliteLayer,
+            "Street Map": osmLayer
+        };
+
+        L.control.layers(baseLayers).addTo(map);
+
+        // ... Sisa kode JavaScript Anda tetap sama dari sini ke bawah ...
 
         let hospitalMarkers = L.featureGroup().addTo(map);
-        let centerMarker = null; // Ini adalah variabel yang harus Anda modifikasi
-        let lastClickedhospital = null; // Menyimpan koordinat bandara yang terakhir diklik
-        let destinationMarker = null; // Tambahkan variabel untuk marker tujuan
-        let destinationCoordinates = null; // Tambahkan variabel untuk menyimpan koordinat tujuan
-        let drawnPolygonGeoJSON = null; // Changed from window.drawnPolygon to a local variable
+        let centerMarker = null;
+        let lastClickedhospital = null;
+        let destinationMarker = null;
+        let destinationCoordinates = null;
+        let drawnPolygonGeoJSON = null;
 
         const drawnItems = new L.FeatureGroup().addTo(map);
 
@@ -184,227 +211,210 @@
         });
 
         const totalControl = L.control({ position: 'topright' });
-            totalControl.onAdd = function (map) {
-        const div = L.DomUtil.create('div', 'total-hospital');
+        totalControl.onAdd = function (map) {
+            const div = L.DomUtil.create('div', 'total-hospital');
             div.innerHTML = 'Loading hospital count...';
             return div;
         };
-            totalControl.addTo(map);
+        totalControl.addTo(map);
 
-            // Fungsi untuk membuat ikon penanda tujuan
-            const destinationIcon = L.icon({
-                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // Contoh ikon tujuan (ganti dengan ikon Anda)
-                iconSize: [32, 32],
-                iconAnchor: [16, 32],
-                popupAnchor: [0, -32]
-            });
+        // Fungsi untuk membuat ikon penanda tujuan
+        const destinationIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+        });
 
-            // Fungsi untuk menetapkan dan menampilkan penanda tujuan
-            function setDestination(lat, lng) {
-                if (destinationMarker) {
-                    map.removeLayer(destinationMarker); // Hapus marker tujuan yang ada
-                }
-                destinationCoordinates = [lat, lng];
-                destinationMarker = L.marker(destinationCoordinates, { icon: destinationIcon }).addTo(map);
-                destinationMarker.bindPopup("<b>Destination</b>").openPopup();
+        // Fungsi untuk menetapkan dan menampilkan penanda tujuan
+        function setDestination(lat, lng) {
+            if (destinationMarker) {
+                map.removeLayer(destinationMarker);
+            }
+            destinationCoordinates = [lat, lng];
+            destinationMarker = L.marker(destinationCoordinates, { icon: destinationIcon }).addTo(map);
+            destinationMarker.bindPopup("<b>Destination</b>").openPopup();
 
-                // Opsional: Sesuaikan tampilan peta untuk menyertakan tujuan
-                if (hospitalMarkers.getLayers().length > 0) {
-                    const bounds = hospitalMarkers.getBounds().extend(destinationCoordinates);
-                    map.fitBounds(bounds, { padding: [50, 50] });
-                } else {
-                    map.setView(destinationCoordinates, 10); // Jika tidak ada bandara lain, fokus ke tujuan
-                }
+            if (hospitalMarkers.getLayers().length > 0) {
+                const bounds = hospitalMarkers.getBounds().extend(destinationCoordinates);
+                map.fitBounds(bounds, { padding: [50, 50] });
+            } else {
+                map.setView(destinationCoordinates, 10);
+            }
+        }
+
+        // Fungsi untuk memperbarui lingkaran radius
+        function updateRadiusCircle() {
+            const radius = parseInt(document.getElementById('radiusRange').value);
+            const center = lastClickedhospital ?? map.getCenter();
+
+            if (centerMarker) {
+                map.removeLayer(centerMarker);
+                centerMarker = null;
             }
 
-
-            // Fungsi untuk memperbarui lingkaran radius
-            function updateRadiusCircle() {
-                const radius = parseInt(document.getElementById('radiusRange').value);
-                const center = lastClickedhospital ?? map.getCenter(); // Gunakan bandara terakhir diklik, atau pusat peta
-
-                // Pastikan centerMarker dihapus sebelum membuat yang baru, jika ada
-                if (centerMarker) {
-                    map.removeLayer(centerMarker);
-                    centerMarker = null;
-                }
-
-                if (radius > 0) {
-                    centerMarker = L.circle(center, {
-                        color: 'red',
-                        fillColor: '#f03',
-                        fillOpacity: 0.3,
-                        radius: radius * 1000 // Konversi km ke meter
-                    }).addTo(map);
-                }
+            if (radius > 0) {
+                centerMarker = L.circle(center, {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.3,
+                    radius: radius * 1000
+                }).addTo(map);
             }
+        }
 
         document.getElementById('radiusRange').addEventListener('input', function() {
-        document.getElementById('radiusValue').textContent = this.value;
-                updateRadiusCircle(); // Panggil fungsi untuk memperbarui lingkaran saat slider digeser
+            document.getElementById('radiusValue').textContent = this.value;
+            updateRadiusCircle();
         });
 
-            // Event listener untuk klik pada peta untuk menentukan pusat radius secara manual
-            map.on('click', function(e) {
-                lastClickedhospital = { lat: e.latlng.lat, lng: e.latlng.lng }; // Set pusat radius ke lokasi klik
-                updateRadiusCircle(); // Perbarui lingkaran radius
-            });
+        map.on('click', function(e) {
+            lastClickedhospital = { lat: e.latlng.lat, lng: e.latlng.lng };
+            updateRadiusCircle();
+        });
 
         async function fetchAndDisplayhospital(filters = {}) {
-        hospitalMarkers.clearLayers();
-        // centerMarker tidak perlu dihapus di sini, karena updateRadiusCircle() akan menanganinya
-        // atau akan dihapus jika radius 0 saat filterForm disubmit atau reset.
-
-        const params = new URLSearchParams();
-        Object.keys(filters).forEach(key => {
-            if (Array.isArray(filters[key])) {
-                filters[key].forEach(value => {
-                 params.append(`${key}[]`, value);
-            });
-            } else {
-                params.append(key, filters[key]);
-            }
-        });
-
-         // **Crucial Change:** Send the drawn polygon GeoJSON to the server
-        if (drawnPolygonGeoJSON) {
-            params.append('polygon', JSON.stringify(drawnPolygonGeoJSON));
-        }
-
-        const response = await fetch(`/api/hospital?${params.toString()}`);
-        const hospital = await response.json();
-
-        document.querySelector('.total-hospital').innerText = `Total hospital: ${hospital.length}`;
-
-        if (hospital.length === 0) {
             hospitalMarkers.clearLayers();
-            return;
-        }
 
-        hospital.forEach(hospital => {
-            const hospitalIcon = L.icon({
-            iconUrl: hospital.icon || 'https://unpkg.com/leaflet/dist/images/marker-icon.png',
-            iconSize: [24, 24],
-            iconAnchor: [12, 24],
-            popupAnchor: [0, -20]
-         });
-
-         const marker = L.marker([hospital.latitude, hospital.longitude], { icon: hospitalIcon }).addTo(hospitalMarkers);
-
-         // Simpan hospital terakhir yang diklik
-         marker.on('click', () => {
-            lastClickedhospital = {
-                lat: hospital.latitude,
-                lng: hospital.longitude
-            };
-            updateRadiusCircle(); // Perbarui lingkaran saat marker bandara diklik
-        });
-
-                    // Tambahkan tombol "Set as Destination" ke popup
-                    marker.bindPopup(`
-                        <b>${hospital.name || 'N/A'}</b><br>
-                        ${hospital.image ? `<img src="${hospital.image}" width="200" style="margin: 5px 0;"><br>` : ''}
-                        <strong>Location:</strong> ${hospital.address || 'N/A'}<br>
-                        <strong>Coords:</strong> ${hospital.latitude}, ${hospital.longitude}<br>
-                        <strong>Province:</strong> ${hospital.provinces_region || 'N/A'}<br>
-                        <strong>Level:</strong> ${hospital.facility_level || 'N/A'}<br>
-                        ${hospital.id ? `<a href="/hospitals/${hospital.id}" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
-
-                    `);
+            const params = new URLSearchParams();
+            Object.keys(filters).forEach(key => {
+                if (Array.isArray(filters[key])) {
+                    filters[key].forEach(value => {
+                        params.append(`${key}[]`, value);
+                    });
+                } else {
+                    params.append(key, filters[key]);
+                }
             });
 
-                // Event listener untuk tombol "Set as Destination" (setelah semua marker dibuat)
-                hospitalMarkers.eachLayer(function(layer) {
-                    layer.on('popupopen', function() {
-                        const setDestinationBtn = layer.getPopup().getElement().querySelector('.set-destination-btn');
-                        if (setDestinationBtn) {
-                            setDestinationBtn.addEventListener('click', function() {
-                                const lat = parseFloat(this.dataset.lat);
-                                const lng = parseFloat(this.dataset.lng);
-                                setDestination(lat, lng);
-                                map.closePopup(); // Tutup popup setelah tombol diklik
-                            });
-                        }
-                    });
+            if (drawnPolygonGeoJSON) {
+                params.append('polygon', JSON.stringify(drawnPolygonGeoJSON));
+            }
+
+            const response = await fetch(`/api/hospital?${params.toString()}`);
+            const hospital = await response.json();
+
+            document.querySelector('.total-hospital').innerText = `Total hospital: ${hospital.length}`;
+
+            if (hospital.length === 0) {
+                hospitalMarkers.clearLayers();
+                return;
+            }
+
+            hospital.forEach(hospital => {
+                const hospitalIcon = L.icon({
+                    iconUrl: hospital.icon || 'https://unpkg.com/leaflet/dist/images/marker-icon.png',
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 24],
+                    popupAnchor: [0, -20]
                 });
 
-                if (hospitalMarkers.getLayers().length > 0) {
-                let bounds = hospitalMarkers.getBounds();
-                    if (destinationCoordinates) { // Perluas batas jika ada penanda tujuan
-                        bounds.extend(destinationCoordinates);
-                    }
-                    map.fitBounds(bounds, { padding: [50, 50] });
-                 } else if (destinationCoordinates) { // Jika hanya ada tujuan tanpa bandara lain
-                    map.setView(destinationCoordinates, 10);
-                }
-             }
+                const marker = L.marker([hospital.latitude, hospital.longitude], { icon: hospitalIcon }).addTo(hospitalMarkers);
 
-            document.getElementById('filterForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                applyFilters();
+                marker.on('click', () => {
+                    lastClickedhospital = {
+                        lat: hospital.latitude,
+                        lng: hospital.longitude
+                    };
+                    updateRadiusCircle();
+                });
+
+                marker.bindPopup(`
+                    <b>${hospital.name || 'N/A'}</b><br>
+                    ${hospital.image ? `<img src="${hospital.image}" width="200" style="margin: 5px 0;"><br>` : ''}
+                    <strong>Location:</strong> ${hospital.address || 'N/A'}<br>
+                    <strong>Coords:</strong> ${hospital.latitude}, ${hospital.longitude}<br>
+                    <strong>Province:</strong> ${hospital.provinces_region || 'N/A'}<br>
+                    <strong>Level:</strong> ${hospital.facility_level || 'N/A'}<br>
+                    ${hospital.id ? `<a href="/hospitals/${hospital.id}" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
+                `);
             });
 
-            function applyFilters() {
-                const name = document.getElementById('name').value;
-                const category = document.getElementById('category').value;
-                const location = document.getElementById('location').value;
-                const radius = parseInt(document.getElementById('radiusRange').value);
+            hospitalMarkers.eachLayer(function(layer) {
+                layer.on('popupopen', function() {
+                    const setDestinationBtn = layer.getPopup().getElement().querySelector('.set-destination-btn');
+                    if (setDestinationBtn) {
+                        setDestinationBtn.addEventListener('click', function() {
+                            const lat = parseFloat(this.dataset.lat);
+                            const lng = parseFloat(this.dataset.lng);
+                            setDestination(lat, lng);
+                            map.closePopup();
+                        });
+                    }
+                });
+            });
 
-                const selectedProvinces = Array.from(document.querySelectorAll('.province-checkbox:checked'))
-                 .map(checkbox => checkbox.value);
-
-                let filters = {
-                    name: name,
-                    category: category,
-                    location: location,
-                    provinces: selectedProvinces
-                };
-
-                // Ketika form disubmit, pusat radius akan menjadi pusat peta saat ini (jika tidak ada bandara yang diklik)
-                // atau bandara terakhir yang diklik. updateRadiusCircle() akan menanganinya.
-                // Tidak perlu lagi blok if/else radius di sini karena updateRadiusCircle() sudah mengelola logika itu.
-                // Anda hanya perlu memastikan filter radius terkirim ke backend.
-                if (radius > 0) {
-                    const center = lastClickedhospital ?? map.getCenter();
-                    filters.radius = radius;
-                    filters.center_lat = center.lat;
-                    filters.center_lng = center.lng;
+            if (hospitalMarkers.getLayers().length > 0) {
+                let bounds = hospitalMarkers.getBounds();
+                if (destinationCoordinates) {
+                    bounds.extend(destinationCoordinates);
                 }
-
-                fetchAndDisplayhospital(filters);
-                updateRadiusCircle(); // Panggil fungsi untuk memperbarui lingkaran setelah fetch data selesai
+                map.fitBounds(bounds, { padding: [50, 50] });
+            } else if (destinationCoordinates) {
+                map.setView(destinationCoordinates, 10);
+            }
         }
 
-    document.getElementById('resetFilter').addEventListener('click', function() {
-         document.getElementById('filterForm').reset();
-         document.getElementById('radiusValue').textContent = '0';
-         document.querySelectorAll('.province-checkbox').forEach(checkbox => {
-            checkbox.checked = false;
+        document.getElementById('filterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            applyFilters();
         });
 
-        // Pastikan centerMarker dan destinationMarker dihapus
-            if (centerMarker) {
-                 map.removeLayer(centerMarker);
-                    centerMarker = null;
-             }
-            if (destinationMarker) {
-                    map.removeLayer(destinationMarker);
-                    destinationMarker = null;
-                    destinationCoordinates = null;
+        function applyFilters() {
+            const name = document.getElementById('name').value;
+            const category = document.getElementById('category').value;
+            const location = document.getElementById('location').value;
+            const radius = parseInt(document.getElementById('radiusRange').value);
+
+            const selectedProvinces = Array.from(document.querySelectorAll('.province-checkbox:checked'))
+                .map(checkbox => checkbox.value);
+
+            let filters = {
+                name: name,
+                category: category,
+                location: location,
+                provinces: selectedProvinces
+            };
+
+            if (radius > 0) {
+                const center = lastClickedhospital ?? map.getCenter();
+                filters.radius = radius;
+                filters.center_lat = center.lat;
+                filters.center_lng = center.lng;
             }
 
-            lastClickedhospital = null; // Reset pusat radius juga
+            fetchAndDisplayhospital(filters);
+            updateRadiusCircle();
+        }
 
-            // Clear drawn polygon from map and variable
+        document.getElementById('resetFilter').addEventListener('click', function() {
+            document.getElementById('filterForm').reset();
+            document.getElementById('radiusValue').textContent = '0';
+            document.querySelectorAll('.province-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+
+            if (centerMarker) {
+                map.removeLayer(centerMarker);
+                centerMarker = null;
+            }
+            if (destinationMarker) {
+                map.removeLayer(destinationMarker);
+                destinationMarker = null;
+                destinationCoordinates = null;
+            }
+
+            lastClickedhospital = null;
+
             drawnItems.clearLayers();
-            drawnPolygonGeoJSON = null; // Reset the stored GeoJSON
+            drawnPolygonGeoJSON = null;
 
             map.setView([-6.80188562253168, 144.0733101155011], 6);
             fetchAndDisplayhospital();
-            updateRadiusCircle(); // Panggil ini untuk memastikan lingkaran hilang (karena radius 0)
-    });
+            updateRadiusCircle();
+        });
 
-         document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             $(document).ready(function() {
                 $('.select2-search').select2({
                     placeholder: "🔍 Search...",
@@ -414,7 +424,7 @@
             });
 
             fetchAndDisplayhospital();
-            updateRadiusCircle(); // Pastikan lingkaran ditampilkan jika ada nilai radius awal
+            updateRadiusCircle();
         });
     </script>
 @endpush

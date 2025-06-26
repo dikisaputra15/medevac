@@ -5,6 +5,7 @@
 @push('styles')
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
 <style>
     #map {
         height: 700px;
@@ -229,13 +230,15 @@
 @push('service')
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 <script>
     const latitude = {{ $airport->latitude }};
     const longitude = {{ $airport->longitude }};
     const airportName = '{{ $airport->airport_name }}';
 
-    // Inisialisasi peta
-    const map = L.map('map').setView([latitude, longitude], 16);
+    const map = L.map('map', {
+        fullscreenControl: true
+    }).setView([latitude, longitude], 16);
 
     // --- Tile Layers ---
     // 1. OpenStreetMap (Peta Jalan)
@@ -254,8 +257,8 @@
     // --- Kontrol Layer ---
     // Definisikan base layers yang bisa dipilih
     const baseLayers = {
-        "Peta Satelit": satelliteLayer,
-        "Peta Jalan": osmLayer
+        "Satelit Map": satelliteLayer,
+        "Street Map": osmLayer
     };
 
     // Tambahkan kontrol layer ke peta
