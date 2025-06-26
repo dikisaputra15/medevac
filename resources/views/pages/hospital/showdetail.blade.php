@@ -30,6 +30,15 @@
         background-color:#395272;
         border-color: transparent;
     }
+
+    .fa,
+    .fab,
+    .fad,
+    .fal,
+    .far,
+    .fas {
+        color: #346abb;
+    }
 </style>
 
 @endpush

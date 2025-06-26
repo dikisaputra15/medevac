@@ -30,6 +30,14 @@
         background-color:#395272;
         border-color: transparent;
     }
+    .fa,
+    .fab,
+    .fad,
+    .fal,
+    .far,
+    .fas {
+        color: #346abb;
+    }
 </style>
 
 @endpush
@@ -69,32 +77,36 @@
         </div>
     </div>
 
-    <div class="card-header bg-white">
-        <h3>{{ $embassy->name_embassiees }} - Papua New Guinea <small><i>Last Updated</i></small></h3>
-        <small><i>{{ $embassy->created_at->format('M Y') }}</i></small>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title fw-bold">{{ $embassy->name_embassiees }} - Papua New Guinea <small><i>Last Updated</i></small></h4>
+            <small><i>{{ $embassy->created_at->format('M Y') }}</i></small>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
-            <div class="card-body">
-                <h5>📞 Contact Information</h5>
+                <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Information</div>
+                <div class="card-body">
                 <p>
-                    <strong>Telephone:</strong> {{ $embassy->telephone ?? '-' }}<br>
-                    <strong>Fax:</strong> {{ $embassy->fax ?? '-' }}<br>
-                    <strong>Email:</strong> {{ $embassy->email ?? '-' }}<br>
-                    <strong>Website:</strong> <a href="{{ $embassy->website }}" target="_blank">{{ $embassy->website }}</a><br>
-                    <strong>Latitude:</strong> {{ $embassy->latitude ?? '-' }}<br>
+                    <strong>Telephone:</strong> {{ $embassy->telephone ?? '-' }}
+                </p>
+                <p>
+                    <strong>Fax:</strong> {{ $embassy->fax ?? '-' }}
+                </p>
+                    <strong>Email:</strong> {{ $embassy->email ?? '-' }}
+                </p>
+                <p>
+                    <strong>Website:</strong> <a href="{{ $embassy->website }}" target="_blank">{{ $embassy->website }}</a>
+                </p>
+                <p>
+                    <strong>Latitude:</strong> {{ $embassy->latitude ?? '-' }}
+                </p>
+                <p>
                     <strong>Longitude:</strong> {{ $embassy->longitude ?? '-' }}
                 </p>
-            </div>
-            </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="card">
-            <div class="card-body">
-                <h5>📍 Contact Information</h5>
-                <p>
+                 <p>
                     <strong>Location:</strong> {{ $embassy->location ?? '-' }}
                 </p>
             </div>
@@ -102,8 +114,8 @@
         </div>
         <div class="col-sm-12">
             <div class="card">
-            <div class="card-body">
-                <h5>🗺️ Map</h5>
+                 <div class="card-header fw-bold"><i class="fas fa-map"></i> Map</div>
+                  <div class="card-body">
                 <div id="map" style="height: 300px;"></div>
             </div>
             </div>

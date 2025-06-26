@@ -40,6 +40,14 @@
         border-color: transparent;
     }
 
+    .fa,
+    .fab,
+    .fad,
+    .fal,
+    .far,
+    .fas {
+        color: #346abb;
+    }
 </style>
 
 @endpush
