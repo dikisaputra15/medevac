@@ -8,6 +8,22 @@
         margin-bottom: 8px;
         line-height: 18px;
     }
+
+     .btn-danger{
+        background-color:#395272;
+        border-color: transparent;
+    }
+
+    .p-3{
+        padding: 10px !important;
+        margin: 0 3px;
+    }
+
+    .btn-outline-danger{
+        color: #FFFFFF;
+        background-color:#395272;
+        border-color: transparent;
+    }
 </style>
 @endpush
 
