@@ -131,13 +131,44 @@
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-        const map = L.map('map').setView([{{ $embassy->latitude }}, {{ $embassy->longitude }}], 16);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap'
-        }).addTo(map);
+    const latitude = {{ $embassy->latitude }};
+    const longitude = {{ $embassy->longitude }};
+    const embassyName = '{{ $embassy->name_embassiees }}'; // Using the embassy name from your data
 
-        L.marker([{{ $embassy->latitude }}, {{ $embassy->longitude }}]).addTo(map)
-            .bindPopup('{{ $embassy->name_embassiees }}').openPopup();
+    // Initialize the map
+    const map = L.map('map').setView([latitude, longitude], 16); // Zoom level 16 for good detail
+
+    // --- Define Tile Layers ---
+    // 1. Street Map (OpenStreetMap)
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19 // OSM generally goes up to zoom level 19
+    });
+
+    // 2. Satellite Map (Esri World Imagery) - Recommended, no API key needed
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+        maxZoom: 19 // Esri World Imagery also typically goes up to zoom level 19
+    });
+
+    // Add the satellite layer to the map by default
+    satelliteLayer.addTo(map);
+
+    // --- Add Layer Control ---
+    // Define the base layers that the user can switch between
+    const baseLayers = {
+        "Satellite Map": satelliteLayer,
+        "Street Map": osmLayer
+    };
+
+    // Add the layer control to the map. This will appear in the top-right corner.
+    L.control.layers(baseLayers).addTo(map);
+
+    // Add a marker at the embassy's location
+    L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup(embassyName) // Display the embassy's name when the marker is clicked
+        .openPopup(); // Automatically open the popup when the map loads
 </script>
 
 @endpush

@@ -199,13 +199,44 @@
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-        const map = L.map('map').setView([{{ $hospital->latitude }}, {{ $hospital->longitude }}], 16);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap'
-        }).addTo(map);
+    const latitude = {{ $hospital->latitude }};
+    const longitude = {{ $hospital->longitude }};
+    const hospitalName = '{{ $hospital->name }}'; // Menggunakan nama rumah sakit dari data Anda
 
-        L.marker([{{ $hospital->latitude }}, {{ $hospital->longitude }}]).addTo(map)
-            .bindPopup('{{ $hospital->name }}').openPopup();
+    // Inisialisasi peta
+    const map = L.map('map').setView([latitude, longitude], 16); // Zoom level 16 untuk detail yang baik
+
+    // --- Tile Layers ---
+    // 1. Peta Jalan (OpenStreetMap)
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19 // Umumnya OpenStreetMap memiliki maxZoom hingga 19
+    });
+
+    // 2. Peta Satelit (Esri World Imagery) - Direkomendasikan, tidak memerlukan API Key
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+        maxZoom: 19 // Esri World Imagery juga umumnya hingga zoom 19
+    });
+
+    // Tambahkan layer satelit sebagai layer default saat peta pertama kali dimuat
+    satelliteLayer.addTo(map);
+
+    // --- Kontrol Layer ---
+    // Definisikan base layers yang bisa dipilih pengguna
+    const baseLayers = {
+        "Peta Satelit": satelliteLayer,
+        "Peta Jalan": osmLayer
+    };
+
+    // Tambahkan kontrol layer ke peta. Ini akan muncul di pojok kanan atas peta.
+    L.control.layers(baseLayers).addTo(map);
+
+    // Tambahkan marker di lokasi rumah sakit
+    L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup(hospitalName) // Menampilkan nama rumah sakit saat marker diklik
+        .openPopup(); // Otomatis membuka popup saat peta dimuat
 </script>
 
 @endpush

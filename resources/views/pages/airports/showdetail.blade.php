@@ -230,13 +230,42 @@
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-        const map = L.map('map').setView([{{ $airport->latitude }}, {{ $airport->longitude }}], 16);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap'
-        }).addTo(map);
+    const latitude = {{ $airport->latitude }};
+    const longitude = {{ $airport->longitude }};
+    const airportName = '{{ $airport->airport_name }}';
 
-        L.marker([{{ $airport->latitude }}, {{ $airport->longitude }}]).addTo(map)
-            .bindPopup('{{ $airport->airport_name }}').openPopup();
+    // Inisialisasi peta
+    const map = L.map('map').setView([latitude, longitude], 16);
+
+    // --- Tile Layers ---
+    // 1. OpenStreetMap (Peta Jalan)
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    // 2. Esri World Imagery (Peta Satelit) - Tidak memerlukan API Key
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+    });
+
+    // Tambahkan layer satelit sebagai default
+    satelliteLayer.addTo(map);
+
+    // --- Kontrol Layer ---
+    // Definisikan base layers yang bisa dipilih
+    const baseLayers = {
+        "Peta Satelit": satelliteLayer,
+        "Peta Jalan": osmLayer
+    };
+
+    // Tambahkan kontrol layer ke peta
+    L.control.layers(baseLayers).addTo(map);
+
+    // Tambahkan marker untuk lokasi bandara
+    L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup(airportName)
+        .openPopup();
 </script>
 
 @endpush
