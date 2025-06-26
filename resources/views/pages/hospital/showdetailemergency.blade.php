@@ -93,12 +93,22 @@
     <div class="row">
         <div class="col-sm-4 d-flex flex-column gap-3">
             <div class="card h-100">
+            <div class="card-header fw-bold"><i class="fas fa-running"></i>Evacuation Option</div>
+              <div class="card-body overflow-auto" style="max-height: 350px;">
+                    <?php echo $hospital->evacuation_option; ?>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 d-flex flex-column gap-3">
+            <div class="card h-100">
               <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Nearest Airport</div>
              <div class="card-body overflow-auto" style="max-height: 350px;">
                     <?php echo $hospital->nearest_airfield; ?>
             </div>
             </div>
         </div>
+
         <div class="col-sm-4 d-flex flex-column gap-3">
             <div class="card h-100">
                 <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Nearest Police Station</div>
@@ -107,6 +117,7 @@
             </div>
             </div>
         </div>
+
         <div class="col-sm-4 d-flex flex-column gap-3">
             <div class="card h-100">
               <div class="card-header fw-bold"><i class="fas fa-notes-medical"></i>Medical Support Websites</div>
@@ -121,15 +132,6 @@
             <div class="card-header fw-bold"><i class="fas fa-shuttle-van"></i>Local Travel Support</div>
               <div class="card-body overflow-auto" style="max-height: 350px;">
                     <?php echo $hospital->travel_agent; ?>
-            </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 d-flex flex-column gap-3">
-            <div class="card h-100">
-            <div class="card-header fw-bold"><i class="fas fa-running"></i>Evacuation Option</div>
-              <div class="card-body overflow-auto" style="max-height: 350px;">
-                    <?php echo $hospital->evacuation_option; ?>
             </div>
             </div>
         </div>
