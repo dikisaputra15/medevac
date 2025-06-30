@@ -30,6 +30,11 @@
         border-color: transparent;
     }
 
+    .btn-danger:hover{
+        background-color:#5686c3;
+        border-color: transparent;
+    }
+
     .p-3{
         padding: 10px !important;
         margin: 0 3px;
@@ -38,6 +43,11 @@
     .btn-outline-danger{
         color: #FFFFFF;
         background-color:#395272;
+        border-color: transparent;
+    }
+
+    .btn-outline-danger:hover{
+        background-color:#5686c3;
         border-color: transparent;
     }
 
@@ -55,11 +65,19 @@
 
 @section('conten')
 
+     <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
+        <div class="d-flex gap-2 align-items-center">
+            <h2 class="fw-bold">{{ $airport->airport_name }} - Papua New Guinea</h2>
+        </div>
 
-    <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 ms-auto">
 
-            <!-- Button 2 -->
+            <a href="javascript:history.back()" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+               <i class="bi bi-arrow-left fs-3"></i>
+                <small>Back</small>
+            </a>
+
+              <!-- Button 2 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-file-earmark-text-fill fs-3"></i>
                 <small>General</small>
@@ -83,10 +101,7 @@
                 <small>Emergency Support</small>
             </a>
 
-        </div>
-
-        <div class="d-flex gap-2 ms-auto">
-            <!-- Button 5 -->
+             <!-- Button 5 -->
             <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-hospital fs-3"></i>
                 <small>Medical Facilities</small>
@@ -103,6 +118,7 @@
             <i class="bi bi-bank fs-3"></i>
                 <small>Embassies</small>
             </a>
+
         </div>
     </div>
 
@@ -110,49 +126,17 @@
     <!-- Header -->
     <div class="card mb-4">
         <div class="card-body">
-            <h4 class="card-title fw-bold">{{ $airport->airport_name }} - Papua New Guinea <small><i>Last Updated</i></small></h4>
+            <small><i>Last Updated</i></small>
             <small><i>{{ $airport->created_at->format('M Y') }}</i></small>
         </div>
     </div>
 
     <div class="row g-3">
-        <!-- Left Column (col-md-6): Location + Contact + General Info -->
-        <div class="col-md-6 d-flex flex-column gap-3">
-            <!-- Row: Location + Contact -->
-            <div class="row g-3">
-                <!-- Location -->
-                <div class="col-md-6">
-                    <div class="card h-100">
-                        <div class="card-header fw-bold"><i class="fas fa-map-marker-alt"></i> Location</div>
-                        <div class="card-body overflow-auto" style="max-height: 300px;">
-                            <p><strong>Address:</strong>
-                                {{ $airport->address }}, Papua New Guinea
-                            </p>
-                            <p><strong>Latitude:</strong> {{ $airport->latitude }} </p>
-                            <p><strong>Longitude:</strong> {{ $airport->longitude }} </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact -->
-                <div class="col-md-6">
-                    <div class="card h-100">
-                        <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Details</div>
-                        <div class="card-body overflow-auto" style="max-height: 300px;">
-                            <p><strong>Telephone:</strong> {{ $airport->telephone ?? '-' }}</p>
-                            <p><strong>Fax:</strong> {{ $airport->fax ?? '-' }} </p>
-                            <p><strong>Email:</strong> <?php echo $airport->email; ?> </p>
-                            <p><strong>Website:</strong> <?php echo $airport->website; ?> </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- General Info -->
-            <div class="card h-100">
+        <div class="col-md-4">
+             <div class="card h-100">
                 <div class="card-header fw-bold"><i class="fas fa-plane"></i> General Airport Info</div>
-                <div class="card-body overflow-auto" style="max-height: 300px;">
-                    <div class="col-md-6">
+                <div class="card-body overflow-auto" style="height: 620px;">
+                    <div class="col-md-12">
                         <p><strong>Category:</strong> {{ $airport->category }} </p>
                         <p><strong>Classification:</strong> {{ $airport->classification }} </p>
                         <p><strong>IATA Code:</strong> {{ $airport->iata_code }} </p>
@@ -169,10 +153,43 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
-        <!-- Right Column (col-md-6): Map full height -->
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="row">
+                 <div class="col-md-12">
+                    <div class="card" style="height: 310px;">
+                        <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Details</div>
+                        <div class="card-body overflow-auto">
+                            <p><strong>Telephone:</strong> {{ $airport->telephone ?? '-' }}</p>
+                            <p><strong>Fax:</strong> {{ $airport->fax ?? '-' }} </p>
+                            <p><strong>Email:</strong> <?php echo $airport->email; ?> </p>
+                            <p><strong>Website:</strong> <?php echo $airport->website; ?> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                 <div class="col-md-12">
+                    <div class="card" style="height: 310px;">
+                        <div class="card-header fw-bold"><i class="fas fa-map-marker-alt"></i> Location</div>
+                        <div class="card-body overflow-auto">
+                            <p><strong>Address:</strong>
+                                {{ $airport->address }}, Papua New Guinea
+                            </p>
+                            <p><strong>Latitude:</strong> {{ $airport->latitude }} </p>
+                            <p><strong>Longitude:</strong> {{ $airport->longitude }} </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+         <div class="col-md-4">
             <div class="card h-100" style="max-height: 620px;">
                 <div class="card-header fw-bold"><i class="fas fa-map"></i> Airport Location Map</div>
                 <div class="card-body p-0" id="map">
@@ -181,7 +198,7 @@
             </div>
         </div>
 
-         <div class="col-sm-4">
+        <div class="col-md-4">
             <div class="card h-100">
             <div class="card-header fw-bold"><i class="fas fa-info-circle"></i> Support Services</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
@@ -205,7 +222,8 @@
             </div>
             </div>
         </div>
-        <div class="col-sm-4">
+
+        <div class="col-md-4">
             <div class="card h-100">
             <div class="card-header fw-bold"><i class="fas fa-plane"></i> Other Airport Info</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
@@ -213,7 +231,8 @@
             </div>
             </div>
         </div>
-        <div class="col-sm-4">
+
+        <div class="col-md-4">
             <div class="card h-100">
             <div class="card-header fw-bold"><i class="fas fa-hotel"></i> Nearest Accomodation</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
@@ -223,6 +242,8 @@
         </div>
 
     </div>
+
+
 </div>
 
 @endsection

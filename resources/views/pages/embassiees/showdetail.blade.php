@@ -21,6 +21,11 @@
         border-color: transparent;
     }
 
+     .btn-danger:hover{
+        background-color:#5686c3;
+        border-color: transparent;
+    }
+
     .p-3{
         padding: 10px !important;
         margin: 0 3px;
@@ -31,6 +36,12 @@
         background-color:#395272;
         border-color: transparent;
     }
+
+     .btn-outline-danger:hover{
+        background-color:#5686c3;
+        border-color: transparent;
+    }
+
     .fa,
     .fab,
     .fad,
@@ -48,17 +59,22 @@
 <div class="card">
 
     <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 align-items-center">
+            <h2 class="fw-bold">{{ $embassy->name_embassiees }} - Papua New Guinea</h2>
+        </div>
 
+        <div class="d-flex gap-2 ms-auto">
+
+            <a href="{{ url('embassiees') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+               <i class="bi bi-arrow-left fs-3"></i>
+                <small>Back</small>
+            </a>
             <!-- Button 2 -->
             <a href="{{ url('embassiees') }}/{{$embassy->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-file-earmark-text-fill fs-3"></i>
                 <small>General</small>
             </a>
 
-        </div>
-
-        <div class="d-flex gap-2 ms-auto">
             <!-- Button 5 -->
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane fs-3"></i>
@@ -80,7 +96,7 @@
 
     <div class="card mb-4">
         <div class="card-body">
-            <h4 class="card-title fw-bold">{{ $embassy->name_embassiees }} - Papua New Guinea <small><i>Last Updated</i></small></h4>
+            <small><i>Last Updated</i></small>
             <small><i>{{ $embassy->created_at->format('M Y') }}</i></small>
         </div>
     </div>

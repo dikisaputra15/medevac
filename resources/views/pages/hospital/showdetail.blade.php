@@ -21,6 +21,11 @@
         border-color: transparent;
     }
 
+    .btn-danger:hover{
+        background-color:#5686c3;
+        border-color: transparent;
+    }
+
     .p-3{
         padding: 10px !important;
         margin: 0 3px;
@@ -29,6 +34,10 @@
     .btn-outline-danger{
         color: #FFFFFF;
         background-color:#395272;
+        border-color: transparent;
+    }
+     .btn-outline-danger:hover{
+        background-color:#5686c3;
         border-color: transparent;
     }
 
@@ -49,8 +58,16 @@
 <div class="card">
 
     <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 align-items-center">
+            <h2 class="fw-bold">{{ $hospital->name }} - Papua New Guinea</h2>
+        </div>
 
+        <div class="d-flex gap-2 ms-auto">
+
+            <a href="{{ url('hospital') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+               <i class="bi bi-arrow-left fs-3"></i>
+                <small>Back</small>
+            </a>
             <!-- Button 2 -->
             <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-file-earmark-text-fill fs-3"></i>
@@ -68,10 +85,6 @@
                 <i class="bi bi-chat-dots-fill fs-3"></i>
                 <small>Emergency Support</small>
             </a>
-
-        </div>
-
-        <div class="d-flex gap-2 ms-auto">
             <!-- Button 5 -->
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <i class="bi bi-airplane fs-3"></i>
@@ -93,7 +106,7 @@
 
     <div class="card mb-4">
         <div class="card-body">
-            <h4 class="card-title fw-bold">{{ $hospital->name }} - Papua New Guinea <small><i>Last Updated</i></small></h4>
+            <small><i>Last Updated</i></small>
              <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
         </div>
     </div>
