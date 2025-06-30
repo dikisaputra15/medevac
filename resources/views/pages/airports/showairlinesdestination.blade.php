@@ -4,7 +4,6 @@
 
 @push('styles')
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <style>
     #map {
         height: 700px;
@@ -132,15 +131,8 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 d-flex flex-column gap-3">
-            <div class="card h-100">
-             <div class="card-body overflow-auto" style="max-height: 300px;">
-                 <div class="card-header fw-bold"><i class="fas fa-globe"></i>International</div>
-                <?php echo $airport->international_flight; ?>
-            </div>
-            </div>
-        </div>
-        <div class="col-md-6 d-flex flex-column gap-3">
+
+         <div class="col-md-6 d-flex flex-column gap-3">
             <div class="card h-100">
              <div class="card-body overflow-auto" style="max-height: 300px;">
                 <div class="card-header fw-bold"><i class="fas fa-plane"></i>Domestic</div>
@@ -149,22 +141,33 @@
             </div>
         </div>
 
-        <div class="col-md-6 d-flex flex-column gap-3">
+         <div class="col-md-6 d-flex flex-column gap-3">
             <div class="card h-100">
              <div class="card-body overflow-auto" style="max-height: 300px;">
-                 <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Flight Information</div>
-                <?php echo $airport->flight_information; ?>
-            </div>
-            </div>
-        </div>
-        <div class="col-md-6 d-flex flex-column gap-3">
-            <div class="card h-100">
-             <div class="card-body overflow-auto" style="max-height: 300px;">
-                 <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Other Flight Information</div>
+                 <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Other General Flight Information</div>
                 <?php echo $airport->other_flight_information; ?>
             </div>
             </div>
         </div>
+
+        <div class="col-md-6 d-flex flex-column gap-3">
+            <div class="card h-100">
+             <div class="card-body overflow-auto" style="max-height: 300px;">
+                 <div class="card-header fw-bold"><i class="fas fa-globe"></i>International</div>
+                <?php echo $airport->international_flight; ?>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 d-flex flex-column gap-3">
+            <div class="card h-100">
+             <div class="card-body overflow-auto" style="max-height: 300px;">
+                 <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Airport Flight Information</div>
+                <?php echo $airport->flight_information; ?>
+            </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -174,15 +177,5 @@
 
 @push('service')
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-        const map = L.map('map').setView([{{ $airport->latitude }}, {{ $airport->longitude }}], 16);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap'
-        }).addTo(map);
-
-        L.marker([{{ $airport->latitude }}, {{ $airport->longitude }}]).addTo(map)
-            .bindPopup('{{ $airport->airport_name }}').openPopup();
-</script>
 
 @endpush
