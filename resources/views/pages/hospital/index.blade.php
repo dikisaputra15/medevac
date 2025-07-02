@@ -177,7 +177,7 @@
 <div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
+      <div class="modal-header">
         <h5 class="modal-title" id="disclaimerLabel">Disclaimer</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -191,8 +191,11 @@
 <div class="modal fade" id="level1Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Class 1</h5>
+      <div class="modal-header">
+         <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Class 1</h5>
+         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -206,8 +209,11 @@
 <div class="modal fade" id="level2Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Class 2</h5>
+      <div class="modal-header">
+         <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Class 2</h5>
+         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -221,8 +227,11 @@
 <div class="modal fade" id="level3Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Class 3</h5>
+      <div class="modal-header">
+         <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Class 3</h5>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -236,8 +245,11 @@
 <div class="modal fade" id="level4Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Class 4</h5>
+      <div class="modal-header">
+         <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Class 4</h5>
+         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -251,8 +263,11 @@
 <div class="modal fade" id="level5Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Class 5</h5>
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Class 5</h5>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -266,9 +281,12 @@
 <div class="modal fade" id="level6Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Class 6</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Class 6</h5>
+        </div>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <p><b>National Referral Specialist Tertiary and Teaching Hospital - Health Services (NHA)</b></p>

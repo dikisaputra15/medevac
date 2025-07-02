@@ -177,7 +177,7 @@
 <div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
+      <div class="modal-header">
         <h5 class="modal-title" id="disclaimerLabel">Disclaimer</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -191,8 +191,11 @@
 <div class="modal fade" id="level1Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Private Airfield</h5>
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Private Airfield</h5>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -207,8 +210,11 @@
 <div class="modal fade" id="level2Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Combined Airfield</h5>
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Combined Airfield</h5>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -221,8 +227,11 @@
 <div class="modal fade" id="level3Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Military Airfield</h5>
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+             <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Military Airfield</h5>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -235,8 +244,11 @@
 <div class="modal fade" id="level4Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Regional Domestic Airfield</h5>
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Regional Domestic Airfield</h5>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -249,8 +261,11 @@
 <div class="modal fade" id="level5Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">Domestic Airfield</h5>
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Domestic Airfield</h5>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -263,8 +278,11 @@
 <div class="modal fade" id="level6Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="disclaimerLabel">International Airfield</h5>
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">International Airfield</h5>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
