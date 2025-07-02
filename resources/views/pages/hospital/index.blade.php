@@ -98,17 +98,23 @@
                     <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="200" value="0">
                 </div>
 
-                <div class="col-md-6">
-                    <label class="form-label"><strong>Provinces Region</strong></label>
-                    <div class="form-check-scrollable">
-                        @foreach ($provinces as $province)
-                            <div class="form-check">
-                                <input class="form-check-input province-checkbox" type="checkbox" name="provinces[]" value="{{ $province->id }}" id="province_{{ $province->id }}">
-                                <label class="form-check-label" for="province_{{ $province->id }}">
-                                    {{ $province->provinces_region }}
-                                </label>
-                            </div>
-                        @endforeach
+              <div class="col-md-6">
+                    <label class="form-label d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#provinceCollapse" aria-expanded="false" aria-controls="provinceCollapse">
+                        <span class="me-1">Provinces Region</span>
+                        <i class="bi bi-chevron-down" id="provinceToggleIcon"></i>
+                    </label>
+
+                    <div class="collapse" id="provinceCollapse">
+                        <div class="form-check-scrollable" style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+                            @foreach ($provinces as $province)
+                                <div class="form-check">
+                                    <input class="form-check-input province-checkbox" type="checkbox" name="provinces[]" value="{{ $province->id }}" id="province_{{ $province->id }}">
+                                    <label class="form-check-label" for="province_{{ $province->id }}">
+                                        {{ $province->provinces_region }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
 
@@ -286,6 +292,20 @@
 <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+<script>
+    const provinceCollapse = document.getElementById('provinceCollapse');
+    const icon = document.getElementById('provinceToggleIcon');
+
+    provinceCollapse.addEventListener('show.bs.collapse', () => {
+        icon.classList.remove('bi-chevron-down');
+        icon.classList.add('bi-chevron-up');
+    });
+
+    provinceCollapse.addEventListener('hide.bs.collapse', () => {
+        icon.classList.remove('bi-chevron-up');
+        icon.classList.add('bi-chevron-down');
+    });
+</script>
 
 <script>
     // Inisialisasi peta Leaflet
