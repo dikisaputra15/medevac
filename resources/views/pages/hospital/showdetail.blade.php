@@ -26,6 +26,12 @@
         border-color: transparent;
     }
 
+    .btn.active {
+        background-color: #5686c3 !important;
+        border-color: transparent !important;
+        color: #fff !important;
+    }
+
     .p-3{
         padding: 10px !important;
         margin: 0 3px;
@@ -64,40 +70,36 @@
 
         <div class="d-flex gap-2 ms-auto">
 
-            <a href="{{ url('hospital') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <button onclick="history.back()" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                <i class="bi bi-arrow-left fs-3"></i>
                 <small>Back</small>
-            </a>
-            <!-- Button 2 -->
-            <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            </button>
+
+            <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/'.$hospital->id) ? 'active' : '' }}">
                 <i class="bi bi-file-earmark-text-fill fs-3"></i>
                 <small>General</small>
             </a>
 
-            <!-- Button 3 -->
-            <a href="{{ url('hospitals/clinic') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('hospitals/clinic') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/clinic/'.$hospital->id) ? 'active' : '' }}">
                 <i class="bi bi-hospital fs-3"></i>
                 <small>Clinical Services</small>
             </a>
 
-            <!-- Button 4 -->
-            <a href="{{ url('hospitals/emergency') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('hospitals/emergency') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/emergency/'.$hospital->id) ? 'active' : '' }}">
                 <i class="bi bi-chat-dots-fill fs-3"></i>
                 <small>Emergency Support</small>
             </a>
-            <!-- Button 5 -->
-            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
                 <i class="bi bi-airplane fs-3"></i>
                 <small>Airports</small>
             </a>
 
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
                 <i class="bi bi-airplane-engines fs-3"></i>
                 <small>Air Charter</small>
             </a>
 
-            <!-- Button 7 -->
-            <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
             <i class="bi bi-bank fs-3"></i>
                 <small>Embassies</small>
             </a>
@@ -112,25 +114,23 @@
     </div>
 
     <div class="row g-3">
-        <!-- LEFT: 8 columns -->
         <div class="col-md-8 d-flex flex-column gap-3">
-            <!-- Baris atas: Location + Contact -->
             <div class="row g-3">
                 <div class="col-md-6 d-flex flex-column gap-3">
                     <div class="card h-100">
                         <div class="card-header fw-bold"><i class="fas fa-map-marker-alt"></i> Location</div>
                         <div class="card-body overflow-auto" style="max-height: 350px;">
-                             <p>
-                                <strong>Address:</strong>
-                                {{ $hospital->address }},
-                                {{ $province->provinces_region }}, Papua New Guinea
-                            </p>
-                            <p>
-                                <strong>Latitude:</strong> {{ $hospital->latitude }}
-                            </p>
-                            <p>
-                                <strong>Longitude:</strong> {{ $hospital->longitude }}
-                            </p>
+                               <p>
+                                    <strong>Address:</strong>
+                                    {{ $hospital->address }},
+                                    {{ $province->provinces_region }}, Papua New Guinea
+                                </p>
+                                <p>
+                                    <strong>Latitude:</strong> {{ $hospital->latitude }}
+                                </p>
+                                <p>
+                                    <strong>Longitude:</strong> {{ $hospital->longitude }}
+                                </p>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,6 @@
                 </div>
             </div>
 
-            <!-- Baris bawah: General Info + Nearest Accommodation -->
             <div class="row g-3">
                 <div class="col-md-6 d-flex flex-column gap-3">
                     <div class="card h-100">
@@ -184,7 +183,7 @@
 
                 <div class="col-md-6 d-flex flex-column gap-3">
                     <div class="card h-100">
-                        <div class="card-header fw-bold"><i class="fas fa-hotel"></i>  Nearest Accommodation</div>
+                        <div class="card-header fw-bold"><i class="fas fa-hotel"></i>  Nearest Accommodation</div>
                         <div class="card-body overflow-auto" style="max-height: 350px;">
                            <?php echo $hospital->nearest_accommodation; ?>
                         </div>
@@ -193,7 +192,6 @@
             </div>
         </div>
 
-        <!-- RIGHT: 4 columns, Map -->
         <div class="col-md-4">
             <div class="card h-100">
                 <div class="card-header fw-bold"><i class="fas fa-map"></i> Map</div>
@@ -216,43 +214,36 @@
 <script>
     const latitude = {{ $hospital->latitude }};
     const longitude = {{ $hospital->longitude }};
-    const hospitalName = '{{ $hospital->name }}'; // Menggunakan nama rumah sakit dari data Anda
+    const hospitalName = '{{ $hospital->name }}';
 
     const map = L.map('map', {
         fullscreenControl: true
     }).setView([latitude, longitude], 16);
 
     // --- Tile Layers ---
-    // 1. Peta Jalan (OpenStreetMap)
     const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19 // Umumnya OpenStreetMap memiliki maxZoom hingga 19
+        maxZoom: 19
     });
 
-    // 2. Peta Satelit (Esri World Imagery) - Direkomendasikan, tidak memerlukan API Key
     const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-        maxZoom: 19 // Esri World Imagery juga umumnya hingga zoom 19
+        maxZoom: 19
     });
 
-    // Tambahkan layer satelit sebagai layer default saat peta pertama kali dimuat
     satelliteLayer.addTo(map);
 
-    // --- Kontrol Layer ---
-    // Definisikan base layers yang bisa dipilih pengguna
     const baseLayers = {
         "Satelit Map": satelliteLayer,
         "Street Map": osmLayer
     };
 
-    // Tambahkan kontrol layer ke peta. Ini akan muncul di pojok kanan atas peta.
     L.control.layers(baseLayers).addTo(map);
 
-    // Tambahkan marker di lokasi rumah sakit
     L.marker([latitude, longitude])
         .addTo(map)
-        .bindPopup(hospitalName) // Menampilkan nama rumah sakit saat marker diklik
-        .openPopup(); // Otomatis membuka popup saat peta dimuat
+        .bindPopup(hospitalName)
+        .openPopup();
 </script>
 
 @endpush

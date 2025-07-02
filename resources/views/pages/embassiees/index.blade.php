@@ -286,22 +286,39 @@
             params.append('polygon', JSON.stringify(drawnPolygonGeoJSON));
         }
 
-        const response = await fetch(`/api/embassy?${params.toString()}`);
-        const embassy = await response.json();
-
-        document.querySelector('.total-embassy').innerText = `Total embassy: ${embassy.length}`;
-
-        if (embassy.length === 0) {
-            embassyMarkers.clearLayers();
-            return;
+        // --- Simpan parameter filter ke localStorage untuk persistensi ---
+        localStorage.setItem('embessyFilterParams', params.toString());
+        if (drawnPolygonGeoJSON) {
+            localStorage.setItem('embessyDrawnPolygon', JSON.stringify(drawnPolygonGeoJSON));
+        } else {
+            localStorage.removeItem('embessyDrawnPolygon');
+        }
+        if (lastClickedEmbassy) {
+            localStorage.setItem('embessyLastClickedCenter', JSON.stringify(lastClickedEmbassy));
+        } else {
+            localStorage.removeItem('embessyLastClickedCenter');
         }
 
-        embassy.forEach(embassy => {
-            const embassyIcon = L.icon({
-                iconUrl: '/images/embassy-icon-new.png', // Pastikan path ikon ini benar
-                iconSize: [24, 24],
-                iconAnchor: [12, 24],
-                popupAnchor: [0, -20]
+        try {
+            const response = await fetch(`/api/embassy?${params.toString()}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const embassy = await response.json();
+
+            document.querySelector('.total-embassy').innerText = `Total embassy: ${embassy.length}`;
+
+            if (embassy.length === 0) {
+                embassyMarkers.clearLayers();
+                return;
+            }
+
+            embassy.forEach(embassy => {
+                const embassyIcon = L.icon({
+                    iconUrl: '/images/embassy-icon-new.png', // Pastikan path ikon ini benar
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 24],
+                    popupAnchor: [0, -20]
             });
 
             const marker = L.marker([embassy.latitude, embassy.longitude], { icon: embassyIcon }).addTo(embassyMarkers);
@@ -329,22 +346,6 @@
             `);
         });
 
-        // Event listener untuk tombol "Set as Destination" (setelah semua marker dibuat)
-        // Ini akan berfungsi jika Anda menambahkan tombol tersebut di string popup di atas.
-        embassyMarkers.eachLayer(function(layer) {
-            layer.on('popupopen', function() {
-                const setDestinationBtn = layer.getPopup().getElement().querySelector('.set-destination-btn');
-                if (setDestinationBtn) {
-                    setDestinationBtn.addEventListener('click', function() {
-                        const lat = parseFloat(this.dataset.lat);
-                        const lng = parseFloat(this.dataset.lng);
-                        setDestination(lat, lng);
-                        map.closePopup(); // Tutup popup setelah tombol diklik
-                    });
-                }
-            });
-        });
-
         if (embassyMarkers.getLayers().length > 0) {
             let bounds = embassyMarkers.getBounds();
             if (destinationCoordinates) { // Perluas batas jika ada penanda tujuan
@@ -354,12 +355,11 @@
         } else if (destinationCoordinates) { // Jika hanya ada tujuan tanpa kedutaan lain
             map.setView(destinationCoordinates, 10);
         }
+    } catch (error) {
+            console.error('Error fetching embessy data:', error);
+            document.querySelector('.total-embassy').innerText = 'Error loading hospitals.';
+        }
     }
-
-    document.getElementById('filterForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        applyFilters();
-    });
 
     function applyFilters() {
         const name = document.getElementById('name').value;
@@ -383,8 +383,76 @@
         }
 
         fetchAndDisplayembassy(filters);
-        updateRadiusCircle();
+        // updateRadiusCircle();
     }
+
+     // Fungsi untuk memuat filter dari localStorage dan menerapkannya
+    function loadFiltersAndApply() {
+        const savedParamsString = localStorage.getItem('embessyFilterParams');
+        const savedPolygonString = localStorage.getItem('embessyDrawnPolygon');
+        const savedCenterString = localStorage.getItem('embessyLastClickedCenter');
+
+        // Pastikan Select2 sudah diinisialisasi sebelum mencoba mengatur nilainya
+        $('.select2-search').select2({
+            placeholder: "🔍 Search...",
+            allowClear: true,
+            width: '100%',
+        });
+
+        if (savedParamsString) {
+            const params = new URLSearchParams(savedParamsString);
+
+            // Isi kembali form fields
+            document.getElementById('name').value = params.get('name') || '';
+            document.getElementById('location').value = params.get('location') || '';
+
+            // Tangani radius
+            const savedRadius = parseInt(params.get('radius')) || 0;
+            document.getElementById('radiusRange').value = savedRadius;
+            document.getElementById('radiusValue').textContent = savedRadius;
+
+            // Tangani checkboxes provinsi
+            const savedProvinces = params.getAll('provinces[]');
+            document.querySelectorAll('.province-checkbox').forEach(checkbox => {
+                checkbox.checked = savedProvinces.includes(checkbox.value);
+            });
+
+            // Pulihkan pilihan Select2
+            $('#name').val(params.get('name')).trigger('change');
+            $('#location').val(params.get('location')).trigger('change');
+
+            // Pulihkan lastClickedEmbassy untuk lingkaran radius jika tersedia
+            if (savedCenterString) {
+                lastClickedEmbassy = JSON.parse(savedCenterString);
+            }
+
+            // Pulihkan poligon yang digambar
+            if (savedPolygonString) {
+                drawnPolygonGeoJSON = JSON.parse(savedPolygonString);
+                // Penting: pastikan GeoJSON adalah tipe yang valid sebelum ditambahkan
+                if (drawnPolygonGeoJSON && drawnPolygonGeoJSON.geometry && drawnPolygonGeoJSON.geometry.coordinates) {
+                    const layer = L.geoJSON(drawnPolygonGeoJSON);
+                    drawnItems.clearLayers();
+                    drawnItems.addLayer(layer);
+
+                    // Sesuaikan peta ke poligon yang digambar
+                    map.fitBounds(layer.getBounds(), { padding: [50, 50] });
+                }
+            }
+
+            // Terapkan filter untuk mengambil data
+            applyFilters();
+            updateRadiusCircle(); // Pastikan lingkaran radius diperbarui setelah semua data dimuat
+        } else {
+            // Jika tidak ada filter yang disimpan, ambil data awal (tanpa filter)
+            fetchAndDisplayembassy();
+        }
+    }
+
+    document.getElementById('filterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        applyFilters();
+    });
 
     document.getElementById('resetFilter').addEventListener('click', function() {
         document.getElementById('filterForm').reset();
@@ -392,6 +460,9 @@
         document.querySelectorAll('.province-checkbox').forEach(checkbox => {
             checkbox.checked = false;
         });
+
+          // Reset Select2
+        $('.select2-search').val(null).trigger('change');
 
         if (centerMarker) {
             map.removeLayer(centerMarker);
@@ -409,22 +480,18 @@
         drawnItems.clearLayers();
         drawnPolygonGeoJSON = null; // Reset GeoJSON yang tersimpan
 
+         // Hapus filter yang disimpan dari localStorage
+        localStorage.removeItem('embassyFilterParams');
+        localStorage.removeItem('embassyDrawnPolygon');
+        localStorage.removeItem('embassyLastClickedCenter');
+
         map.setView([-6.80188562253168, 144.0733101155011], 6);
         fetchAndDisplayembassy();
         updateRadiusCircle();
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-        $(document).ready(function() {
-            $('.select2-search').select2({
-                placeholder: "🔍 Search...",
-                allowClear: true,
-                width: '100%',
-            });
-        });
-
-        fetchAndDisplayembassy();
-        updateRadiusCircle(); // Pastikan lingkaran ditampilkan jika ada nilai radius awal
+        loadFiltersAndApply();
     });
 </script>
 @endpush

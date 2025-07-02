@@ -21,9 +21,15 @@
         border-color: transparent;
     }
 
-     .btn-danger:hover{
+    .btn-danger:hover{
         background-color:#5686c3;
         border-color: transparent;
+    }
+
+    .btn.active {
+        background-color: #5686c3 !important;
+        border-color: transparent !important;
+        color: #fff !important;
     }
 
     .p-3{
@@ -65,29 +71,29 @@
 
         <div class="d-flex gap-2 ms-auto">
 
-            <a href="{{ url('embassiees') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <button onclick="history.back()" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                <i class="bi bi-arrow-left fs-3"></i>
                 <small>Back</small>
-            </a>
+            </button>
             <!-- Button 2 -->
-            <a href="{{ url('embassiees') }}/{{$embassy->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('embassiees') }}/{{$embassy->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees/'.$embassy->id.'/detail') ? 'active' : '' }}">
                 <i class="bi bi-file-earmark-text-fill fs-3"></i>
                 <small>General</small>
             </a>
 
             <!-- Button 5 -->
-            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
                 <i class="bi bi-airplane fs-3"></i>
                 <small>Airports</small>
             </a>
 
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
                 <i class="bi bi-airplane-engines fs-3"></i>
                 <small>Air Charter</small>
             </a>
 
             <!-- Button 7 -->
-            <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
             <i class="bi bi-hospital fs-3"></i>
                 <small>Medical Facilities</small>
             </a>

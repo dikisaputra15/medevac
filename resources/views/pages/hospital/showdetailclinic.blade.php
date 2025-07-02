@@ -15,6 +15,12 @@
         border-color: transparent;
     }
 
+    .btn.active {
+        background-color: #5686c3 !important;
+        border-color: transparent !important;
+        color: #fff !important;
+    }
+
     .p-3{
         padding: 10px !important;
         margin: 0 3px;
@@ -54,40 +60,40 @@
 
         <div class="d-flex gap-2 ms-auto">
 
-            <a href="{{ url('hospital') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+           <button onclick="history.back()" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
                <i class="bi bi-arrow-left fs-3"></i>
                 <small>Back</small>
-            </a>
+            </button>
             <!-- Button 2 -->
-            <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/'.$hospital->id) ? 'active' : '' }}">
                 <i class="bi bi-file-earmark-text-fill fs-3"></i>
                 <small>General</small>
             </a>
 
             <!-- Button 3 -->
-            <a href="{{ url('hospitals/clinic') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('hospitals/clinic') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/clinic/'.$hospital->id) ? 'active' : '' }}">
                 <i class="bi bi-hospital fs-3"></i>
                 <small>Clinical Services</small>
             </a>
 
             <!-- Button 4 -->
-            <a href="{{ url('hospitals/emergency') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('hospitals/emergency') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/emergency/'.$hospital->id) ? 'active' : '' }}">
                 <i class="bi bi-chat-dots-fill fs-3"></i>
                 <small>Emergency Support</small>
             </a>
             <!-- Button 5 -->
-            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
                 <i class="bi bi-airplane fs-3"></i>
                 <small>Airports</small>
             </a>
 
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
                 <i class="bi bi-airplane-engines fs-3"></i>
                 <small>Air Charter</small>
             </a>
 
             <!-- Button 7 -->
-            <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
+            <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
             <i class="bi bi-bank fs-3"></i>
                 <small>Embassies</small>
             </a>

@@ -287,8 +287,25 @@
             params.append('polygon', JSON.stringify(drawnPolygonGeoJSON));
         }
 
-        const response = await fetch(`/api/airports?${params.toString()}`);
-        const airports = await response.json();
+         // --- Simpan parameter filter ke localStorage untuk persistensi ---
+        localStorage.setItem('airportFilterParams', params.toString());
+        if (drawnPolygonGeoJSON) {
+            localStorage.setItem('airportDrawnPolygon', JSON.stringify(drawnPolygonGeoJSON));
+        } else {
+            localStorage.removeItem('airportDrawnPolygon');
+        }
+        if (lastClickedAirport) {
+            localStorage.setItem('airportLastClickedCenter', JSON.stringify(lastClickedAirport));
+        } else {
+            localStorage.removeItem('airportLastClickedCenter');
+        }
+
+        try {
+            const response = await fetch(`/api/airports?${params.toString()}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const airports = await response.json();
 
         document.querySelector('.total-airports').innerText = `Total Airports: ${airports.length}`;
 
@@ -325,20 +342,6 @@
             `);
         });
 
-        airportMarkers.eachLayer(function(layer) {
-            layer.on('popupopen', function() {
-                const setDestinationBtn = layer.getPopup().getElement().querySelector('.set-destination-btn');
-                if (setDestinationBtn) {
-                    setDestinationBtn.addEventListener('click', function() {
-                        const lat = parseFloat(this.dataset.lat);
-                        const lng = parseFloat(this.dataset.lng);
-                        setDestination(lat, lng);
-                        map.closePopup();
-                    });
-                }
-            });
-        });
-
         if (airportMarkers.getLayers().length > 0) {
             let bounds = airportMarkers.getBounds();
             if (destinationCoordinates) {
@@ -348,12 +351,11 @@
         } else if (destinationCoordinates) {
             map.setView(destinationCoordinates, 10);
         }
+    } catch (error) {
+            console.error('Error fetching airport data:', error);
+            document.querySelector('.total-airports').innerText = 'Error loading airports.';
+        }
     }
-
-    document.getElementById('filterForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        applyFilters();
-    });
 
     function applyFilters() {
         const name = document.getElementById('name').value;
@@ -379,8 +381,78 @@
         }
 
         fetchAndDisplayAirports(filters);
-        updateRadiusCircle();
     }
+
+     // Fungsi untuk memuat filter dari localStorage dan menerapkannya
+    function loadFiltersAndApply() {
+        const savedParamsString = localStorage.getItem('airportFilterParams');
+        const savedPolygonString = localStorage.getItem('airportDrawnPolygon');
+        const savedCenterString = localStorage.getItem('airportLastClickedCenter');
+
+        // Pastikan Select2 sudah diinisialisasi sebelum mencoba mengatur nilainya
+        $('.select2-search').select2({
+            placeholder: "🔍 Search...",
+            allowClear: true,
+            width: '100%',
+        });
+
+        if (savedParamsString) {
+            const params = new URLSearchParams(savedParamsString);
+
+            // Isi kembali form fields
+            document.getElementById('name').value = params.get('name') || '';
+            document.getElementById('category').value = params.get('category') || '';
+            document.getElementById('location').value = params.get('location') || '';
+
+            // Tangani radius
+            const savedRadius = parseInt(params.get('radius')) || 0;
+            document.getElementById('radiusRange').value = savedRadius;
+            document.getElementById('radiusValue').textContent = savedRadius;
+
+            // Tangani checkboxes provinsi
+            const savedProvinces = params.getAll('provinces[]');
+            document.querySelectorAll('.province-checkbox').forEach(checkbox => {
+                checkbox.checked = savedProvinces.includes(checkbox.value);
+            });
+
+            // Pulihkan pilihan Select2
+            $('#name').val(params.get('name')).trigger('change');
+            $('#category').val(params.get('category')).trigger('change');
+            $('#location').val(params.get('location')).trigger('change');
+
+            // Pulihkan lastClickedAirport untuk lingkaran radius jika tersedia
+            if (savedCenterString) {
+                lastClickedAirport = JSON.parse(savedCenterString);
+            }
+
+            // Pulihkan poligon yang digambar
+            if (savedPolygonString) {
+                drawnPolygonGeoJSON = JSON.parse(savedPolygonString);
+                // Penting: pastikan GeoJSON adalah tipe yang valid sebelum ditambahkan
+                if (drawnPolygonGeoJSON && drawnPolygonGeoJSON.geometry && drawnPolygonGeoJSON.geometry.coordinates) {
+                    const layer = L.geoJSON(drawnPolygonGeoJSON);
+                    drawnItems.clearLayers();
+                    drawnItems.addLayer(layer);
+
+                    // Sesuaikan peta ke poligon yang digambar
+                    map.fitBounds(layer.getBounds(), { padding: [50, 50] });
+                }
+            }
+
+            // Terapkan filter untuk mengambil data
+            applyFilters();
+            updateRadiusCircle(); // Pastikan lingkaran radius diperbarui setelah semua data dimuat
+        } else {
+            // Jika tidak ada filter yang disimpan, ambil data awal (tanpa filter)
+            fetchAndDisplayAirports();
+        }
+    }
+
+     document.getElementById('filterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        applyFilters();
+    });
+
 
     document.getElementById('resetFilter').addEventListener('click', function() {
         document.getElementById('filterForm').reset();
@@ -388,6 +460,9 @@
         document.querySelectorAll('.province-checkbox').forEach(checkbox => {
             checkbox.checked = false;
         });
+
+         // Reset Select2
+        $('.select2-search').val(null).trigger('change');
 
         if (centerMarker) {
             map.removeLayer(centerMarker);
@@ -404,21 +479,18 @@
         drawnItems.clearLayers();
         drawnPolygonGeoJSON = null;
 
+        // Hapus filter yang disimpan dari localStorage
+        localStorage.removeItem('airportFilterParams');
+        localStorage.removeItem('airportDrawnPolygon');
+        localStorage.removeItem('airportLastClickedCenter');
+
         map.setView([-6.80188562253168, 144.0733101155011], 6);
         fetchAndDisplayAirports();
         updateRadiusCircle();
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-        $(document).ready(function() {
-            $('.select2-search').select2({
-                placeholder: "🔍 Search...",
-                allowClear: true,
-                width: '100%',
-            });
-        });
-        fetchAndDisplayAirports();
-        updateRadiusCircle();
+         loadFiltersAndApply();
     });
 </script>
 @endpush

@@ -15,8 +15,8 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-header">Hi, Admin</li>
-          <li class="nav-item menu-open">
-            <a href="/home" class="nav-link">
+          <li class="nav-item {{ request()->is('/') ? 'menu-open' : '' }}">
+            <a href="/" class="nav-link">
              <i class="bi bi-house-door-fill"></i>
               <p>
                 Dashboard
@@ -60,7 +60,7 @@
             </ul>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item {{ request()->is('hospital') ? 'menu-open' : '' }}">
             <a href="{{ url('hospital') }}" class="nav-link">
             <i class="bi bi-hospital"></i>
               <p>
@@ -69,7 +69,7 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item {{ request()->is('airports') ? 'menu-open' : '' }}">
             <a href="{{ url('airports') }}" class="nav-link">
             <i class="bi bi-airplane"></i>
               <p>
@@ -78,7 +78,7 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item {{ request()->is('embassiees') ? 'menu-open' : '' }}">
             <a href="{{ url('embassiees') }}" class="nav-link">
             <i class="bi bi-bank"></i>
               <p>
