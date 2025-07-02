@@ -65,7 +65,7 @@
     <div class="filter-container p-3">
         <form id="filterForm">
             <div class="row g-3 align-items-end">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="name" class="form-label">Airport Name</label>
                     <select id="name" class="form-select select2-search" name="name">
                         <option value="">🔍 All Airports</option>
@@ -75,7 +75,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="category" class="form-label">Category</label>
                     <select id="category" class="form-select select2-search" name="category">
                         <option value="">🔍 All Categories</option>
@@ -85,7 +85,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="location" class="form-label">Location</label>
                     <select id="location" class="form-select select2-search" name="location">
                         <option value="">🔍 All Locations</option>
@@ -95,12 +95,12 @@
                     </select>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
                     <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="200" value="0">
                 </div>
 
-                 <div class="col-md-6">
+                 <div class="col-md-6 mt-2">
                     <label class="form-label d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#provinceCollapse" aria-expanded="false" aria-controls="provinceCollapse">
                         <span class="me-1">Provinces Region</span>
                         <i class="bi bi-chevron-down" id="provinceToggleIcon"></i>
@@ -120,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 text-end">
+                <div class="col-md-6 mt-2">
                     <button type="submit" class="btn btn-primary">Apply Filter</button>
                     <button type="button" id="resetFilter" class="btn btn-secondary">Reset Filter</button>
                 </div>
