@@ -100,7 +100,7 @@
                     <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="200" value="0">
                 </div>
 
-                 <div class="col-md-6 mt-2">
+                 <div class="col-md-10 mt-2">
                     <label class="form-label d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#provinceCollapse" aria-expanded="false" aria-controls="provinceCollapse">
                         <span class="me-1">Provinces Region</span>
                         <i class="bi bi-chevron-down" id="provinceToggleIcon"></i>
@@ -120,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mt-2">
+                <div class="col-md-2 mt-2">
                     <button type="submit" class="btn btn-primary">Apply Filter</button>
                     <button type="button" id="resetFilter" class="btn btn-secondary">Reset Filter</button>
                 </div>
