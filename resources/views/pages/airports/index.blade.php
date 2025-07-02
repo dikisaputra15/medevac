@@ -128,48 +128,51 @@
         </form>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center gap-3 my-2">
-        <div class="d-flex align-items-center gap-2">
-            <button class="btn btn-link p-0 fw-bold text-decoration-underline text-dark" data-bs-toggle="modal" data-bs-target="#disclaimerModal">
-                <i class="bi bi-info-circle text-primary fs-5"></i>
-                Disclaimer
-            </button>
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center gap-3 my-2">
+
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-link p-0 fw-bold text-decoration-underline text-dark" data-bs-toggle="modal" data-bs-target="#disclaimerModal">
+                    <i class="bi bi-info-circle text-primary fs-5"></i>
+                    Disclaimer
+                </button>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <span class="fw-bold me-2">Map Legend:</span>
+
+                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
+                    <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png" style="width:30px; height:30px;">
+                    <small>International</small>
+                </button>
+
+                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
+                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png" style="width:30px; height:30px;">
+                    <small>Domestic</small>
+                </button>
+
+                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
+                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png" style="width:30px; height:30px;">
+                    <small>Regional Domestic</small>
+                </button>
+
+                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
+                    <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png" style="width:30px; height:30px;">
+                    <small>Military</small>
+                </button>
+
+                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level2Modal">
+                    <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png" style="width:30px; height:30px;">
+                    <small>Combined</small>
+                </button>
+
+                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level1Modal">
+                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png" style="width:30px; height:30px;">
+                    <small>Private</small>
+                </button>
+            </div>
+
         </div>
-
-        <div class="d-flex align-items-center gap-3">
-            <span class="fw-bold me-2">Map Legend:</span>
-
-            <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
-                <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png" style="width:30px; height:30px;">
-                <small>International</small>
-            </button>
-
-            <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
-                <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png" style="width:30px; height:30px;">
-                <small>Domestic</small>
-            </button>
-
-            <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
-                <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png" style="width:30px; height:30px;">
-                <small>Regional Domestic</small>
-            </button>
-
-            <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
-                <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png" style="width:30px; height:30px;">
-                <small>Military</small>
-            </button>
-
-            <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level2Modal">
-                <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png" style="width:30px; height:30px;">
-                <small>Combined</small>
-            </button>
-
-            <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level1Modal">
-                <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png" style="width:30px; height:30px;">
-                <small>Private</small>
-            </button>
-        </div>
-
     </div>
 </div>
 
