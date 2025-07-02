@@ -47,6 +47,10 @@
         height: 45px;
         right: 10px;
     }
+
+     .p-modal{
+        text-align:justify;
+    }
 </style>
 @endpush
 
@@ -116,6 +120,158 @@
         </form>
     </div>
 
+    <div class="d-flex justify-content-between align-items-center gap-3 my-2">
+
+    <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-link p-0 fw-bold text-decoration-underline text-dark" data-bs-toggle="modal" data-bs-target="#disclaimerModal">
+             <i class="bi bi-info-circle text-primary fs-5"></i>
+            Disclaimer
+        </button>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+        <span class="fw-bold me-2">Classification:</span>
+
+        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:30px; height:30px;">
+             <small>Level 6</small>
+        </button>
+
+        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:30px; height:30px;">
+            <small>Level 5</small>
+        </button>
+
+        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
+             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:30px; height:30px;">
+            <small>Level 4</small>
+        </button>
+
+        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
+             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:30px; height:30px;">
+              <small>Level 3</small>
+        </button>
+
+        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level2Modal">
+             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:30px; height:30px;">
+            <small>Level 2</small>
+        </button>
+
+        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level1Modal">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:30px; height:30px;">
+             <small>Level 1</small>
+        </button>
+    </div>
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="disclaimerLabel">Disclaimer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="p-modal">Every attempt has been made to ensure the completeness and accuracy of the most updated information and data available. Clients are advised, however, that provided information, and data is subject to change.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="level1Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="disclaimerLabel">Class 1</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>Village Health Post – Aid Post (VHP)</b></p>
+        <p class="p-modal">Basic level primary health care including health promotion, health improvement, and health protection.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="level2Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="disclaimerLabel">Class 2</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>Community Health Post - Health Sub Center (CHP)</b></p>
+        <p class="p-modal">Primary health, ambulatory care, and short stay inpatient and maternity care at the local rural / remote community level, with a minimum of six (6) health workers to ensure safe 24-hour care and treatment.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="level3Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="disclaimerLabel">Class 3</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>Health Center - Rural / Urban Clinic – Urban Centers (HC-UC)</b></p>
+        <p class="p-modal">Primary health and ambulatory care in urban and rural settings, inpatient, maternity, and newborn care in major provincial urban communities.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="level4Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="disclaimerLabel">Class 4</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>District Hospital - Rural Health Services (DH)</b></p>
+        <p class="p-modal">Primary and secondary level clinical services and district wide public health programs.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="level5Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="disclaimerLabel">Class 5</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>Provincial Hospital, Health Services and Public Health Programs (PHA)</b></p>
+        <p class="p-modal">Secondary level & specialist clinical care services, supporting primary health care, integrating public health programs, and patient referral.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="level6Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="disclaimerLabel">Class 6</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>National Referral Specialist Tertiary and Teaching Hospital - Health Services (NHA)</b></p>
+        <p class="p-modal">Complex tertiary level clinical services, supporting primary health care, public health programs, and a formalized patient referral arrangement.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
     <div id="map"></div>
 
 </div>
@@ -128,6 +284,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <script>
     // Inisialisasi peta Leaflet
