@@ -19,6 +19,7 @@
                 <input type="text" class="form-control" name="airport_name" value="{{ $airport->airport_name; }}">
             </div>
         </div>
+
         <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
@@ -31,6 +32,44 @@
 
                 <textarea id="summernote" name="nearest_airport">
                     <?php echo $airport->nearest_airport; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Domestic Airlines / Destination
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote4" name="domestic_flights">
+                    <?php echo $airport->domestic_flights; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Nearest Medical Facility
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote5" name="nearest_medical_facility">
+                    <?php echo $airport->nearest_medical_facility; ?>
                 </textarea>
 
             </div>
@@ -89,6 +128,8 @@
     $('#summernote').summernote()
     $('#summernote2').summernote()
     $('#summernote3').summernote()
+    $('#summernote4').summernote()
+    $('#summernote5').summernote()
 
   })
 </script>

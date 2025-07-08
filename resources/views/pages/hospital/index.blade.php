@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
-                    <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="200" value="0">
+                    <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="400" value="0">
                 </div>
 
               <div class="col-md-10 mt-2">

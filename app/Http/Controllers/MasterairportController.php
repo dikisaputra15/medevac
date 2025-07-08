@@ -71,6 +71,8 @@ class MasterairportController extends Controller
         // Update data
         $airport->update([
             'airport_name' => $request->input('airport_name'),
+            'nearest_medical_facility' => $request->input('nearest_medical_facility'),
+            'domestic_flights' => $request->input('domestic_flights'),
             'nearest_airport' => $request->input('nearest_airport'),
             'navigation_aids' => $request->input('navigation_aids'),
             'nearest_police_station' => $request->input('nearest_police_station'),
