@@ -21,6 +21,32 @@
         </div>
 
         <div class="col-md-12">
+            <div class="form-group">
+                <label>Category</label>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="combined" value="Combined"
+                        {{ in_array('Combined', $category) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="combined">Combined</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="military" value="Military"
+                        {{ in_array('Military', $category) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="military">Military</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="domestic" value="Domestic"
+                        {{ in_array('Domestic', $category) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="domestic">Domestic</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="international" value="International"
+                        {{ in_array('International', $category) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="international">International</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">

@@ -55,8 +55,10 @@ class MasterairportController extends Controller
     public function edit($id)
     {
         $airport = Airport::findOrFail($id);
+        $category = !empty($airport->category) ? explode(', ', $airport->category) : [];
         return view('pages.master.editairport', [
-            'airport' => $airport
+            'airport' => $airport,
+            'category' => $category
         ]);
     }
 
@@ -67,10 +69,12 @@ class MasterairportController extends Controller
     {
         // Cari data airport berdasarkan ID
         $airport = Airport::findOrFail($id);
+        $category = !empty($request->category) ? implode(', ', $request->category) : '';
 
         // Update data
         $airport->update([
             'airport_name' => $request->input('airport_name'),
+            'category' => $category,
             'nearest_medical_facility' => $request->input('nearest_medical_facility'),
             'domestic_flights' => $request->input('domestic_flights'),
             'nearest_airport' => $request->input('nearest_airport'),
