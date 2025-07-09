@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
                'name'=>'CCI',
                'username'=>'cci',
                'email'=>'cci@gmail.com',
-               'password'=> hash::make('password'),
+               'password'=> hash::make('concord'),
             ],
         ];
 
