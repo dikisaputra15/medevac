@@ -26,7 +26,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('AdminLTE')}}/plugins/summernote/summernote-bs4.min.css">
   <!-- fapicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="{{asset('AdminLTE')}}/dist/img/AdminLTELogo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{asset('AdminLTE')}}/dist/img/favcc.jpeg">
   <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('AdminLTE')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{asset('AdminLTE')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">

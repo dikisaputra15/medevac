@@ -21,29 +21,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', function () {
+     return view('pages.auth.login');
+});
 
-Route::get('home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::resource('hospital', HospitalController::class);
-Route::get('/api/hospitals', [HospitalController::class, 'api']);
-Route::get('/hospitals/{id}', [HospitalController::class, 'showdetail']);
-Route::get('/hospitals/clinic/{id}', [HospitalController::class, 'showdetailclinic']);
-Route::get('/hospitals/emergency/{id}', [HospitalController::class, 'showdetailemergency']);
-Route::resource('embassiees', EmbassieesController::class);
-Route::get('/api/embassiees', [EmbassieesController::class, 'api']);
-Route::get('/embassiees/{id}/detail', [EmbassieesController::class, 'showdetail']);
-Route::resource('airports', AirportsController::class);
-Route::get('/api/airports', [AirportsController::class, 'api']);
-Route::get('/airports/{id}/detail', [AirportsController::class, 'showdetail']);
-Route::get('/airports/{id}/emergency', [AirportsController::class, 'showdetailemergency']);
-Route::resource('aircharter', AircharterController::class);
-Route::get('/airports/{id}/airlinesdestination', [AirportsController::class, 'showairlinesdestination']);
-Route::get('/airports/{id}/navigation', [AirportsController::class, 'shownavigation']);
-Route::get('/api/airports', [AirportsController::class, 'filter']);
-Route::get('/api/embassy', [EmbassieesController::class, 'filter']);
-Route::get('/api/hospital', [HospitalController::class, 'filter']);
+Route::middleware(['auth'])->group(function () {
 
-Route::resource('airportdata', MasterairportController::class);
-Route::resource('hospitaldata', MasterhospitalController::class);
-Route::resource('embessydata', MasterembessyController::class);
-Route::resource('aircharterdata', MasteraircharterController::class);
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('hospital', HospitalController::class);
+    Route::get('/api/hospitals', [HospitalController::class, 'api']);
+    Route::get('/hospitals/{id}', [HospitalController::class, 'showdetail']);
+    Route::get('/hospitals/clinic/{id}', [HospitalController::class, 'showdetailclinic']);
+    Route::get('/hospitals/emergency/{id}', [HospitalController::class, 'showdetailemergency']);
+    Route::resource('embassiees', EmbassieesController::class);
+    Route::get('/api/embassiees', [EmbassieesController::class, 'api']);
+    Route::get('/embassiees/{id}/detail', [EmbassieesController::class, 'showdetail']);
+    Route::resource('airports', AirportsController::class);
+    Route::get('/api/airports', [AirportsController::class, 'api']);
+    Route::get('/airports/{id}/detail', [AirportsController::class, 'showdetail']);
+    Route::get('/airports/{id}/emergency', [AirportsController::class, 'showdetailemergency']);
+    Route::resource('aircharter', AircharterController::class);
+    Route::get('/airports/{id}/airlinesdestination', [AirportsController::class, 'showairlinesdestination']);
+    Route::get('/airports/{id}/navigation', [AirportsController::class, 'shownavigation']);
+    Route::get('/api/airports', [AirportsController::class, 'filter']);
+    Route::get('/api/embassy', [EmbassieesController::class, 'filter']);
+    Route::get('/api/hospital', [HospitalController::class, 'filter']);
+
+    Route::resource('airportdata', MasterairportController::class);
+    Route::resource('hospitaldata', MasterhospitalController::class);
+    Route::resource('embessydata', MasterembessyController::class);
+    Route::resource('aircharterdata', MasteraircharterController::class);
+
+});

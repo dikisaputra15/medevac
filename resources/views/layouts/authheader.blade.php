@@ -13,5 +13,8 @@
   <link rel="stylesheet" href="{{asset('AdminLTE')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('AdminLTE')}}/dist/css/adminlte.min.css">
+
+    <!-- fapicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="{{asset('AdminLTE')}}/dist/img/favcc.jpeg">
 </head>
 <body class="hold-transition login-page">

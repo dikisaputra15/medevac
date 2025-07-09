@@ -14,15 +14,15 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-              <!-- <a class="btn btn-danger" title="Logout" href=""
+              <a class="btn btn-danger" title="Logout" href=""
                   onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                     <i class="fa fa-power-off"></i>
               </a>
 
-              <form id="logout-form" action="" method="POST" class="d-none">
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                   @csrf
-              </form> -->
+              </form>
       </li>
     </ul>
   </nav>
