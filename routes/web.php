@@ -36,7 +36,7 @@ Route::get('/', function (Request $request) {
             $decoded = JWT::decode($token, new Key($secret, 'HS256'));
 
             // Validasi token
-            if ($decoded->iss !== 'https://medievac.concordreview.com') {
+            if ($decoded->iss !== 'https://pg.concordreview.com') {
                 return response('Issuer tidak valid', 403);
             }
 
