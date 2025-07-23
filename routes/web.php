@@ -9,6 +9,10 @@ use App\Http\Controllers\MasterhospitalController;
 use App\Http\Controllers\MasterembessyController;
 use App\Http\Controllers\MasteraircharterController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +25,46 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-     return view('pages.auth.login');
+Route::get('/', function (Request $request) {
+    $token = $request->query('token');
+
+    // Jika ada token, proses login otomatis
+    if ($token) {
+        try {
+            $secret = env('JWT_AUTH_SECRET_KEY', 'Chelsea123!@#');
+            $decoded = JWT::decode($token, new Key($secret, 'HS256'));
+
+            // Validasi token
+            if ($decoded->iss !== 'https://medievac.concordreview.com') {
+                return response('Issuer tidak valid', 403);
+            }
+
+            if ($decoded->exp < time()) {
+                return response('Token kadaluarsa', 403);
+            }
+
+            $userData = (array) $decoded->data->user ?? null;
+
+            if (!$userData || !isset($userData['email'])) {
+                return response('Data user tidak ditemukan dalam token', 403);
+            }
+
+           $user = User::where('email', $userData['email'])->first();
+
+           if (!$user) {
+                return response('Token tidak valid (user tidak ditemukan)', 403);
+            }
+
+            Auth::login($user);
+            return redirect('/home');
+
+        } catch (\Exception $e) {
+            return response('Token tidak valid: ' . $e->getMessage(), 403);
+        }
+    }
+
+    // Jika tidak ada token, tampilkan halaman login biasa
+    return view('pages.auth.login');
 });
 
 Route::middleware(['auth'])->group(function () {
