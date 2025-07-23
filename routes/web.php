@@ -10,6 +10,7 @@ use App\Http\Controllers\MasterembessyController;
 use App\Http\Controllers\MasteraircharterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use App\Models\User;
