@@ -8,6 +8,7 @@ use App\Http\Controllers\MasterairportController;
 use App\Http\Controllers\MasterhospitalController;
 use App\Http\Controllers\MasterembessyController;
 use App\Http\Controllers\MasteraircharterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -94,5 +95,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('hospitaldata', MasterhospitalController::class);
     Route::resource('embessydata', MasterembessyController::class);
     Route::resource('aircharterdata', MasteraircharterController::class);
+    Route::resource('user', UserController::class);
 
 });

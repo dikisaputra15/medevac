@@ -57,6 +57,12 @@
                   <p>Aircharter</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ url('user') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User</p>
+                </a>
+              </li>
             </ul>
           </li>
 
