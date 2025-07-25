@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
-@section('title','Hospital')
+@section('title','User')
 
 @section('conten')
 
 <div class="card">
     <div class="card-header bg-white">
-        <h3>Hospital List</h3>
+        <h3>User List</h3>
     </div>
 
      <div id="session" data-session="{{ session('success') }}"></div>
