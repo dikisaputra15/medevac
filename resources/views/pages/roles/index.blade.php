@@ -49,7 +49,7 @@
             $('#userTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('roles.index') }}",
+                ajax: "/roles",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
