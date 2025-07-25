@@ -8,6 +8,7 @@ use App\Http\Controllers\MasterairportController;
 use App\Http\Controllers\MasterhospitalController;
 use App\Http\Controllers\MasterembessyController;
 use App\Http\Controllers\MasteraircharterController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -90,11 +91,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/api/airports', [AirportsController::class, 'filter']);
     Route::get('/api/embassy', [EmbassieesController::class, 'filter']);
     Route::get('/api/hospital', [HospitalController::class, 'filter']);
+    Route::post('/user/{user}/update-role', [UserController::class, 'updateRole'])->name('user.updateRole');
 
     Route::resource('airportdata', MasterairportController::class);
     Route::resource('hospitaldata', MasterhospitalController::class);
     Route::resource('embessydata', MasterembessyController::class);
     Route::resource('aircharterdata', MasteraircharterController::class);
+    Route::resource('roles', RoleController::class);
     Route::resource('user', UserController::class);
 
 });

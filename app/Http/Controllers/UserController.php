@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -14,16 +15,25 @@ class UserController extends Controller
     public function index()
     {
         if(request()->ajax()) {
-            return datatables()->of(User::select('*'))
+            $data = User::with('roles');
+            return datatables()->of($data)
+            ->addColumn('roles', function ($user) {
+                return $user->getRoleNames()->join(', ');
+            })
             ->addColumn('action', function($row){
+                  $roleName = $row->roles->first()->name ?? '';
                  $updateButton = '<a href="' . route('user.edit', $row->id) . '" class="btn btn-primary btn-sm">Edit</a>';
-                 return $updateButton;
+                 $ubahrole = '<button class="btn btn-warning btn-sm edit-role-btn" data-id="' . $row->id . '" data-role="' . $roleName . '">Ubah Role</button>';
+                 return $updateButton." ". $ubahrole;
             })
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
         }
-        return view('pages.user.index');
+         return view('pages.user.index', [
+                'title' => "User",
+                 'roles' => Role::all(),
+        ]);
     }
 
     /**
@@ -31,8 +41,11 @@ class UserController extends Controller
      */
     public function create()
     {
-          return view('pages.user.create', [
-            'title' => "Create User"]);
+        $roles = Role::all();
+        return view('pages.user.create', [
+            'title' => "Create User",
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -96,5 +109,16 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+      public function updateRole(Request $request, User $user)
+    {
+        $request->validate([
+            'role' => 'required|exists:roles,name',
+        ]);
+
+        $user->syncRoles([$request->role]);
+
+        return response()->json(['message' => 'Role berhasil diperbarui.']);
     }
 }

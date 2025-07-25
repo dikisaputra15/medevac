@@ -21,12 +21,45 @@
                       <th>No</th>
                       <th>Name</th>
                       <th>Email</th>
+                      <th>Role</th>
                       <th>Action</th>
                     </tr>
                   </thead>
 
             </table>
     </div>
+</div>
+
+        <!-- Modal Ubah Role -->
+<div class="modal fade" id="modalUbahRole" tabindex="-1" role="dialog" aria-labelledby="ubahRoleLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form id="formUbahRole">
+        @csrf
+        <input type="hidden" id="edit_user_id" name="user_id">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Ubah Role Pengguna</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+                  <label for="edit_role">Role</label>
+                  <select class="form-control" id="edit_role" name="role">
+                      @foreach ($roles as $role)
+                          <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option>
+                      @endforeach
+                  </select>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+  </div>
 </div>
 @endsection
 
@@ -66,6 +99,10 @@
                         name: 'email'
                     },
                     {
+                        data: 'roles',
+                        name: 'roles'
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         orderable: false,
@@ -73,6 +110,47 @@
                     }
                 ]
             });
+
+             // Buka modal & set data
+$('#userTable').on('click', '.edit-role-btn', function () {
+    var userId = $(this).data('id');
+    var currentRole = $(this).data('role');
+
+    $('#edit_user_id').val(userId);
+    $('#edit_role').val(currentRole);
+    $('#modalUbahRole').modal('show');
+});
+
+// Submit update role
+$('#formUbahRole').on('submit', function (e) {
+    e.preventDefault();
+    var userId = $('#edit_user_id').val();
+    var role = $('#edit_role').val();
+
+    $.ajax({
+        url: '/user/' + userId + '/update-role',
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            role: role
+        },
+        success: function (response) {
+            $('#modalUbahRole').modal('hide');
+            $('#userTable').DataTable().ajax.reload(null, false);
+
+            Swal.fire({
+                title: 'Sukses!',
+                text: response.message,
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        },
+        error: function () {
+            alert('Gagal mengubah role.');
+        }
+    });
+});
 
 
         });

@@ -24,6 +24,7 @@
             </a>
           </li>
 
+          @role('admin')
            <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -58,6 +59,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{ url('roles') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Role</p>
+                </a>
+              </li>
+               <li class="nav-item">
                 <a href="{{ url('user') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>User</p>
@@ -65,6 +72,7 @@
               </li>
             </ul>
           </li>
+          @endrole
 
           <li class="nav-item {{ request()->is('hospital') ? 'menu-open' : '' }}">
             <a href="{{ url('hospital') }}" class="nav-link">
