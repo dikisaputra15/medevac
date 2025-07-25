@@ -98,3 +98,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UserController::class);
 
 });
+
+Route::middleware(['web', 'jwt.login'])->group(function () {
+    Route::get('/airports', [AirportsController::class, 'index']);
+    Route::get('/hospital', [HospitalController::class, 'index']);
+    Route::get('/embassiees', [EmbassieesController::class, 'index']);
+});
