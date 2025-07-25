@@ -24,7 +24,7 @@
             </a>
           </li>
 
-          @role('admin')
+          <!-- @role('admin') -->
            <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -72,7 +72,7 @@
               </li>
             </ul>
           </li>
-          @endrole
+          <!-- @endrole -->
 
           <li class="nav-item {{ request()->is('hospital') ? 'menu-open' : '' }}">
             <a href="{{ url('hospital') }}" class="nav-link">
