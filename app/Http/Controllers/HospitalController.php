@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hospital;
+use App\Models\Airport;
 use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 
@@ -80,7 +81,31 @@ class HospitalController extends Controller
         $hospital = Hospital::findOrFail($id);
         $idprov = $hospital->province_id;
         $province = DB::table('provincesregions')->where('id', $idprov)->first();
-        return view('pages.hospital.showdetail', compact('hospital','province'));
+
+        $latitude = $hospital->latitude;
+        $longitude = $hospital->longitude;
+        $radius_km = 100; // Your desired radius
+
+        // Fetch nearby hospitals (excluding the current one)
+        $nearbyHospitals = Hospital::selectRaw("
+            id, name, icon, latitude, longitude,
+            ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance
+        ", [$latitude, $longitude, $latitude])
+        ->having('distance', '<', $radius_km)
+        ->where('id', '!=', $hospital->id) // Exclude the current hospital
+        ->orderBy('distance')
+        ->get();
+
+        // Fetch nearby airports
+        $nearbyAirports = Airport::selectRaw("
+            id, airport_name AS name, icon, latitude, longitude,
+            ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance
+        ", [$latitude, $longitude, $latitude])
+        ->having('distance', '<', $radius_km)
+        ->orderBy('distance')
+        ->get();
+
+        return view('pages.hospital.showdetail', compact('hospital','province','nearbyHospitals','nearbyAirports','radius_km'));
     }
 
     public function showdetailclinic($id)

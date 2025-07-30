@@ -74,15 +74,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('hospital', HospitalController::class);
-    Route::get('/api/hospitals', [HospitalController::class, 'api']);
+    // Route::get('/api/hospitals', [HospitalController::class, 'api']);
     Route::get('/hospitals/{id}', [HospitalController::class, 'showdetail']);
     Route::get('/hospitals/clinic/{id}', [HospitalController::class, 'showdetailclinic']);
     Route::get('/hospitals/emergency/{id}', [HospitalController::class, 'showdetailemergency']);
     Route::resource('embassiees', EmbassieesController::class);
-    Route::get('/api/embassiees', [EmbassieesController::class, 'api']);
+    // Route::get('/api/embassiees', [EmbassieesController::class, 'api']);
     Route::get('/embassiees/{id}/detail', [EmbassieesController::class, 'showdetail']);
     Route::resource('airports', AirportsController::class);
-    Route::get('/api/airports', [AirportsController::class, 'api']);
+    // Route::get('/api/airports', [AirportsController::class, 'api']);
     Route::get('/airports/{id}/detail', [AirportsController::class, 'showdetail']);
     Route::get('/airports/{id}/emergency', [AirportsController::class, 'showdetailemergency']);
     Route::resource('aircharter', AircharterController::class);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Airport;
+use App\Models\Hospital;
 use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 use Exception; // Import Exception for better error handling
@@ -176,7 +177,25 @@ class AirportsController extends Controller
     public function showdetail($id)
     {
         $airport = Airport::findOrFail($id);
-        return view('pages.airports.showdetail', compact('airport'));
+
+         // --- Ambil Bandara Terdekat ---
+        $nearbyAirports = Airport::selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$airport->latitude, $airport->longitude, $airport->latitude])
+            ->having('distance', '<', 100) // Filter dalam radius 100 km (sesuaikan)
+            ->where('id', '!=', $airport->id) // Jangan sertakan bandara utama itu sendiri
+            ->orderBy('distance')
+            ->limit(10) // Ambil 10 bandara terdekat
+            ->get();
+
+        // --- Ambil Rumah Sakit Terdekat ---
+        $nearbyHospitals = Hospital::selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$airport->latitude, $airport->longitude, $airport->latitude])
+            ->having('distance', '<', 100) // Filter dalam radius 100 km (sesuaikan)
+            ->orderBy('distance')
+            ->limit(10) // Ambil 10 rumah sakit terdekat
+            ->get();
+
+        $radius_km = 100; // Radius lingkaran untuk ditampilkan di peta
+
+        return view('pages.airports.showdetail', compact('airport', 'nearbyAirports', 'nearbyHospitals', 'radius_km'));
     }
 
     public function showdetailemergency($id)

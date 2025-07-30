@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hospital;
+use App\Models\Provincesregion;
 
 class MasterhospitalController extends Controller
 {
@@ -55,8 +56,10 @@ class MasterhospitalController extends Controller
     public function edit($id)
     {
         $hospital = Hospital::findOrFail($id);
+        $provinces = Provincesregion::all();
         return view('pages.master.edithospital', [
-            'hospital' => $hospital
+            'hospital' => $hospital,
+            'provinces' => $provinces
         ]);
     }
 
