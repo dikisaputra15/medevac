@@ -79,7 +79,7 @@
         <form id="filterForm">
             <div class="row g-3 align-items-end">
                 {{-- Filter for Airports --}}
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="airport_name" class="form-label">Airport Name</label>
                     <select id="airport_name" class="form-select select2-search" name="airport_name">
                         <option value="">🔍 All Airports</option>
@@ -89,7 +89,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="airport_category" class="form-label">Airport Category</label>
                     <select id="airport_category" class="form-select select2-search" name="airport_category">
                         <option value="">🔍 All Categories</option>
@@ -99,7 +99,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="airport_location" class="form-label">Airport Location</label>
                     <select id="airport_location" class="form-select select2-search" name="airport_location">
                         <option value="">🔍 All Locations</option>
@@ -110,7 +110,7 @@
                 </div>
 
                 {{-- Filter for Hospitals --}}
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="hospital_name" class="form-label">Hospital Name</label>
                     <select id="hospital_name" class="form-select select2-search" name="hospital_name">
                         <option value="">🔍 All Hospitals</option>
@@ -120,7 +120,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="hospital_category" class="form-label">Hospital Category</label>
                     <select id="hospital_category" class="form-select select2-search" name="hospital_category">
                         <option value="">🔍 All Categories</option>
@@ -130,7 +130,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="hospital_location" class="form-label">Hospital Location</label>
                     <select id="hospital_location" class="form-select select2-search" name="hospital_location">
                         <option value="">🔍 All Locations</option>
@@ -140,12 +140,17 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
                     <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="400" value="0">
                 </div>
 
-                <div class="col-md-9 mt-2">
+                 <div class="col-md-6 mt-2">
+                    <button type="submit" class="btn btn-primary">Apply Filter</button>
+                    <button type="button" id="resetFilter" class="btn btn-secondary">Reset Filter</button>
+                </div>
+
+                <div class="col-md-12 mt-2">
                     <label class="form-label d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#provinceCollapse" aria-expanded="false" aria-controls="provinceCollapse">
                         <span class="me-1">Provinces Region</span>
                         <i class="bi bi-chevron-down" id="provinceToggleIcon"></i>
@@ -165,10 +170,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-3 mt-2">
-                    <button type="submit" class="btn btn-primary">Apply Filter</button>
-                    <button type="button" id="resetFilter" class="btn btn-secondary">Reset Filter</button>
-                </div>
             </div>
         </form>
     </div>
