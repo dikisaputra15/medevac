@@ -80,9 +80,8 @@
             <div class="row g-3 align-items-end">
                 {{-- Filter for Airports --}}
                 <div class="col-md-4">
-                    <label for="airport_name" class="form-label">Airport Name</label>
-                    <select id="airport_name" class="form-select select2-search" name="airport_name">
-                        <option value="">🔍 All Airports</option>
+                    <select id="airport_name" class="form-select select21-search" name="airport_name">
+                        <option value="">🔍 Airport Name</option>
                         @foreach($airportNames as $name)
                             <option value="{{ $name }}">{{ $name }}</option>
                         @endforeach
@@ -90,9 +89,8 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="airport_category" class="form-label">Airport Category</label>
-                    <select id="airport_category" class="form-select select2-search" name="airport_category">
-                        <option value="">🔍 All Categories</option>
+                    <select id="airport_category" class="form-select select22-search" name="airport_category">
+                        <option value="">🔍 Airport Category</option>
                         @foreach($airportCategories as $category)
                             <option value="{{ $category }}">{{ $category }}</option>
                         @endforeach
@@ -100,52 +98,30 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="airport_location" class="form-label">Airport Location</label>
-                    <select id="airport_location" class="form-select select2-search" name="airport_location">
-                        <option value="">🔍 All Locations</option>
-                        @foreach($airportLocations as $location)
-                            <option value="{{ $location }}">{{ $location }}</option>
-                        @endforeach
-                    </select>
+                    <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
+                    <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="400" value="0">
                 </div>
 
                 {{-- Filter for Hospitals --}}
-                <div class="col-md-4">
-                    <label for="hospital_name" class="form-label">Hospital Name</label>
-                    <select id="hospital_name" class="form-select select2-search" name="hospital_name">
-                        <option value="">🔍 All Hospitals</option>
+                <div class="col-md-4 mt-2">
+                    <select id="hospital_name" class="form-select select23-search" name="hospital_name">
+                        <option value="">🔍 Hospital Name</option>
                         @foreach($hospitalNames as $name)
                             <option value="{{ $name }}">{{ $name }}</option>
                         @endforeach
                     </select>
                 </div>
 
-                <div class="col-md-4">
-                    <label for="hospital_category" class="form-label">Hospital Category</label>
-                    <select id="hospital_category" class="form-select select2-search" name="hospital_category">
-                        <option value="">🔍 All Categories</option>
+                <div class="col-md-4 mt-2">
+                    <select id="hospital_category" class="form-select select24-search" name="hospital_category">
+                        <option value="">🔍 Hospital Category</option>
                         @foreach($hospitalCategories as $category)
                             <option value="{{ $category }}">{{ $category }}</option>
                         @endforeach
                     </select>
                 </div>
 
-                <div class="col-md-4">
-                    <label for="hospital_location" class="form-label">Hospital Location</label>
-                    <select id="hospital_location" class="form-select select2-search" name="hospital_location">
-                        <option value="">🔍 All Locations</option>
-                        @foreach($hospitalLocations as $location)
-                            <option value="{{ $location }}">{{ $location }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
-                    <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="400" value="0">
-                </div>
-
-                 <div class="col-md-6 mt-2">
+                 <div class="col-md-4 mt-2">
                     <button type="submit" class="btn btn-primary">Apply Filter</button>
                     <button type="button" id="resetFilter" class="btn btn-secondary">Reset Filter</button>
                 </div>
@@ -777,11 +753,9 @@
     async function applyFilters() {
         const airportName = document.getElementById('airport_name').value;
         const airportCategory = document.getElementById('airport_category').value;
-        const airportLocation = document.getElementById('airport_location').value;
 
         const hospitalName = document.getElementById('hospital_name').value;
         const hospitalCategory = document.getElementById('hospital_category').value;
-        const hospitalLocation = document.getElementById('hospital_location').value;
 
         const radius = parseInt(document.getElementById('radiusRange').value);
         const selectedProvinces = Array.from(document.querySelectorAll('.province-checkbox:checked'))
@@ -800,7 +774,6 @@
         const airportFilters = {
             name: airportName,
             category: airportCategory,
-            location: airportLocation,
             ...commonFilters
         };
         const airports = await fetchData('/api/airports', airportFilters);
@@ -809,7 +782,6 @@
         const hospitalFilters = {
             name: hospitalName,
             category: hospitalCategory,
-            location: hospitalLocation,
             ...commonFilters
         };
         const hospitals = await fetchData('/api/hospital', hospitalFilters);
@@ -838,10 +810,8 @@
         const currentFilters = {
             airport_name: airportName,
             airport_category: airportCategory,
-            airport_location: airportLocation,
             hospital_name: hospitalName,
             hospital_category: hospitalCategory,
-            hospital_location: hospitalLocation,
             radius: radius,
             provinces: selectedProvinces,
             center_lat: lastClickedLocation ? lastClickedLocation.lat : null,
@@ -855,8 +825,26 @@
     // --- Load Filters and Apply on Page Load ---
     async function loadFiltersAndApply() {
         // Initialize Select2 first
-        $('.select2-search').select2({
-            placeholder: "🔍 Search...",
+        $('.select21-search').select2({
+            placeholder: "🔍 Airport Name",
+            allowClear: true,
+            width: '100%',
+        });
+
+        $('.select22-search').select2({
+            placeholder: "🔍 Airport Category",
+            allowClear: true,
+            width: '100%',
+        });
+
+         $('.select23-search').select2({
+            placeholder: "🔍 Hospital Name",
+            allowClear: true,
+            width: '100%',
+        });
+
+        $('.select24-search').select2({
+            placeholder: "🔍 Hospital Category",
             allowClear: true,
             width: '100%',
         });
@@ -871,10 +859,8 @@
             // Populate form fields
             document.getElementById('airport_name').value = savedFilters.airport_name || '';
             document.getElementById('airport_category').value = savedFilters.airport_category || '';
-            document.getElementById('airport_location').value = savedFilters.airport_location || '';
             document.getElementById('hospital_name').value = savedFilters.hospital_name || '';
             document.getElementById('hospital_category').value = savedFilters.hospital_category || '';
-            document.getElementById('hospital_location').value = savedFilters.hospital_location || '';
 
             const savedRadius = parseInt(savedFilters.radius) || 0;
             document.getElementById('radiusRange').value = savedRadius;
@@ -889,10 +875,8 @@
             // Trigger Select2 updates
             $('#airport_name').val(savedFilters.airport_name).trigger('change');
             $('#airport_category').val(savedFilters.airport_category).trigger('change');
-            $('#airport_location').val(savedFilters.airport_location).trigger('change');
             $('#hospital_name').val(savedFilters.hospital_name).trigger('change');
             $('#hospital_category').val(savedFilters.hospital_category).trigger('change');
-            $('#hospital_location').val(savedFilters.hospital_location).trigger('change');
 
             if (savedLocationString && savedLocationString !== 'null') {
                 lastClickedLocation = JSON.parse(savedLocationString);
@@ -937,10 +921,8 @@
         // Reset Select2
         $('#airport_name').val(null).trigger('change');
         $('#airport_category').val(null).trigger('change');
-        $('#airport_location').val(null).trigger('change');
         $('#hospital_name').val(null).trigger('change');
         $('#hospital_category').val(null).trigger('change');
-        $('#hospital_location').val(null).trigger('change');
 
         if (radiusCircle) {
             map.removeLayer(radiusCircle);
