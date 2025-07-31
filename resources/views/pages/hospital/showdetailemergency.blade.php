@@ -130,7 +130,7 @@
             </div>
 
             <div class="card h-100">
-                <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Nearest Airport</div>
+                <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Nearest Airport</div>
               <div class="card-body overflow-auto" style="max-height: 350px;">
                       <?php echo $hospital->nearest_airfield; ?>
             </div>
@@ -139,7 +139,7 @@
 
           <div class="col-sm-4 d-flex flex-column gap-3">
             <div class="card h-100">
-              <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Nearest Police station</div>
+              <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Nearest Police station</div>
              <div class="card-body overflow-auto" style="max-height: 350px;">
                     <?php echo $hospital->nearest_police_station; ?>
             </div>
