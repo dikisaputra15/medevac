@@ -197,11 +197,11 @@
                     </tr>
                     <tr>
                         <td>Laboratory Assistants</td>
-                        <td>{{ $hospital->laboratory_assitent }}</td>
+                        <td>{{ $hospital->laboratory_assistants }}</td>
                     </tr>
                     <tr>
                         <td>Community Health Workers/Orderlies</td>
-                        <td>{{ $hospital->community_health_workers }}</td>
+                        <td>{{ $hospital->community_health }}</td>
                     </tr>
                     <tr>
                         <td>Health Inspectors</td>
@@ -213,7 +213,7 @@
                     </tr>
                     <tr>
                         <td>Health Extension Officers</td>
-                        <td>{{ $hospital->health_extension_officers }}</td>
+                        <td>{{ $hospital->health_extention_officers }}</td>
                     </tr>
                     <tr>
                         <td>Casuals</td>
