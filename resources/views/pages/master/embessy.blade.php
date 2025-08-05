@@ -12,6 +12,9 @@
      <div id="session" data-session="{{ session('success') }}"></div>
 
     <div class="card-body">
+         <div class="form-group">
+            <a href="{{route('embessydata.create')}}" class="btn btn-primary">Add Data</a>
+        </div>
             <table id="embessyTable" class="table" style="width:100%">
                   <thead>
                     <tr>

@@ -550,7 +550,7 @@
 
                 marker.bindPopup(`
                     <b>${hospital.name || 'N/A'}</b><br>
-                    ${hospital.image ? `<img src="${hospital.image}" width="200" style="margin: 5px 0;"><br>` : ''}
+                    ${hospital.image ? `<img src="${hospital.image}" style="margin: 5px 0; width:200px; height:200px;"><br>` : ''}
                     <strong>Location:</strong> ${hospital.address || 'N/A'}<br>
                     <strong>Coords:</strong> ${hospital.latitude}, ${hospital.longitude}<br>
                     <strong>Province:</strong> ${hospital.provinces_region || 'N/A'}<br>

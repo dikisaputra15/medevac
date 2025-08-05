@@ -360,7 +360,7 @@
             // dan atribut data-lat, data-lng ke dalam string popup.
             marker.bindPopup(`
                 <b>${embassy.name_embassiees || 'N/A'}</b><br>
-                ${embassy.image ? `<img src="${embassy.image}" width="200" style="margin: 5px 0;"><br>` : ''}
+                ${embassy.image ? `<img src="${embassy.image}" style="margin: 5px 0; width:200px; height:200px"><br>` : ''}
                 <strong>Address:</strong> ${embassy.location || 'N/A'}<br>
                 <strong>Telephone:</strong> ${embassy.telephone || 'N/A'}<br>
                 ${embassy.website ? `<strong>Website:</strong><a href='${embassy.website}' target='__blank'> ${embassy.website} </a><br>` : ''}

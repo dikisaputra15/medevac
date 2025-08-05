@@ -1,117 +1,146 @@
 @extends('layouts.master')
 
-@section('title','Edit Airport')
+@section('title','Add Airport')
 
 @section('conten')
 
 <div class="card">
     <div class="card-header bg-white">
-        <h3>Edit Airport</h3>
+        <h3>Add Airport</h3>
     </div>
 
-<form action="{{ route('airportdata.update', $airport->id) }}" enctype="multipart/form-data" method="POST">
+<form action="{{ route('airportdata.store') }}" enctype="multipart/form-data" method="POST">
     @csrf
-    @method('PUT')
     <div class="card-body">
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Airport Name</label>
-                <input type="text" class="form-control" name="airport_name" value="{{ $airport->airport_name; }}">
+                <label>Airport Name</label>
+                <input type="text" class="form-control" name="airport_name">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Provinces, Region</label>
+                <label>Provinces, Region</label>
                 <select class="form-control" name="province_id">
-                    <?php
-                        foreach ($provinces as $prov) {
-
-                            if ($prov->id==$airport->province_id) {
-                                $select="selected";
-                            }else{
-                                $select="";
-                            }
-
-                        ?>
-                            <option <?php echo $select; ?> value="<?php echo $prov->id;?>"><?php echo $prov->provinces_region; ?></option>
-
-                    <?php } ?>
-
+                        <option value="0">-Choosse Provinces Region-</option>
+                    @foreach($provinces as $prov)
+                        <option value="{{$prov->id}}">{{$prov->provinces_region}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Address</label>
-                <input type="text" class="form-control" name="address" value="{{ $airport->address; }}">
+                <label>Address</label>
+                <input type="text" class="form-control" name="address">
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Latitude</label>
-                <input type="text" class="form-control" name="latitude" value="{{ $airport->latitude; }}">
+                <label>Latitude</label>
+                <input type="text" class="form-control" name="latitude">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Longitude</label>
-                <input type="text" class="form-control" name="longitude" value="{{ $airport->longitude; }}">
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Telephone</label>
-                <input type="text" class="form-control" name="telephone" value="{{ $airport->telephone; }}">
+                <label>Longitude</label>
+                <input type="text" class="form-control" name="longitude">
             </div>
         </div>
 
          <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Fax</label>
-                <input type="text" class="form-control" name="fax" value="{{ $airport->fax; }}">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Telephone
+              </h3>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote20" name="telephone">
+                </textarea>
+
+            </div>
+
+          </div>
         </div>
 
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Email</label>
-                <input type="text" class="form-control" name="email" value="{{ $airport->email; }}">
+          <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Fax
+              </h3>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote21" name="fax">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+          <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Email
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote22" name="email">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Website
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote23" name="website">
+                </textarea>
+
+            </div>
+
+          </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Website</label>
-                <input type="text" class="form-control" name="website" value="{{ $airport->website; }}">
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Category</label>
+                <label>Category</label>
                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="combined" value="Combined"
-                        {{ in_array('Combined', $category) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="category[]" id="combined" value="Combined">
                     <label class="form-check-label" for="combined">Combined</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="military" value="Military"
-                        {{ in_array('Military', $category) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="category[]" id="military" value="Military">
                     <label class="form-check-label" for="military">Military</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="domestic" value="Domestic"
-                        {{ in_array('Domestic', $category) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="category[]" id="domestic" value="Domestic">
                     <label class="form-check-label" for="domestic">Domestic</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="international" value="International"
-                        {{ in_array('International', $category) ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="category[]" id="international" value="International">
                     <label class="form-check-label" for="international">International</label>
                 </div>
             </div>
@@ -119,22 +148,22 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Classification</label>
-                <input type="text" class="form-control" name="classification" value="{{ $airport->classification; }}">
+                <label>Classification</label>
+                <input type="text" class="form-control" name="classification">
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit IATA Code</label>
-                <input type="text" class="form-control" name="iata_code" value="{{ $airport->iata_code; }}">
+                <label>IATA Code</label>
+                <input type="text" class="form-control" name="iata_code">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit ICAO Code</label>
-                <input type="text" class="form-control" name="icao_code" value="{{ $airport->icao_code; }}">
+                <label>ICAO Code</label>
+                <input type="text" class="form-control" name="icao_code">
             </div>
         </div>
 
@@ -142,14 +171,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Hours Of Operation
+                Hours Of Operation
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote6" name="nearest_airport">
-                    <?php echo $airport->hrs_of_operation; ?>
                 </textarea>
 
             </div>
@@ -161,14 +189,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Distance From
+                Distance From
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote7" name="nearest_airport">
-                    <?php echo $airport->distance_from; ?>
                 </textarea>
 
             </div>
@@ -178,64 +205,64 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Time Zone</label>
-                <input type="text" class="form-control" name="time_zone" value="{{ $airport->time_zone; }}">
+                <label>Time Zone</label>
+                <input type="text" class="form-control" name="time_zone">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Elevation</label>
-                <input type="text" class="form-control" name="elevation" value="{{ $airport->elevation; }}">
+                <label>Elevation</label>
+                <input type="text" class="form-control" name="elevation">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Operator</label>
-                <input type="text" class="form-control" name="operator" value="{{ $airport->operator; }}">
+                <label>Operator</label>
+                <input type="text" class="form-control" name="operator">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Magnetic Variation</label>
-                <input type="text" class="form-control" name="magnetic_variation" value="{{ $airport->magnetic_variation; }}">
+                <label>Magnetic Variation</label>
+                <input type="text" class="form-control" name="magnetic_variation">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Beacon</label>
-                <input type="text" class="form-control" name="beacon" value="{{ $airport->beacon; }}">
+                <label>Beacon</label>
+                <input type="text" class="form-control" name="beacon">
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Max Aircraft Capability</label>
-                <input type="text" class="form-control" name="max_aircraft_capability" value="{{ $airport->max_aircraft_capability; }}">
+                <label>Max Aircraft Capability</label>
+                <input type="text" class="form-control" name="max_aircraft_capability">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Air Traffic</label>
-                <input type="text" class="form-control" name="air_traffic" value="{{ $airport->air_traffic; }}">
+                <label>Air Traffic</label>
+                <input type="text" class="form-control" name="air_traffic">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Meteorology Services</label>
-                <input type="text" class="form-control" name="meteorology_services" value="{{ $airport->meteorology_services; }}">
+                <label>Meteorology Services</label>
+                <input type="text" class="form-control" name="meteorology_services">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Aviation Fuel Depot</label>
-                <input type="text" class="form-control" name="aviation_fuel_depot" value="{{ $airport->aviation_fuel_depot; }}">
+                <label>Aviation Fuel Depot</label>
+                <input type="text" class="form-control" name="aviation_fuel_depot">
             </div>
         </div>
 
@@ -243,14 +270,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Supplies Eqipment
+                Supplies Eqipment
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote8" name="supplies_eqipment">
-                    <?php echo $airport->supplies_eqipment; ?>
                 </textarea>
 
             </div>
@@ -260,8 +286,8 @@
 
           <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Internet Services</label>
-                <input type="text" class="form-control" name="internet_services" value="{{ $airport->internet_services; }}">
+                <label>Internet Services</label>
+                <input type="text" class="form-control" name="internet_services">
             </div>
         </div>
 
@@ -269,14 +295,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Public Facilities
+                Public Facilities
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote9" name="public_facilities">
-                    <?php echo $airport->public_facilities; ?>
                 </textarea>
 
             </div>
@@ -288,14 +313,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Public Transportation
+                Public Transportation
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote10" name="public_transportation">
-                    <?php echo $airport->public_transportation; ?>
                 </textarea>
 
             </div>
@@ -307,14 +331,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Note
+                Note
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote11" name="note">
-                    <?php echo $airport->note; ?>
                 </textarea>
 
             </div>
@@ -326,14 +349,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Nearest Accommodation
+                Nearest Accommodation
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote12" name="nearest_accommodation">
-                    <?php echo $airport->nearest_accommodation; ?>
                 </textarea>
 
             </div>
@@ -345,14 +367,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Other Flight Information
+                Other Flight Information
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote13" name="other_flight_information">
-                    <?php echo $airport->other_flight_information; ?>
                 </textarea>
 
             </div>
@@ -364,14 +385,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Other Reference Website
+                Other Reference Website
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote14" name="other_reference_website">
-                    <?php echo $airport->other_reference_website; ?>
                 </textarea>
 
             </div>
@@ -383,14 +403,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Flight Information
+                Flight Information
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote15" name="flight_information">
-                    <?php echo $airport->flight_information; ?>
                 </textarea>
 
             </div>
@@ -402,14 +421,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit International Flight
+                International Flight
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote16" name="international_flight">
-                    <?php echo $airport->international_flight; ?>
                 </textarea>
 
             </div>
@@ -421,14 +439,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Domestic Airlines / Destination
+                Domestic Airlines / Destination
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote4" name="domestic_flights">
-                    <?php echo $airport->domestic_flights; ?>
                 </textarea>
 
             </div>
@@ -440,14 +457,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Nearest Medical Facility
+                Nearest Medical Facility
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote5" name="nearest_medical_facility">
-                    <?php echo $airport->nearest_medical_facility; ?>
                 </textarea>
 
             </div>
@@ -459,14 +475,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Nearest Airports
+                Nearest Airports
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote" name="nearest_airport">
-                    <?php echo $airport->nearest_airport; ?>
                 </textarea>
 
             </div>
@@ -476,15 +491,15 @@
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Runway Edge Lights</label>
-                <input type="text" class="form-control" name="runway_edge_lights" value="{{ $airport->runway_edge_lights; }}">
+                <label>Runway Edge Lights</label>
+                <input type="text" class="form-control" name="runway_edge_lights">
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Reil</label>
-                <input type="text" class="form-control" name="reil" value="{{ $airport->reil; }}">
+                <label>Reil</label>
+                <input type="text" class="form-control" name="reil">
             </div>
         </div>
 
@@ -492,14 +507,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Runways
+                Runways
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote17" name="runways">
-                    <?php echo $airport->runways; ?>
                 </textarea>
 
             </div>
@@ -511,14 +525,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Navigation Aids (NAVAIDs)
+                Navigation Aids (NAVAIDs)
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote2" name="navigation_aids">
-                    <?php echo $airport->navigation_aids; ?>
                 </textarea>
 
             </div>
@@ -530,14 +543,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Nearby Airport Navigation Aids
+                Nearby Airport Navigation Aids
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote19" name="nearby_airport_navigation_aids">
-                    <?php echo $airport->nearby_airport_navigation_aids; ?>
                 </textarea>
 
             </div>
@@ -549,14 +561,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Communication
+                Communication
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote18" name="communication">
-                    <?php echo $airport->communication; ?>
                 </textarea>
 
             </div>
@@ -568,14 +579,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Nearest Police Station
+                Nearest Police Station
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote3" name="nearest_police_station">
-                    <?php echo $airport->nearest_police_station; ?>
                 </textarea>
 
             </div>
@@ -585,7 +595,7 @@
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Image</label>
+                <label>Image</label>
                 <input type="file" class="form-control" name="image">
             </div>
         </div>
@@ -606,8 +616,7 @@
 
                 @foreach($icons as $icon)
                     <label style="margin-right: 15px;">
-                        <input type="radio" name="icon" value="{{ $icon['url'] }}"
-                            @checked(old('icon', $airport->icon ?? '') === $icon['url'])>
+                        <input type="radio" name="icon" value="{{ $icon['url'] }}">
                         <img src="{{ $icon['url'] }}" style="width:24px; height:24px;"> {{ $icon['label'] }}
                     </label>
                 @endforeach
@@ -615,7 +624,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-primary">Update Data</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
 </div>
@@ -644,6 +653,10 @@
     $('#summernote17').summernote()
     $('#summernote18').summernote()
     $('#summernote19').summernote()
+    $('#summernote20').summernote()
+    $('#summernote21').summernote()
+    $('#summernote22').summernote()
+    $('#summernote23').summernote()
 
   })
 </script>

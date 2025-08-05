@@ -11,8 +11,4 @@ class Airport extends Model
 
     protected $guarded = [];
 
-    public function province()
-    {
-        return $this->belongsTo(Province::class);
-    }
 }

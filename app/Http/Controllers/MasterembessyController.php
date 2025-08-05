@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Embassiees;
+use App\Models\Provincesregion;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class MasterembessyController extends Controller
 {
@@ -13,9 +16,9 @@ class MasterembessyController extends Controller
     public function index()
     {
          if(request()->ajax()) {
-            return datatables()->of(Embassiees::select('*'))
+            return datatables()->of(Embassiees::select('*')->orderBy('id', 'desc'))
             ->addColumn('action', function($row){
-                 $updateButton = '<a href="#" class="btn btn-primary btn-sm">Edit</a>';
+                 $updateButton = '<a href="' . route('embessydata.edit', $row->id) . '" class="btn btn-primary btn-sm">Edit</a>';
                  return $updateButton;
             })
             ->rawColumns(['action'])
@@ -30,7 +33,10 @@ class MasterembessyController extends Controller
      */
     public function create()
     {
-        //
+         $provinces = Provincesregion::all();
+        return view('pages.master.createembessy', [
+            'provinces' => $provinces
+        ]);
     }
 
     /**
@@ -38,7 +44,32 @@ class MasterembessyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $embassy = new Embassiees();
+
+         if ($request->hasFile('image')) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $randomName = Str::random(40) . '.' . $extension;
+
+            // Simpan di folder 'images' di disk 'public'
+            $path = $request->file('image')->storeAs('image/embassy', $randomName, 'public');
+
+            // Simpan path ke database
+            $embassy->image = 'storage/'.$path;
+
+         }
+
+        $embassy->province_id = $request->input('province_id');
+        $embassy->name_embassiees = $request->input('embassy_name');
+        $embassy->location = $request->input('location');
+        $embassy->telephone = $request->input('telephone');
+        $embassy->fax = $request->input('fax');
+        $embassy->email = $request->input('email');
+        $embassy->website = $request->input('website');
+        $embassy->latitude = $request->input('latitude');
+        $embassy->longitude = $request->input('longitude');
+
+        $embassy->save();
+        return redirect()->route('embessydata.index')->with('success', 'Data Succesfully Save');
     }
 
     /**
@@ -52,17 +83,53 @@ class MasterembessyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $embassy = Embassiees::findOrFail($id);
+        $provinces = Provincesregion::all();
+        return view('pages.master.editembassy', [
+            'embassy' => $embassy,
+            'provinces' => $provinces
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Cari data airport berdasarkan ID
+        $embassy = Embassiees::findOrFail($id);
+
+         // Update data
+        $data = [
+            'province_id' => $request->input('province_id'),
+            'name_embassiees' => $request->input('embassy_name'),
+            'location' => $request->input('location'),
+            'telephone' => $request->input('telephone'),
+            'fax' => $request->input('fax'),
+            'email' => $request->input('email'),
+            'website' => $request->input('website'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
+        ];
+
+         if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('image/embassy', 'public');
+
+            // Hapus gambar lama jika ada
+            if ($embassy->image && Storage::disk('public')->exists($embassy->image)) {
+                Storage::disk('public')->delete($embassy->image);
+            }
+
+            $data['image'] = 'storage/'.$path;
+
+        }
+
+         $embassy->update($data);
+
+         // Redirect dengan pesan sukses
+        return redirect()->route('embessydata.index')->with('success', 'Data berhasil diupdate');
     }
 
     /**
