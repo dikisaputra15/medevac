@@ -134,6 +134,10 @@
                         <td>{{ $hospital->helipad }}</td>
                     </tr>
                     <tr>
+                        <td>Note</td>
+                        <td>{{ $hospital->comments }}</td>
+                    </tr>
+                    <tr>
                         <td>Intensive Care Unit (ICU)</td>
                         <td>{{ $hospital->icu }}</td>
                     </tr>
