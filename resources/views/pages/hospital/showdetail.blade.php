@@ -141,7 +141,7 @@
                         <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Details</div>
                         <div class="card-body overflow-auto" style="height: 130px;">
                             <p>
-                                <strong>Telephone:</strong> {{$hospital->telephone}}
+                                <strong>Telephone:</strong> <?php echo $hospital->telephone; ?>
                             </p>
                             <p>
                                 <strong>Email:</strong> <?php echo $hospital->email; ?>
