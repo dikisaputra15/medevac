@@ -111,7 +111,7 @@
              <!-- Button 5 -->
             <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
                 <i class="bi bi-hospital fs-3"></i>
-                <small>Medical Facilities</small>
+                <small>Medical Facility</small>
             </a>
 
             <!-- Button 6 -->

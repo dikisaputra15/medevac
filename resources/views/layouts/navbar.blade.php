@@ -11,6 +11,12 @@
       </li>
     </ul>
 
+    <div class="header bg-white mb-2">
+        <h3>
+             @yield('page-title', '')
+        </h3>
+    </div>
+
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">

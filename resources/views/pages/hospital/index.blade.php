@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('title','Hospitals')
+@section('page-title', 'Papua New Guinea Medical Facility')
 
 @push('styles')
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -57,17 +58,14 @@
 @section('conten')
 
 <div class="card">
-    <div class="card-header bg-white">
-        <h3 style="text-align: center;">Papua New Guinea Hospital</h3>
-    </div>
 
     <div class="filter-container p-3">
         <form id="filterForm">
             <div class="row g-3 align-items-end">
                 <div class="col-md-3">
-                    <label for="name" class="form-label">Hospital Name</label>
+                    <label for="name" class="form-label">Medical Facility Name</label>
                     <select id="name" class="form-select select2-search" name="name">
-                        <option value="">🔍 All Hospital</option>
+                        <option value="">🔍 All Medical Facility</option>
                         @foreach($hospitalNames as $name)
                             <option value="{{ $name }}">{{ $name }}</option>
                         @endforeach
@@ -416,7 +414,7 @@
     const totalControl = L.control({ position: 'topright' });
     totalControl.onAdd = function (map) {
         const div = L.DomUtil.create('div', 'total-hospital');
-        div.innerHTML = 'Loading hospital count...';
+        div.innerHTML = 'Loading Medical Facility count...';
         return div;
     };
     totalControl.addTo(map);
@@ -521,7 +519,7 @@
             }
             const hospitalData = await response.json(); // Ubah nama variabel untuk menghindari konflik
 
-            document.querySelector('.total-hospital').innerText = `Total hospital: ${hospitalData.length}`;
+            document.querySelector('.total-hospital').innerText = `Medical Facility : ${hospitalData.length}`;
 
             if (hospitalData.length === 0) {
                 hospitalMarkers.clearLayers();

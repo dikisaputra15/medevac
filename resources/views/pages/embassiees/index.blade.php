@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('title','Embassiees')
+@section('page-title', 'Papua New Guinea Embassiees')
 
 @push('styles')
 
@@ -55,9 +56,6 @@
 @section('conten')
 
 <div class="card">
-    <div class="card-header bg-white">
-        <h3 style="text-align: center;">Papua New Guinea Embassiees</h3>
-    </div>
 
       <div class="filter-container p-3">
         <form id="filterForm">

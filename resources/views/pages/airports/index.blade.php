@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('title', 'Airports')
+@section('page-title', 'Papua New Guinea Airports')
 
 @push('styles')
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -58,9 +59,6 @@
 @section('conten')
 
 <div class="card">
-    <div class="card-header bg-white">
-        <h3 style="text-align: center;">Papua New Guinea Airports</h3>
-    </div>
 
     <div class="filter-container p-3">
         <form id="filterForm">

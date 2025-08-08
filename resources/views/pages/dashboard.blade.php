@@ -2,6 +2,8 @@
 
 @section('title', 'Dashboard')
 
+@section('page-title', 'Papua New Guinea Crisis Management Tools')
+
 @push('styles')
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -71,9 +73,6 @@
 @section('conten')
 
 <div class="card">
-    <div class="card-header bg-white">
-        <h3 style="text-align: center;">Papua New Guinea Medical Evacuation</h3>
-    </div>
 
     <div class="filter-container p-3">
         <form id="filterForm">
@@ -105,7 +104,7 @@
                 {{-- Filter for Hospitals --}}
                 <div class="col-md-4 mt-2">
                     <select id="hospital_name" class="form-select select23-search" name="hospital_name">
-                        <option value="">🔍 Hospital Name</option>
+                        <option value="">🔍 Medical Facility Name</option>
                         @foreach($hospitalNames as $name)
                             <option value="{{ $name }}">{{ $name }}</option>
                         @endforeach
@@ -114,7 +113,7 @@
 
                 <div class="col-md-4 mt-2">
                     <select id="hospital_category" class="form-select select24-search" name="hospital_category">
-                        <option value="">🔍 Hospital Category</option>
+                        <option value="">🔍 Medical Facility Category</option>
                         @foreach($hospitalCategories as $category)
                             <option value="{{ $category }}">{{ $category }}</option>
                         @endforeach
@@ -226,7 +225,7 @@
         <div class="inner">
           <h3 id="totalHospitalsDisplay">{{ $totalhospital }}</h3>
 
-          <p>Hospital</p>
+          <p>Medical Facility</p>
         </div>
         <div class="icon">
             <i class="ion ion-pie-graph"></i>
@@ -838,13 +837,13 @@
         });
 
          $('.select23-search').select2({
-            placeholder: "🔍 Hospital Name",
+            placeholder: "🔍 Medical Facility Name",
             allowClear: true,
             width: '100%',
         });
 
         $('.select24-search').select2({
-            placeholder: "🔍 Hospital Category",
+            placeholder: "🔍 Medical Facility Category",
             allowClear: true,
             width: '100%',
         });
