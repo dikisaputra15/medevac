@@ -156,13 +156,6 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Classification</label>
-                <input type="text" class="form-control" name="classification">
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
                 <label>IATA Code</label>
                 <input type="text" class="form-control" name="iata_code">
             </div>

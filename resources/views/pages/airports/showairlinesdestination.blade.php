@@ -65,6 +65,19 @@
     .fas {
     color: #346abb;
     }
+
+    table tr:nth-child(even) {
+        background-color: #ffffff; /* light gray */
+    }
+
+    table tr:nth-child(odd) {
+        background-color: #c1e4f5; /* white */
+    }
+
+    table td{
+        text-align: center;
+        border-color: #78d9e9;
+    }
 </style>
 
 @endpush
@@ -131,7 +144,7 @@
     </div>
 
      <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body" style="padding:0 7px;">
             <small><i>Last Updated</i></small>
             <small><i>{{ $airport->created_at->format('M Y') }}</i></small>
         </div>

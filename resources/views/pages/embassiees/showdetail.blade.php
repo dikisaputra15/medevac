@@ -101,7 +101,7 @@
     </div>
 
     <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body" style="padding:0 7px;">
             <small><i>Last Updated</i></small>
             <small><i>{{ $embassy->created_at->format('M Y') }}</i></small>
         </div>

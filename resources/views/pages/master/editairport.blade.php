@@ -129,13 +129,6 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Classification</label>
-                <input type="text" class="form-control" name="classification" value="{{ $airport->classification; }}">
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
                 <label>Edit IATA Code</label>
                 <input type="text" class="form-control" name="iata_code" value="{{ $airport->iata_code; }}">
             </div>

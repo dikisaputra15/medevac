@@ -109,7 +109,7 @@
     </div>
 
     <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body" style="padding:0 7px;">
             <small><i>Last Updated</i></small>
              <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
         </div>
@@ -601,10 +601,18 @@
                 const marker = L.marker([item.latitude, item.longitude], { icon: itemIcon });
 
                 const name = item.name || item.airport_name || 'N/A';
+
+                let detailUrl;
+                if (type === 'Airport') {
+                    detailUrl = `/airports/${item.id}/detail`;
+                } else {
+                    detailUrl = `/hospitals/${item.id}`;
+                }
+
                 const distance = item.distance ? `<br><strong>Distance:</strong> ${item.distance.toFixed(2)} km` : '';
 
                 marker.bindPopup(`
-                    <b>${name}</b> (${type})<br>
+                    <b><a href="${detailUrl}">${name}</a></b> (${type})<br>
                     ${distance}
                 `);
 

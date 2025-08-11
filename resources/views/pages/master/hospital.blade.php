@@ -20,6 +20,7 @@
                     <tr>
                       <th>No</th>
                       <th>Hospital Name</th>
+                      <th>Created At</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -61,12 +62,52 @@
                         name: 'name'
                     },
                     {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         orderable: false,
                         searchable: false
                     }
                 ]
+            });
+
+               // Event listener untuk tombol hapus
+            $('#hospitalTable').on('click', '.delete-btn', function () {
+                var roleId = $(this).data('id');
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "Data will be deleted permanently!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, Delete!",
+                    cancelButtonText: "Cancel"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/hospitaldata/' + roleId,
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response){
+                            if(response.success == 1){
+                                alert("Record deleted.");
+                                var oTable = $('#hospitalTable').dataTable();
+                                oTable.fnDraw(false);
+                            }else{
+                                    alert("Invalid ID.");
+                                }
+                            },
+
+                        });
+                    }
+                });
             });
 
 

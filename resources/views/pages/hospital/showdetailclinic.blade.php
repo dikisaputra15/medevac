@@ -46,6 +46,16 @@
     .fas {
         color: #346abb;
     }
+
+    .clinical-service-table{
+
+    }
+
+    .clinical-service-table td{
+        padding: 6px 0;
+        border-bottom: 1px solid #dee2e6;
+        border-top:none;
+    }
 </style>
 
 @endpush
@@ -102,7 +112,7 @@
     </div>
 
      <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body" style="padding:0 7px;">
             <small><i>Last Updated</i></small>
              <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
         </div>
@@ -113,7 +123,7 @@
             <div class="card h-400">
                 <div class="card-header fw-bold"><i class="fas fa-stethoscope"></i>Clinical Services</div>
               <div class="card-body overflow-auto" style="max-height: 400px;">
-                <table class="table table-hover">
+                <table class="table table-hover clinical-service-table">
                     <tr>
                         <td>Inpatient Services</td>
                         <td>{{ $hospital->inpatient_services }}</td>
@@ -187,7 +197,7 @@
             <div class="card h-400">
                   <div class="card-header fw-bold"><i class="fas fa-user-nurse"></i>Medical Personnel</div>
              <div class="card-body overflow-auto" style="max-height: 400px;">
-                <table class="table table-hover">
+                <table class="table table-hover clinical-service-table">
                     <tr>
                         <td>Doctors</td>
                         <td>{{ $hospital->doctors }}</td>

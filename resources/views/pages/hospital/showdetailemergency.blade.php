@@ -105,7 +105,7 @@
     </div>
 
      <div class="card mb-4 d-flex flex-column gap-3">
-        <div class="card-body overflow-auto" style="max-height: 350px;">
+        <div class="card-body overflow-auto" style="max-height: 350px; padding:0 7px;">
              <small><i>Last Updated</i></small>
              <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
         </div>

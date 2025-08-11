@@ -7,6 +7,7 @@ use App\Models\Hospital;
 use App\Models\Provincesregion;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class MasterhospitalController extends Controller
 {
@@ -17,11 +18,16 @@ class MasterhospitalController extends Controller
     {
          if(request()->ajax()) {
             return datatables()->of(Hospital::select('*')->orderBy('id', 'desc'))
+            ->addColumn('created_at', function ($row) {
+                // Format tanggal jadi dd-mm-yyyy HH:MM
+                return Carbon::parse($row->created_at)->format('Y-m-d H:i:s');
+            })
             ->addColumn('action', function($row){
                  $updateButton = '<a href="' . route('hospitaldata.edit', $row->id) . '" class="btn btn-primary btn-sm">Edit</a>';
-                 return $updateButton;
+                 $deleteButton = '<button class="btn btn-sm btn-danger delete-btn" data-id="'.$row->id.'">Delete</button>';
+                 return $updateButton." ".$deleteButton;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','created_at'])
             ->addIndexColumn()
             ->make(true);
         }
@@ -214,8 +220,18 @@ class MasterhospitalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $role = Hospital::findOrFail($id);
+
+        if($role->delete()){
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully';
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
+        }
+
+        return response()->json($response);
     }
 }

@@ -120,7 +120,7 @@
     </div>
 
     <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body" style="padding:0 7px;">
             <small><i>Last Updated</i></small>
             <small><i>{{ $airport->created_at->format('M Y') }}</i></small>
         </div>
@@ -133,7 +133,6 @@
                 <div class="card-body overflow-auto" style="height: 500px;">
                     <div class="col-md-12">
                         <p><strong>Category:</strong> {{ $airport->category }} </p>
-                        <p><strong>Classification:</strong> {{ $airport->classification }} </p>
                         <p><strong>IATA Code:</strong> {{ $airport->iata_code }} </p>
                         <p><strong>ICAO Code:</strong> {{ $airport->icao_code }} </p>
                         <p><strong>Hrs of Operation:</strong> {{ $airport->hrs_of_operation }} </p>
@@ -627,10 +626,18 @@
 
                 // Gunakan properti yang benar tergantung tipe (airport_name untuk bandara, name untuk rumah sakit)
                 const name = item.name || item.airport_name || 'N/A';
+
+                let detailUrl;
+                if (type === 'Airport') {
+                    detailUrl = `/airports/${item.id}/detail`;
+                } else {
+                    detailUrl = `/hospitals/${item.id}`;
+                }
+
                 const distance = item.distance ? `<br><strong>Distance:</strong> ${item.distance.toFixed(2)} km` : '';
 
                 marker.bindPopup(`
-                    <b>${name}</b> (${type})<br>
+                    <b><a href="${detailUrl}">${name}</a></b> (${type})<br>
                     ${distance}
                 `);
 
