@@ -357,8 +357,7 @@
             // Jika Anda ingin ini berfungsi, tambahkan tombol dengan class 'set-destination-btn'
             // dan atribut data-lat, data-lng ke dalam string popup.
             marker.bindPopup(`
-                <b>${embassy.name_embassiees || 'N/A'}</b><br>
-                ${embassy.image ? `<img src="${embassy.image}" style="margin: 5px 0; width:200px; height:200px"><br>` : ''}
+                <h5 style="border-bottom:1px solid #cccccc;">${embassy.name_embassiees || 'N/A'}</h5>
                 <strong>Address:</strong> ${embassy.location || 'N/A'}<br>
                 <strong>Telephone:</strong> ${embassy.telephone || 'N/A'}<br>
                 ${embassy.website ? `<strong>Website:</strong><a href='${embassy.website}' target='__blank'> ${embassy.website} </a><br>` : ''}

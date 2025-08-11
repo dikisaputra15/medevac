@@ -66,6 +66,10 @@
         color: #346abb;
     }
 
+    table{
+        width: 100%;
+    }
+
     table tr:nth-child(even) {
         background-color: #ffffff; /* light gray */
     }

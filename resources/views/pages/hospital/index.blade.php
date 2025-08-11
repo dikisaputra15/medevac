@@ -547,8 +547,7 @@
                 });
 
                 marker.bindPopup(`
-                    <b>${hospital.name || 'N/A'}</b><br>
-                    ${hospital.image ? `<img src="${hospital.image}" style="margin: 5px 0; width:200px; height:200px;"><br>` : ''}
+                    <h5 style="border-bottom:1px solid #cccccc;">${hospital.name || 'N/A'}</h5>
                     <strong>Location:</strong> ${hospital.address || 'N/A'}<br>
                     <strong>Coords:</strong> ${hospital.latitude}, ${hospital.longitude}<br>
                     <strong>Province:</strong> ${hospital.provinces_region || 'N/A'}<br>

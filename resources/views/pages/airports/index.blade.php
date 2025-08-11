@@ -525,8 +525,7 @@
             });
 
             marker.bindPopup(`
-                <b>${airport.airport_name || 'N/A'}</b><br>
-                ${airport.image ? `<img src="${airport.image}" style="margin: 5px 0; width:200px; height:200px;"><br>` : ''}
+                <h5 style="border-bottom:1px solid #cccccc;">${airport.airport_name || 'N/A'}</h5>
                 <strong>Address:</strong> ${airport.address || 'N/A'}<br>
                 <strong>Telephone:</strong> ${airport.telephone || 'N/A'}<br>
                 ${airport.website ? `<strong>Website:</strong><a href='${airport.website}' target='__blank'> ${airport.website} </a><br>` : ''}
