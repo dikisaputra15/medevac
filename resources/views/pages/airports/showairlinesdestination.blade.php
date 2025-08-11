@@ -75,8 +75,9 @@
     }
 
     table td{
-        text-align: center;
+        text-align: left;
         border-color: #78d9e9;
+        vertical-align: top;
     }
 </style>
 
