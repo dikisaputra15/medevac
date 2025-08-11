@@ -158,7 +158,7 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote6" name="nearest_airport">
+                <textarea id="summernote6" name="hrs_of_operation">
                     <?php echo $airport->hrs_of_operation; ?>
                 </textarea>
 
@@ -177,7 +177,7 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote7" name="nearest_airport">
+                <textarea id="summernote7" name="distance_from">
                     <?php echo $airport->distance_from; ?>
                 </textarea>
 
