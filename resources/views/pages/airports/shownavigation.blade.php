@@ -79,7 +79,7 @@
     }
 
     table td{
-        text-align: center;
+        text-align: justify;
         border-color: #78d9e9;
     }
 </style>
