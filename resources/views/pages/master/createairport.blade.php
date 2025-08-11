@@ -127,21 +127,29 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>Category</label>
-                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="combined" value="Combined">
-                    <label class="form-check-label" for="combined">Combined</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="military" value="Military">
-                    <label class="form-check-label" for="military">Military</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="international" value="International">
+                    <label class="form-check-label" for="international">International</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="category[]" id="domestic" value="Domestic">
                     <label class="form-check-label" for="domestic">Domestic</label>
                 </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="regionaldomestic" value="Regional Domestic">
+                    <label class="form-check-label" for="domestic">Regional Domestic</label>
+                </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="international" value="International">
-                    <label class="form-check-label" for="international">International</label>
+                    <input class="form-check-input" type="checkbox" name="category[]" id="military" value="Military">
+                    <label class="form-check-label" for="military">Military</label>
+                </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="combined" value="Combined">
+                    <label class="form-check-label" for="combined">Combined (Civil - Military)</label>
+                </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="private" value="Private">
+                    <label class="form-check-label" for="military">Private</label>
                 </div>
             </div>
         </div>
@@ -177,7 +185,7 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote6" name="nearest_airport">
+                <textarea id="summernote6" name="hrs_of_operation">
                 </textarea>
 
             </div>
@@ -195,7 +203,7 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote7" name="nearest_airport">
+                <textarea id="summernote7" name="distance_from">
                 </textarea>
 
             </div>
@@ -609,7 +617,8 @@
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png', 'label' => 'International'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png', 'label' => 'Domestic'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png', 'label' => 'Regional Domestic'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png', 'label' => 'Combined'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png', 'label' => 'Military'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png', 'label' => 'Combined (Civil - Military)'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png', 'label' => 'Private'],
                     ];
                 @endphp

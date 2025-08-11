@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('title','More Details')
+@section('page-title', 'Papua New Guinea Airports')
 
 @push('styles')
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -72,7 +73,7 @@
 <div class="card">
     <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
         <div class="d-flex gap-2 align-items-center">
-            <h2 class="fw-bold">{{ $airport->airport_name }} - Papua New Guinea</h2>
+            <h2 class="fw-bold">{{ $airport->airport_name }}</h2>
         </div>
 
         <div class="d-flex gap-2 ms-auto">
@@ -139,11 +140,11 @@
                         <p><strong>Distance from:</strong><br>
                             {{ $airport->distance_from }}
                         </p>
-                        <p><strong>Time Zone:</strong> UTC +10.0</p>
-                        <p><strong>Operator:</strong> National Airports Corporation</p>
-                        <p><strong>Magnetic Variation:</strong> 5.7 E</p>
-                        <p><strong>Beacon:</strong> Yes</p>
-                        <p><strong>Max Aircraft Capability:</strong> Boeing 767</p>
+                        <p><strong>Time Zone:</strong> {{ $airport->time_zone }} </p>
+                        <p><strong>Operator:</strong> {{ $airport->operator }} </p>
+                        <p><strong>Magnetic Variation:</strong> {{ $airport->magnetic_variation }} </p>
+                        <p><strong>Beacon:</strong> {{ $airport->beacon }}</p>
+                        <p><strong>Max Aircraft Capability:</strong> {{ $airport->max_aircraft_capability }} </p>
                     </div>
                 </div>
             </div>

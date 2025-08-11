@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('title','Emergency Support')
+@section('page-title', 'Papua New Guinea Medical Facility')
 
 @push('styles')
 <style>
@@ -58,7 +59,7 @@
 
     <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
         <div class="d-flex gap-2 align-items-center">
-            <h2 class="fw-bold">{{ $hospital->name }} - Papua New Guinea</h2>
+            <h2 class="fw-bold">{{ $hospital->name }}</h2>
         </div>
 
         <div class="d-flex gap-2 ms-auto">

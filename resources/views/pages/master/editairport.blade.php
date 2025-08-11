@@ -94,25 +94,35 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>Edit Category</label>
-                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="combined" value="Combined"
-                        {{ in_array('Combined', $category) ? 'checked' : '' }}>
-                    <label class="form-check-label" for="combined">Combined</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="military" value="Military"
-                        {{ in_array('Military', $category) ? 'checked' : '' }}>
-                    <label class="form-check-label" for="military">Military</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="domestic" value="Domestic"
-                        {{ in_array('Domestic', $category) ? 'checked' : '' }}>
-                    <label class="form-check-label" for="domestic">Domestic</label>
-                </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="category[]" id="international" value="International"
                         {{ in_array('International', $category) ? 'checked' : '' }}>
                     <label class="form-check-label" for="international">International</label>
+                </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="domestic" value="Domestic"
+                        {{ in_array('Domestic', $category) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="domestic">Domestic</label>
+                </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="regionaldomestic" value="Regional Domestic"
+                        {{ in_array('Regional Domestic', $category) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="regional domestic">Regional Domestic</label>
+                </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="military" value="Military"
+                        {{ in_array('Military', $category) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="military">Military</label>
+                </div>
+                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="combined" value="Combined"
+                        {{ in_array('Combined', $category) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="combined">Combined (Civil - Military)</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="private" value="Private"
+                        {{ in_array('Private', $category) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="private">Private</label>
                 </div>
             </div>
         </div>
@@ -599,7 +609,8 @@
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png', 'label' => 'International'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png', 'label' => 'Domestic'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png', 'label' => 'Regional Domestic'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png', 'label' => 'Combined'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png', 'label' => 'Military'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png', 'label' => 'Combined (Civil - Military)'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png', 'label' => 'Private'],
                     ];
                 @endphp
