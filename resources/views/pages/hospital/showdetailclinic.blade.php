@@ -55,6 +55,7 @@
         padding: 6px 0;
         border-bottom: 1px solid #dee2e6;
         border-top:none;
+        line-height: 18px;
     }
 </style>
 
