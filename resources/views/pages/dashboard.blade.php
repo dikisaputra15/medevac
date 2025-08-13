@@ -713,8 +713,7 @@
             itemName = item.airport_name;
             detailUrl = `/airports/${item.id}/detail`; // URL detail untuk Airport
             popupContent = `
-                <b>${itemName}</b><br>
-                ${item.image ? `<img src="${item.image}" width="200" style="margin: 5px 0;"><br>` : ''}
+                <h5 style="border-bottom:1px solid #cccccc;">${itemName}</h5>
                 <strong>Address:</strong> ${item.address || 'N/A'}<br>
                 <strong>Telephone:</strong> ${item.telephone || 'N/A'}<br>
                 ${item.website ? `<strong>Website:</strong><a href='${item.website}' target='__blank'> ${item.website} </a><br>` : ''}
@@ -724,8 +723,7 @@
             itemName = item.name;
             detailUrl = `/hospitals/${item.id}`; // URL detail untuk Hospital (PASTIKAN ROUTE INI ADA DI LARAVEL)
             popupContent = `
-                <b>${itemName}</b><br>
-                ${item.image ? `<img src="${item.image}" width="200" style="margin: 5px 0;"><br>` : ''}
+                <h5 style="border-bottom:1px solid #cccccc;">${itemName}</h5>
                 <strong>Address:</strong> ${item.address || 'N/A'}<br>
                 <strong>Coords:</strong> ${item.latitude}, ${item.longitude}<br>
                 <strong>Province:</strong> ${item.provinces_region || 'N/A'}<br>

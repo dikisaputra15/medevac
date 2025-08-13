@@ -113,6 +113,7 @@ class MasterhospitalController extends Controller
         $hospital->nearest_police_station = $request->input('nearest_police_station');
         $hospital->nearest_accommodation = $request->input('nearest_accommodation');
         $hospital->travel_agent = $request->input('travel_agent');
+        $hospital->other_medical_info = $request->input('other_medical_info');
         $hospital->icon = $request->input('icon');
         $hospital->save();
         return redirect()->route('hospitaldata.index')->with('success', 'Data Succesfully Save');
@@ -197,6 +198,7 @@ class MasterhospitalController extends Controller
             'nearest_police_station' => $request->input('nearest_police_station'),
             'nearest_accommodation' => $request->input('nearest_accommodation'),
             'travel_agent' => $request->input('travel_agent'),
+            'other_medical_info' => $request->input('other_medical_info'),
             'icon' => $request->input('icon'),
         ];
 

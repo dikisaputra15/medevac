@@ -161,7 +161,7 @@
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level2Modal">
                     <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png" style="width:30px; height:30px;">
-                    <small>Combined</small>
+                    <small>Combined (International/Domestic/Military)</small>
                 </button>
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level1Modal">

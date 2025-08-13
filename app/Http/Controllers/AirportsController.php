@@ -43,7 +43,7 @@ class AirportsController extends Controller
 
         // 2. Filter by Category (case-insensitive search)
         $query->when($request->filled('category'), function ($q) use ($request) {
-            $q->where('category', 'like', '%' . $request->input('category') . '%');
+            $q->where('category', $request->input('category'));
         });
 
         // 3. Filter by Location (Address - case-insensitive search)
@@ -177,31 +177,32 @@ class AirportsController extends Controller
     public function showdetail($id)
     {
         $airport = Airport::findOrFail($id);
+        $province = Provincesregion::findOrFail($airport->province_id);
 
-         // --- Ambil Bandara Terdekat ---
+        return view('pages.airports.showdetail', compact('airport', 'province'));
+    }
+
+    public function showdetailemergency($id)
+    {
+        $airport = Airport::findOrFail($id);
+        $hospital = Hospital::select('medical_support_website')->first();
+
+          // --- Ambil Bandara Terdekat ---
         $nearbyAirports = Airport::selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$airport->latitude, $airport->longitude, $airport->latitude])
             ->having('distance', '<', 100) // Filter dalam radius 100 km (sesuaikan)
             ->where('id', '!=', $airport->id) // Jangan sertakan bandara utama itu sendiri
             ->orderBy('distance')
-            ->limit(10) // Ambil 10 bandara terdekat
             ->get();
 
         // --- Ambil Rumah Sakit Terdekat ---
         $nearbyHospitals = Hospital::selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$airport->latitude, $airport->longitude, $airport->latitude])
             ->having('distance', '<', 100) // Filter dalam radius 100 km (sesuaikan)
             ->orderBy('distance')
-            ->limit(10) // Ambil 10 rumah sakit terdekat
             ->get();
 
         $radius_km = 100; // Radius lingkaran untuk ditampilkan di peta
 
-        return view('pages.airports.showdetail', compact('airport', 'nearbyAirports', 'nearbyHospitals', 'radius_km'));
-    }
-
-    public function showdetailemergency($id)
-    {
-        $airport = Airport::findOrFail($id);
-        return view('pages.airports.showdetailemergency', compact('airport'));
+        return view('pages.airports.showdetailemergency', compact('airport', 'nearbyAirports', 'nearbyHospitals', 'radius_km', 'hospital'));
     }
 
     public function showairlinesdestination($id)
@@ -213,6 +214,16 @@ class AirportsController extends Controller
     public function shownavigation($id)
     {
         $airport = Airport::findOrFail($id);
-        return view('pages.airports.shownavigation', compact('airport'));
+
+           // --- Ambil Bandara Terdekat ---
+        $nearbyAirports = Airport::selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$airport->latitude, $airport->longitude, $airport->latitude])
+            ->having('distance', '<', 100) // Filter dalam radius 100 km (sesuaikan)
+            ->where('id', '!=', $airport->id) // Jangan sertakan bandara utama itu sendiri
+            ->orderBy('distance')
+            ->get();
+
+        $radius_km = 500;
+
+        return view('pages.airports.shownavigation', compact('airport','nearbyAirports','radius_km'));
     }
 }

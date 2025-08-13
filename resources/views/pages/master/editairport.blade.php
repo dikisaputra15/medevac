@@ -64,31 +64,79 @@
         </div>
 
         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Telephone</label>
-                <input type="text" class="form-control" name="telephone" value="{{ $airport->telephone; }}">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Telephone
+              </h3>
             </div>
-        </div>
+            <!-- /.card-header -->
+            <div class="card-body">
 
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Fax</label>
-                <input type="text" class="form-control" name="fax" value="{{ $airport->fax; }}">
-            </div>
-        </div>
+                <textarea id="summernote20" name="Telephone">
+                    <?php echo $airport->telephone; ?>
+                </textarea>
 
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Email</label>
-                <input type="text" class="form-control" name="email" value="{{ $airport->email; }}">
             </div>
+
+          </div>
         </div>
 
         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Website</label>
-                <input type="text" class="form-control" name="website" value="{{ $airport->website; }}">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Fax
+              </h3>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote21" name="fax">
+                    <?php echo $airport->fax; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Email
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote22" name="email">
+                    <?php echo $airport->email; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Website
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote23" name="website">
+                    <?php echo $airport->website; ?>
+                </textarea>
+
+            </div>
+
+          </div>
         </div>
 
         <div class="col-md-12">
@@ -113,11 +161,6 @@
                     <input class="form-check-input" type="checkbox" name="category[]" id="military" value="Military"
                         {{ in_array('Military', $category) ? 'checked' : '' }}>
                     <label class="form-check-label" for="military">Military</label>
-                </div>
-                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="combined" value="Combined"
-                        {{ in_array('Combined', $category) ? 'checked' : '' }}>
-                    <label class="form-check-label" for="combined">Combined (Civil - Military)</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="category[]" id="private" value="Private"
@@ -603,7 +646,7 @@
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png', 'label' => 'Domestic'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png', 'label' => 'Regional Domestic'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png', 'label' => 'Military'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png', 'label' => 'Combined (Civil - Military)'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png', 'label' => 'Combined (International/Domestic/Military)'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png', 'label' => 'Private'],
                     ];
                 @endphp
@@ -648,6 +691,10 @@
     $('#summernote17').summernote()
     $('#summernote18').summernote()
     $('#summernote19').summernote()
+    $('#summernote20').summernote()
+    $('#summernote21').summernote()
+    $('#summernote22').summernote()
+    $('#summernote23').summernote()
 
   })
 </script>

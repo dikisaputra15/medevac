@@ -525,6 +525,25 @@
         </div>
 
          <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Other Medical Info
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote13" name="other_medical_info">
+                    <?php echo $hospital->other_medical_info; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
             <div class="form-group">
                 <label>Edit Image</label>
                 <input type="file" class="form-control" name="image">
@@ -579,6 +598,7 @@
     $('#summernote10').summernote()
     $('#summernote11').summernote()
     $('#summernote12').summernote()
+    $('#summernote13').summernote()
 
   })
 </script>

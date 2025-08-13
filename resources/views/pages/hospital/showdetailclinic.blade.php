@@ -57,6 +57,14 @@
         border-top:none;
         line-height: 18px;
     }
+
+    .card-header{
+        padding: 0.25rem 1.25rem;
+    }
+
+    .mb-4{
+        margin-bottom: 0.5rem !important;
+    }
 </style>
 
 @endpush
@@ -112,18 +120,24 @@
         </div>
     </div>
 
-     <div class="card mb-4">
+     <div class="card mb-4 position-relative">
         <div class="card-body" style="padding:0 7px;">
-            <small><i>Last Updated</i></small>
-             <small><i>{{ $hospital->created_at->format('M Y') }}</i></small>
+            <small><i>Last Updated {{ $hospital->created_at->format('M Y') }}</i></small>
+
+            @role('admin')
+            <a href="{{ route('hospitaldata.edit', $hospital->id) }}"
+            style="position:absolute; right:7px;" title="edit">
+                <i class="fas fa-edit"></i>
+            </a>
+            @endrole
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-6">
-            <div class="card h-400">
+            <div class="card">
                 <div class="card-header fw-bold"><i class="fas fa-stethoscope"></i>Clinical Services</div>
-              <div class="card-body overflow-auto" style="max-height: 400px;">
+              <div class="card-body overflow-auto">
                 <table class="table table-hover clinical-service-table">
                     <tr>
                         <td>Inpatient Services</td>
@@ -195,9 +209,9 @@
         </div>
 
         <div class="col-sm-6">
-            <div class="card h-400">
+            <div class="card">
                   <div class="card-header fw-bold"><i class="fas fa-user-nurse"></i>Medical Personnel</div>
-             <div class="card-body overflow-auto" style="max-height: 400px;">
+             <div class="card-body overflow-auto">
                 <table class="table table-hover clinical-service-table">
                     <tr>
                         <td>Doctors</td>

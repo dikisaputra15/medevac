@@ -117,7 +117,31 @@ class HospitalController extends Controller
     public function showdetailemergency($id)
     {
         $hospital = Hospital::findOrFail($id);
-        return view('pages.hospital.showdetailemergency', compact('hospital'));
+
+        $latitude = $hospital->latitude;
+        $longitude = $hospital->longitude;
+        $radius_km = 100; // Your desired radius
+
+        // Fetch nearby hospitals (excluding the current one)
+        $nearbyHospitals = Hospital::selectRaw("
+            id, name, icon, latitude, longitude,
+            ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance
+        ", [$latitude, $longitude, $latitude])
+        ->having('distance', '<', $radius_km)
+        ->where('id', '!=', $hospital->id) // Exclude the current hospital
+        ->orderBy('distance')
+        ->get();
+
+         // Fetch nearby airports
+        $nearbyAirports = Airport::selectRaw("
+            id, airport_name AS name, icon, latitude, longitude,
+            ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance
+        ", [$latitude, $longitude, $latitude])
+        ->having('distance', '<', $radius_km)
+        ->orderBy('distance')
+        ->get();
+
+        return view('pages.hospital.showdetailemergency', compact('hospital','nearbyHospitals','radius_km','nearbyAirports'));
     }
 
     public function filter(Request $request)

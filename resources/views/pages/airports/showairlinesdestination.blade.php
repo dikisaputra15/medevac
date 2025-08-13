@@ -79,6 +79,14 @@
         border-color: #78d9e9;
         vertical-align: top;
     }
+
+    .card-header{
+        padding: 0.25rem 1.25rem;
+    }
+
+    .mb-4{
+        margin-bottom: 0.5rem !important;
+    }
 </style>
 
 @endpush
@@ -144,48 +152,54 @@
         </div>
     </div>
 
-     <div class="card mb-4">
+    <div class="card mb-4 position-relative">
         <div class="card-body" style="padding:0 7px;">
-            <small><i>Last Updated</i></small>
-            <small><i>{{ $airport->created_at->format('M Y') }}</i></small>
+            <small><i>Last Updated {{ $airport->created_at->format('M Y') }}</i></small>
+
+            @role('admin')
+            <a href="{{ route('airportdata.edit', $airport->id) }}"
+            style="position:absolute; right:7px;" title="edit">
+                <i class="fas fa-edit"></i>
+            </a>
+            @endrole
         </div>
     </div>
 
     <div class="row">
 
-         <div class="col-md-6 d-flex flex-column gap-3">
-            <div class="card h-100">
-             <div class="card-body overflow-auto" style="max-height: 300px;">
+         <div class="col-md-6">
+            <div class="card">
                 <div class="card-header fw-bold"><i class="fas fa-plane"></i>Domestic</div>
+                <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->domestic_flights; ?>
-            </div>
+                </div>
             </div>
         </div>
 
-         <div class="col-md-6 d-flex flex-column gap-3">
-            <div class="card h-100">
-             <div class="card-body overflow-auto" style="max-height: 300px;">
-                 <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Other General Flight Information</div>
+         <div class="col-md-6">
+            <div class="card">
+                <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Other General Flight Information</div>
+                <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->other_flight_information; ?>
-            </div>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-6 d-flex flex-column gap-3">
-            <div class="card h-100">
-             <div class="card-body overflow-auto" style="max-height: 300px;">
-                 <div class="card-header fw-bold"><i class="fas fa-globe"></i>International</div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header fw-bold"><i class="fas fa-globe"></i>International</div>
+                <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->international_flight; ?>
-            </div>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-6 d-flex flex-column gap-3">
-            <div class="card h-100">
-             <div class="card-body overflow-auto" style="max-height: 300px;">
-                 <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Airport Flight Information</div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Airport Flight Information</div>
+                <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->flight_information; ?>
-            </div>
+                </div>
             </div>
         </div>
 

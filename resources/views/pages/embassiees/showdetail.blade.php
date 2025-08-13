@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
 <style>
     #map {
-        height: 700px;
+        height: 600px;
     }
 
      p{
@@ -56,6 +56,14 @@
     .fas {
         color: #346abb;
     }
+
+    .card-header{
+        padding: 0.25rem 1.25rem;
+    }
+
+    .mb-4{
+        margin-bottom: 0.5rem !important;
+    }
 </style>
 
 @endpush
@@ -100,15 +108,21 @@
         </div>
     </div>
 
-    <div class="card mb-4">
+    <div class="card mb-4 position-relative">
         <div class="card-body" style="padding:0 7px;">
-            <small><i>Last Updated</i></small>
-            <small><i>{{ $embassy->created_at->format('M Y') }}</i></small>
+            <small><i>Last Updated {{ $embassy->created_at->format('M Y') }}</i></small>
+
+            @role('admin')
+            <a href="{{ route('embessydata.edit', $embassy->id) }}"
+            style="position:absolute; right:7px;" title="edit">
+                <i class="fas fa-edit"></i>
+            </a>
+            @endrole
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Information</div>
                 <div class="card-body">
@@ -135,11 +149,11 @@
             </div>
             </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-md-8">
             <div class="card">
                  <div class="card-header fw-bold"><i class="fas fa-map"></i> Map</div>
                   <div class="card-body">
-                <div id="map" style="height: 300px;"></div>
+                <div id="map"></div>
             </div>
             </div>
         </div>
