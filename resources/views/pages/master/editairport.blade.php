@@ -73,7 +73,7 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote20" name="Telephone">
+                <textarea id="summernote20" name="telephone">
                     <?php echo $airport->telephone; ?>
                 </textarea>
 
