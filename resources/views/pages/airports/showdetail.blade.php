@@ -151,6 +151,7 @@
                             <p><strong>Distance from:</strong><br>
                                 <?php echo $airport->distance_from; ?>
                             </p>
+                            <p><strong>Elevation:</strong> {{ $airport->elevation }} </p>
                             <p><strong>Time Zone:</strong> {{ $airport->time_zone }} </p>
                             <p><strong>Operator:</strong> {{ $airport->operator }} </p>
                             <p><strong>Magnetic Variation:</strong> {{ $airport->magnetic_variation }} </p>
@@ -165,8 +166,8 @@
             <div class="card">
                 <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Details</div>
                 <div class="card-body overflow-auto">
-                    <p><strong>Telephone:</strong> {{ $airport->telephone ?? '-' }}</p>
-                    <p><strong>Fax:</strong> {{ $airport->fax ?? '-' }} </p>
+                    <p><strong>Telephone:</strong> <?php echo $airport->telephone; ?></p>
+                    <p><strong>Fax:</strong> <?php echo $airport->fax; ?> </p>
                     <p><strong>Email:</strong> <?php echo $airport->email; ?> </p>
                     <p><strong>Website:</strong> <?php echo $airport->website; ?> </p>
                 </div>
