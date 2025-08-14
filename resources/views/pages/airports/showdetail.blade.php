@@ -149,7 +149,7 @@
                             <p><strong>ICAO Code:</strong> {{ $airport->icao_code }} </p>
                             <p><strong>Hrs of Operation:</strong> {{ $airport->hrs_of_operation }} </p>
                             <p><strong>Distance from:</strong><br>
-                                {{ $airport->distance_from }}
+                                <?php echo $airport->distance_from; ?>
                             </p>
                             <p><strong>Time Zone:</strong> {{ $airport->time_zone }} </p>
                             <p><strong>Operator:</strong> {{ $airport->operator }} </p>
