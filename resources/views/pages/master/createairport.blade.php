@@ -453,7 +453,7 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Other Reference Website
+                Other Airport Info
               </h3>
             </div>
             <!-- /.card-header -->

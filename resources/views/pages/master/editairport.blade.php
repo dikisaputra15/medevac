@@ -495,7 +495,7 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Other Reference Website
+                Edit Other Airport Info
               </h3>
             </div>
             <!-- /.card-header -->
