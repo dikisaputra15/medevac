@@ -159,7 +159,7 @@
                             <p><strong>Max Aircraft Capability:</strong> {{ $airport->max_aircraft_capability }} </p>
                             <p><strong>Other Airport Info:</strong> {!! $airport->other_reference_website !!}  </p>
                             @if(!empty($airport->note))
-                                <p><strong>Note:</strong><br> {!! $airport->note !!} </p>
+                                <p><strong>Note:</strong> {!! $airport->note !!} </p>
                             @endif
 
                         </div>
