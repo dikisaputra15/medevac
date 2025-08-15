@@ -230,10 +230,25 @@
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Beacon</label>
-                <input type="text" class="form-control" name="beacon">
+                <label>Beacon</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="beacon" id="beaconYes" value="Yes">
+                    <label class="form-check-label" for="beaconYes">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="beacon" id="beaconNo" value="No">
+                    <label class="form-check-label" for="beaconNo">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="beacon" id="beaconUnknown" value="Data Not Identified">
+                    <label class="form-check-label" for="beaconUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
+
 
         <div class="col-md-12">
             <div class="form-group">
@@ -242,24 +257,66 @@
             </div>
         </div>
 
-         <div class="col-md-12">
+        <div class="col-md-12">
             <div class="form-group">
-                <label>Air Traffic</label>
-                <input type="text" class="form-control" name="air_traffic">
+                <label>Air Traffic</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="air_traffic" value="Available">
+                    <label class="form-check-label" for="Available">Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="air_traffic" value="Not Available">
+                    <label class="form-check-label" for="NotAvailable">Not Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="air_traffic" value="Data Not Identified">
+                    <label class="form-check-label" for="beaconUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Meteorology Services</label>
-                <input type="text" class="form-control" name="meteorology_services">
+                <label>Meteorology Services</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="meteorology_services" value="Available">
+                    <label class="form-check-label" for="Available">Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="meteorology_services" value="Not Available">
+                    <label class="form-check-label" for="NotAvailable">Not Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="meteorology_services" value="Data Not Identified">
+                    <label class="form-check-label" for="beaconUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Aviation Fuel Depot</label>
-                <input type="text" class="form-control" name="aviation_fuel_depot">
+                <label>Aviation Fuel Depot</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aviation_fuel_depot" value="Available">
+                    <label class="form-check-label" for="Available">Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aviation_fuel_depot" value="Not Available">
+                    <label class="form-check-label" for="NotAvailable">Not Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aviation_fuel_depot" value="Data Not Identified">
+                    <label class="form-check-label" for="beaconUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
@@ -281,10 +338,24 @@
           </div>
         </div>
 
-          <div class="col-md-12">
+         <div class="col-md-12">
             <div class="form-group">
-                <label>Internet Services</label>
-                <input type="text" class="form-control" name="internet_services">
+                <label>Aviation Fuel Depot</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="internet_services" value="Available">
+                    <label class="form-check-label" for="Available">Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="internet_services" value="Not Available">
+                    <label class="form-check-label" for="NotAvailable">Not Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="internet_services" value="Data Not Identified">
+                    <label class="form-check-label" for="beaconUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
@@ -488,15 +559,43 @@
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Runway Edge Lights</label>
-                <input type="text" class="form-control" name="runway_edge_lights">
+                <label>Runway Edge Lights</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsYes" value="Yes">
+                    <label class="form-check-label" for="runway_edge_lightsYes">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsNo" value="No">
+                    <label class="form-check-label" for="runway_edge_lightsNo">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsUnknown" value="Data Not Identified">
+                    <label class="form-check-label" for="runway_edge_lightsUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-12">
+          <div class="col-md-12">
             <div class="form-group">
-                <label>Reil</label>
-                <input type="text" class="form-control" name="reil">
+                <label>Reil</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reil" id="reilYes" value="Yes">
+                    <label class="form-check-label" for="reilYes">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reil" id="reilNo" value="No">
+                    <label class="form-check-label" for="reilNo">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reil" id="reilUnknown" value="Data Not Identified">
+                    <label class="form-check-label" for="reilUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 

@@ -250,10 +250,27 @@
             </div>
         </div>
 
-         <div class="col-md-12">
+        <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Beacon</label>
-                <input type="text" class="form-control" name="beacon" value="{{ $airport->beacon; }}">
+                <label>Edit Beacon</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="beacon" id="beaconYes" value="Yes"
+                        {{ old('beacon', $airport->beacon ?? '') == 'Yes' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="beaconYes">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="beacon" id="beaconNo" value="No"
+                        {{ old('beacon', $airport->beacon ?? '') == 'No' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="beaconNo">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="beacon" id="beaconUnknown" value="Data Not Identified"
+                        {{ old('beacon', $airport->beacon ?? '') == 'Data Not Identified' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="beaconUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
@@ -266,22 +283,73 @@
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Air Traffic</label>
-                <input type="text" class="form-control" name="air_traffic" value="{{ $airport->air_traffic; }}">
+                <label>Edit Air Traffic</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="air_traffic" id="air_trafficYes" value="Available"
+                        {{ old('air_traffic', $airport->air_traffic ?? '') == 'Available' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="air_trafficYes">Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="air_traffic" id="air_trafficNo" value="Not Available"
+                        {{ old('air_traffic', $airport->air_traffic ?? '') == 'Not Available' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="air_trafficNo">Not Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="air_traffic" id="air_trafficUnknown" value="Data Not Identified"
+                        {{ old('air_traffic', $airport->air_traffic ?? '') == 'Data Not Identified' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="air_trafficUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
-         <div class="col-md-12">
+        <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Meteorology Services</label>
-                <input type="text" class="form-control" name="meteorology_services" value="{{ $airport->meteorology_services; }}">
+                <label>Edit Meteorology Services</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="meteorology_services" id="meteorology_servicesYes" value="Available"
+                        {{ old('meteorology_services', $airport->meteorology_services ?? '') == 'Available' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="meteorology_servicesYes">Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="meteorology_services" id="meteorology_servicesNo" value="Not Available"
+                        {{ old('meteorology_services', $airport->meteorology_services ?? '') == 'Not Available' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="meteorology_servicesNo">Not Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="meteorology_services" id="meteorology_servicesUnknown" value="Data Not Identified"
+                        {{ old('meteorology_services', $airport->meteorology_services ?? '') == 'Data Not Identified' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="meteorology_servicesUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
-         <div class="col-md-12">
+        <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Aviation Fuel Depot</label>
-                <input type="text" class="form-control" name="aviation_fuel_depot" value="{{ $airport->aviation_fuel_depot; }}">
+                <label>Edit Aviation Fuel Depot</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aviation_fuel_depot" id="aviation_fuel_depotYes" value="Available"
+                        {{ old('aviation_fuel_depot', $airport->aviation_fuel_depot ?? '') == 'Available' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="aviation_fuel_depotYes">Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aviation_fuel_depot" id="aviation_fuel_depotNo" value="Not Available"
+                        {{ old('aviation_fuel_depot', $airport->aviation_fuel_depot ?? '') == 'Not Available' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="aviation_fuel_depotNo">Not Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aviation_fuel_depot" id="aviation_fuel_depotUnknown" value="Data Not Identified"
+                        {{ old('aviation_fuel_depot', $airport->aviation_fuel_depot ?? '') == 'Data Not Identified' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="aviation_fuel_depotUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
@@ -304,10 +372,27 @@
           </div>
         </div>
 
-          <div class="col-md-12">
+         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Internet Services</label>
-                <input type="text" class="form-control" name="internet_services" value="{{ $airport->internet_services; }}">
+                <label>Edit Internet Services</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="internet_services" id="internet_servicesYes" value="Available"
+                        {{ old('internet_services', $airport->internet_services ?? '') == 'Available' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="internet_servicesYes">Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="internet_services" id="internet_servicesNo" value="Not Available"
+                        {{ old('internet_services', $airport->internet_services ?? '') == 'Not Available' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="internet_servicesNo">Not Available</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="internet_services" id="internet_servicesUnknown" value="Data Not Identified"
+                        {{ old('internet_services', $airport->internet_services ?? '') == 'Data Not Identified' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="internet_servicesUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
@@ -520,17 +605,51 @@
           </div>
         </div>
 
-         <div class="col-md-12">
+        <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Runway Edge Lights</label>
-                <input type="text" class="form-control" name="runway_edge_lights" value="{{ $airport->runway_edge_lights; }}">
+                <label>Edit Runway Edge Lights</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsYes" value="Yes"
+                        {{ old('runway_edge_lights', $airport->runway_edge_lights ?? '') == 'Yes' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="runway_edge_lightsYes">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsNo" value="No"
+                        {{ old('runway_edge_lights', $airport->runway_edge_lights ?? '') == 'No' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="runway_edge_lightsNo">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsUnknown" value="Data Not Identified"
+                        {{ old('runway_edge_lights', $airport->runway_edge_lights ?? '') == 'Data Not Identified' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="runway_edge_lightsUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Reil</label>
-                <input type="text" class="form-control" name="reil" value="{{ $airport->reil; }}">
+                <label>Edit Reil</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reil" id="reilYes" value="Yes"
+                        {{ old('reil', $airport->reil ?? '') == 'Yes' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="reilYes">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reil" id="reilNo" value="No"
+                        {{ old('reil', $airport->reil ?? '') == 'No' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="reilNo">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reil" id="reilUnknown" value="Data Not Identified"
+                        {{ old('reil', $airport->reil ?? '') == 'Data Not Identified' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="reilUnknown">Data Not Identified</label>
+                </div>
             </div>
         </div>
 
