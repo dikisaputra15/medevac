@@ -110,6 +110,40 @@
                 });
             });
 
+             $(document).on('click', '.status-btn', function() {
+                var id = $(this).data('id');
+                var buttonText = $(this).text(); // bisa "Publish" atau "Unpublish"
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to " + buttonText + " this embassy?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, ' + buttonText
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/embassydata/' + id + '/toggle-status',
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(res) {
+                                if(res.success) {
+                                    Swal.fire(
+                                        'Updated!',
+                                        'Embassy status changed to: ' + (res.status ? 'Publish' : 'Unpublish'),
+                                        'success'
+                                    );
+                                    $('#embessyTable').DataTable().ajax.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
 
         });
     </script>

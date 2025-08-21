@@ -25,7 +25,16 @@ class MasterembessyController extends Controller
             ->addColumn('action', function($row){
                  $updateButton = '<a href="' . route('embessydata.edit', $row->id) . '" class="btn btn-primary btn-sm">Edit</a>';
                  $deleteButton = '<button class="btn btn-sm btn-danger delete-btn" data-id="'.$row->id.'">Delete</button>';
-                 return $updateButton." ".$deleteButton;
+
+                  if ($row->embassy_status) {
+                        // Kalau status = true (publish), tombol jadi Unpublish
+                        $statusButton = '<button class="btn btn-sm btn-warning status-btn" data-id="'.$row->id.'">Unpublish</button>';
+                    } else {
+                        // Kalau status = false (unpublish), tombol jadi Publish
+                        $statusButton = '<button class="btn btn-sm btn-success status-btn" data-id="'.$row->id.'">Publish</button>';
+                    }
+
+                 return $updateButton." ".$deleteButton." ".$statusButton;
             })
             ->rawColumns(['action','created_at'])
             ->addIndexColumn()
@@ -154,5 +163,17 @@ class MasterembessyController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function toggleStatus($id)
+    {
+        $embassy = Embassiees::findOrFail($id);
+        $embassy->embassy_status = $embassy->embassy_status ? 0 : 1; // toggle
+        $embassy->save();
+
+        return response()->json([
+            'success' => true,
+            'status' => $embassy->embassy_status
+        ]);
     }
 }

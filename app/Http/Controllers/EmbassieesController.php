@@ -84,6 +84,8 @@ class EmbassieesController extends Controller
     {
         $query = Embassiees::query();
 
+        $query->where('embassy_status', true);
+
         // Filter by name
         $query->when($request->filled('name'), function ($q) use ($request) {
             $q->where('name_embassiees', 'like', '%' . $request->input('name') . '%');

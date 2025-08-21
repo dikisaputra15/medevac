@@ -748,6 +748,44 @@
           </div>
         </div>
 
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Directorate General of Civil Aviation
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote24" name="dgoca">
+                     <?php echo $airport->dgoca; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit State-Owned Aviation Operator
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote25" name="soao">
+                     <?php echo $airport->soao; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
          <div class="col-md-12">
             <div class="form-group">
                 <label>Edit Image</label>
@@ -814,6 +852,8 @@
     $('#summernote21').summernote()
     $('#summernote22').summernote()
     $('#summernote23').summernote()
+    $('#summernote24').summernote()
+    $('#summernote25').summernote()
 
   })
 </script>

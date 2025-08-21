@@ -36,6 +36,8 @@ class AirportsController extends Controller
     {
         $query = Airport::query();
 
+        $query->where('airport_status', true);
+
         // 1. Filter by Airport Name (case-insensitive search)
         $query->when($request->filled('name'), function ($q) use ($request) {
             $q->where('airport_name', 'like', '%' . $request->input('name') . '%');

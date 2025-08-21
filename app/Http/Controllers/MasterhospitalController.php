@@ -25,7 +25,16 @@ class MasterhospitalController extends Controller
             ->addColumn('action', function($row){
                  $updateButton = '<a href="' . route('hospitaldata.edit', $row->id) . '" class="btn btn-primary btn-sm">Edit</a>';
                  $deleteButton = '<button class="btn btn-sm btn-danger delete-btn" data-id="'.$row->id.'">Delete</button>';
-                 return $updateButton." ".$deleteButton;
+
+                  if ($row->hospital_status) {
+                        // Kalau status = true (publish), tombol jadi Unpublish
+                        $statusButton = '<button class="btn btn-sm btn-warning status-btn" data-id="'.$row->id.'">Unpublish</button>';
+                    } else {
+                        // Kalau status = false (unpublish), tombol jadi Publish
+                        $statusButton = '<button class="btn btn-sm btn-success status-btn" data-id="'.$row->id.'">Publish</button>';
+                    }
+
+                 return $updateButton." ".$deleteButton." ".$statusButton;
             })
             ->rawColumns(['action','created_at'])
             ->addIndexColumn()
@@ -235,5 +244,17 @@ class MasterhospitalController extends Controller
         }
 
         return response()->json($response);
+    }
+
+     public function toggleStatus($id)
+    {
+        $hospital = Hospital::findOrFail($id);
+        $hospital->hospital_status = $hospital->hospital_status ? 0 : 1; // toggle
+        $hospital->save();
+
+        return response()->json([
+            'success' => true,
+            'status' => $hospital->hospital_status
+        ]);
     }
 }

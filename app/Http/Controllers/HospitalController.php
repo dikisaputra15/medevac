@@ -150,6 +150,8 @@ class HospitalController extends Controller
         $query->join('provincesregions', 'hospitals.province_id', '=', 'provincesregions.id');
         $query->select('hospitals.*', 'provincesregions.provinces_region');
 
+        $query->where('hospital_status', true);
+
         // Filter by name
         $query->when($request->filled('name'), function ($q) use ($request) {
             $q->where('name', 'like', '%' . $request->input('name') . '%');

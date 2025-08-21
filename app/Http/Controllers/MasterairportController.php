@@ -25,7 +25,16 @@ class MasterairportController extends Controller
             ->addColumn('action', function($row){
                  $updateButton = '<a href="' . route('airportdata.edit', $row->id) . '" class="btn btn-primary btn-sm">Edit</a>';
                   $deleteButton = '<button class="btn btn-sm btn-danger delete-btn" data-id="'.$row->id.'">Delete</button>';
-                 return $updateButton." ".$deleteButton;
+
+                    if ($row->airport_status) {
+                        // Kalau status = true (publish), tombol jadi Unpublish
+                        $statusButton = '<button class="btn btn-sm btn-warning status-btn" data-id="'.$row->id.'">Unpublish</button>';
+                    } else {
+                        // Kalau status = false (unpublish), tombol jadi Publish
+                        $statusButton = '<button class="btn btn-sm btn-success status-btn" data-id="'.$row->id.'">Publish</button>';
+                    }
+
+                 return $updateButton." ".$deleteButton." ".$statusButton;
             })
             ->rawColumns(['action','created_at'])
             ->addIndexColumn()
@@ -110,6 +119,8 @@ class MasterairportController extends Controller
         $airport->communication = $request->input('communication');
         $airport->nearest_police_station = $request->input('nearest_police_station');
         $airport->icon = $request->input('icon');
+        $airport->dgoca = $request->input('dgoca');
+        $airport->soao = $request->input('soao');
 
         $airport->save();
         return redirect()->route('airportdata.index')->with('success', 'Data Succesfully Save');
@@ -193,6 +204,8 @@ class MasterairportController extends Controller
             'communication' => $request->input('communication'),
             'nearest_police_station' => $request->input('nearest_police_station'),
             'icon' => $request->input('icon'),
+            'dgoca' => $request->input('dgoca'),
+            'soao' => $request->input('soao'),
         ];
 
           if ($request->hasFile('image')) {
@@ -230,4 +243,17 @@ class MasterairportController extends Controller
 
         return response()->json($response);
     }
+
+    public function toggleStatus($id)
+    {
+        $airport = Airport::findOrFail($id);
+        $airport->airport_status = $airport->airport_status ? 0 : 1; // toggle
+        $airport->save();
+
+        return response()->json([
+            'success' => true,
+            'status' => $airport->airport_status
+        ]);
+    }
+
 }
