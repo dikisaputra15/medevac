@@ -185,6 +185,9 @@
                         <strong>Telephone:</strong> <?php echo $hospital->telephone; ?>
                     </p>
                     <p>
+                        <strong>Fax:</strong> <?php echo $hospital->fax; ?>
+                    </p>
+                    <p>
                         <strong>Email:</strong> <?php echo $hospital->email; ?>
                     </p>
                     <p>

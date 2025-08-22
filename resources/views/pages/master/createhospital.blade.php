@@ -12,12 +12,14 @@
 <form action="{{ route('hospitaldata.store') }}" enctype="multipart/form-data" method="POST">
     @csrf
     <div class="card-body">
+
         <div class="col-md-12">
             <div class="form-group">
                 <label>Hospital Name</label>
                 <input type="text" class="form-control" name="name">
             </div>
         </div>
+
          <div class="col-md-12">
             <div class="form-group">
                 <label>Provinces, Region</label>
@@ -29,25 +31,8 @@
                 </select>
             </div>
         </div>
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Latitude</label>
-                <input type="text" class="form-control" name="latitude">
-            </div>
-        </div>
+
         <div class="col-md-12">
-            <div class="form-group">
-                <label>Longitude</label>
-                <input type="text" class="form-control" name="longitude">
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Address</label>
-                <input type="text" class="form-control" name="address">
-            </div>
-        </div>
-       <div class="col-md-12">
             <div class="form-group">
                 <label>Facility Level</label>
                 <select class="form-control" name="facility_level">
@@ -79,6 +64,28 @@
                 <input type="text" class="form-control" name="status">
             </div>
         </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Number Of Beds</label>
+                <input type="text" class="form-control" name="number_of_beds">
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Population Catchment</label>
+                <input type="text" class="form-control" name="population_catchment">
+            </div>
+        </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Ownership</label>
+                <input type="text" class="form-control" name="ownership">
+            </div>
+        </div>
+
         <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
@@ -99,23 +106,40 @@
         </div>
 
          <div class="col-md-12">
-            <div class="form-group">
-                <label>Number Of Beds</label>
-                <input type="text" class="form-control" name="number_of_beds">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Other Medical Info
+              </h3>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote13" name="other_medical_info">
+                </textarea>
+
+            </div>
+
+          </div>
         </div>
 
-        <div class="col-md-12">
+         <div class="col-md-12">
             <div class="form-group">
-                <label>Population Catchment</label>
-                <input type="text" class="form-control" name="population_catchment">
+                <label>Address</label>
+                <input type="text" class="form-control" name="address">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Ownership</label>
-                <input type="text" class="form-control" name="ownership">
+                <label>Latitude</label>
+                <input type="text" class="form-control" name="latitude">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Longitude</label>
+                <input type="text" class="form-control" name="longitude">
             </div>
         </div>
 
@@ -196,13 +220,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Evacuation Option
+                Nearest Accommodation
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote3" name="evacuation_option">
+                <textarea id="summernote11" name="nearest_accommodation">
                 </textarea>
 
             </div>
@@ -211,24 +235,6 @@
         </div>
 
         <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Medical Support Website
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote9" name="medical_support_website">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-         <div class="col-md-12">
             <div class="form-group">
                 <label>Inpatient Services</label>
                 <input type="text" class="form-control" name="inpatient_services">
@@ -429,6 +435,60 @@
             </div>
         </div>
 
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Nearest Police Station
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote" name="nearest_police_station">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Medical Support Website
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote9" name="medical_support_website">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Evacuation Option
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote3" name="evacuation_option">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
          <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
@@ -447,42 +507,6 @@
           </div>
         </div>
 
-         <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Nearest Police Station
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote" name="nearest_police_station">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-         <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Nearest Accommodation
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote11" name="nearest_accommodation">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
           <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
@@ -494,24 +518,6 @@
             <div class="card-body">
 
                 <textarea id="summernote12" name="travel_agent">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-         <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Other Medical Info
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote13" name="other_medical_info">
                 </textarea>
 
             </div>

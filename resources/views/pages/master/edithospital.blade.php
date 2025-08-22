@@ -42,25 +42,7 @@
             </div>
         </div>
 
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Latitude</label>
-                <input type="text" class="form-control" name="latitude" value="{{ $hospital->latitude; }}">
-            </div>
-        </div>
         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Longitude</label>
-                <input type="text" class="form-control" name="longitude" value="{{ $hospital->longitude; }}">
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Address</label>
-                <input type="text" class="form-control" name="address" value="{{ $hospital->address; }}">
-            </div>
-        </div>
-       <div class="col-md-12">
             <div class="form-group">
                 <label>Edit Facility Level</label>
                 <select class="form-control" name="facility_level">
@@ -86,12 +68,34 @@
             </div>
         </div>
 
-         <div class="col-md-12">
+        <div class="col-md-12">
             <div class="form-group">
                 <label>Edit status</label>
                 <input type="text" class="form-control" name="status" value="{{ $hospital->status; }}">
             </div>
         </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Edit Number Of Beds</label>
+                <input type="text" class="form-control" name="number_of_beds" value="{{ $hospital->number_of_beds; }}">
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Edit Population Catchment</label>
+                <input type="text" class="form-control" name="population_catchment" value="{{ $hospital->population_catchment; }}">
+            </div>
+        </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Edit Ownership</label>
+                <input type="text" class="form-control" name="ownership" value="{{ $hospital->ownership; }}">
+            </div>
+        </div>
+
         <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
@@ -112,23 +116,41 @@
         </div>
 
          <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Number Of Beds</label>
-                <input type="text" class="form-control" name="number_of_beds" value="{{ $hospital->number_of_beds; }}">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Other Medical Info
+              </h3>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote13" name="other_medical_info">
+                    <?php echo $hospital->other_medical_info; ?>
+                </textarea>
+
+            </div>
+
+          </div>
         </div>
 
-        <div class="col-md-12">
+         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Population Catchment</label>
-                <input type="text" class="form-control" name="population_catchment" value="{{ $hospital->population_catchment; }}">
+                <label>Edit Address</label>
+                <input type="text" class="form-control" name="address" value="{{ $hospital->address; }}">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Ownership</label>
-                <input type="text" class="form-control" name="ownership" value="{{ $hospital->ownership; }}">
+                <label>Edit Latitude</label>
+                <input type="text" class="form-control" name="latitude" value="{{ $hospital->latitude; }}">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Edit Longitude</label>
+                <input type="text" class="form-control" name="longitude" value="{{ $hospital->longitude; }}">
             </div>
         </div>
 
@@ -212,33 +234,14 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Evacuation Option
+                Edit Nearest Accommodation
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote3" name="evacuation_option">
-                    <?php echo $hospital->evacuation_option; ?>
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Edit Medical Support Website
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote9" name="medical_support_website">
-                    <?php echo $hospital->medical_support_website; ?>
+                <textarea id="summernote11" name="nearest_accommodation">
+                    <?php echo $hospital->nearest_accommodation; ?>
                 </textarea>
 
             </div>
@@ -448,6 +451,63 @@
             </div>
         </div>
 
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Nearest Police Station
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote" name="nearest_police_station">
+                    <?php echo $hospital->nearest_police_station; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Medical Support Website
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote9" name="medical_support_website">
+                    <?php echo $hospital->medical_support_website; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Evacuation Option
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote3" name="evacuation_option">
+                    <?php echo $hospital->evacuation_option; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
          <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
@@ -467,44 +527,6 @@
           </div>
         </div>
 
-         <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Edit Nearest Police Station
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote" name="nearest_police_station">
-                    <?php echo $hospital->nearest_police_station; ?>
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-         <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Edit Nearest Accommodation
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote11" name="nearest_accommodation">
-                    <?php echo $hospital->nearest_accommodation; ?>
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
           <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
@@ -517,25 +539,6 @@
 
                 <textarea id="summernote12" name="travel_agent">
                     <?php echo $hospital->travel_agent; ?>
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-         <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Edit Other Medical Info
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote13" name="other_medical_info">
-                    <?php echo $hospital->other_medical_info; ?>
                 </textarea>
 
             </div>

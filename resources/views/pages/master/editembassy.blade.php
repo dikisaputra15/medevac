@@ -43,13 +43,6 @@
         </div>
 
         <div class="col-md-12">
-            <div class="form-group">
-                <label>Location</label>
-                <input type="text" class="form-control" name="location" value="{{ $embassy->location; }}">
-            </div>
-        </div>
-
-         <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
@@ -68,7 +61,7 @@
           </div>
         </div>
 
-      <div class="col-md-12">
+         <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
@@ -125,7 +118,7 @@
           </div>
         </div>
 
-         <div class="col-md-12">
+        <div class="col-md-12">
             <div class="form-group">
                 <label>Latitude</label>
                 <input type="text" class="form-control" name="latitude" value="{{$embassy->latitude}}">
@@ -136,6 +129,13 @@
             <div class="form-group">
                 <label>Longitude</label>
                 <input type="text" class="form-control" name="longitude" value="{{$embassy->longitude}}">
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" class="form-control" name="location" value="{{ $embassy->location; }}">
             </div>
         </div>
 

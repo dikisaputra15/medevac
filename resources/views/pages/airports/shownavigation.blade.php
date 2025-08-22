@@ -189,7 +189,9 @@
             <div class="card-body" style="padding: 0 10px;">
                 <div class="card">
                     <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Runway Data</div>
-                    <div class="card-body overflow-auto" style="max-height: 200px;">
+                    <div class="card-body overflow-auto" style="max-height: 300px;">
+                          <p><strong>Runway Edge Lights:</strong> {{ $airport->runway_edge_lights }} </p>
+                          <p><strong>Runways End Identifier Lights (REIL):</strong> {{ $airport->reil }} </p>
                         <?php echo $airport->runways; ?>
                     </div>
                 </div>

@@ -33,99 +33,6 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Address</label>
-                <input type="text" class="form-control" name="address">
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Latitude</label>
-                <input type="text" class="form-control" name="latitude">
-            </div>
-        </div>
-
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Longitude</label>
-                <input type="text" class="form-control" name="longitude">
-            </div>
-        </div>
-
-         <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Telephone
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote20" name="telephone">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-          <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Fax
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote21" name="fax">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-          <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Email
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote22" name="email">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Website
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote23" name="website">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
                 <label>Category</label>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="category[]" id="international" value="International">
@@ -157,7 +64,7 @@
             </div>
         </div>
 
-         <div class="col-md-12">
+        <div class="col-md-12">
             <div class="form-group">
                 <label>ICAO Code</label>
                 <input type="text" class="form-control" name="icao_code">
@@ -182,7 +89,7 @@
           </div>
         </div>
 
-        <div class="col-md-12">
+          <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
@@ -200,17 +107,17 @@
           </div>
         </div>
 
-        <div class="col-md-12">
+         <div class="col-md-12">
             <div class="form-group">
-                <label>Time Zone</label>
-                <input type="text" class="form-control" name="time_zone">
+                <label>Elevation</label>
+                <input type="text" class="form-control" name="elevation">
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Elevation</label>
-                <input type="text" class="form-control" name="elevation">
+                <label>Time Zone</label>
+                <input type="text" class="form-control" name="time_zone">
             </div>
         </div>
 
@@ -221,7 +128,7 @@
             </div>
         </div>
 
-         <div class="col-md-12">
+        <div class="col-md-12">
             <div class="form-group">
                 <label>Magnetic Variation</label>
                 <input type="text" class="form-control" name="magnetic_variation">
@@ -249,12 +156,194 @@
             </div>
         </div>
 
-
         <div class="col-md-12">
             <div class="form-group">
                 <label>Max Aircraft Capability</label>
                 <input type="text" class="form-control" name="max_aircraft_capability">
             </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Directorate General of Civil Aviation
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote24" name="dgoca">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                State-Owned Aviation Operator
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote25" name="soao">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Other Airport Info
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote14" name="other_reference_website">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Note
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote11" name="note">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Telephone
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote20" name="telephone">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Fax
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote21" name="fax">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Email
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote22" name="email">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+          <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Website
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote23" name="website">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="form-control" name="address">
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Latitude</label>
+                <input type="text" class="form-control" name="latitude">
+            </div>
+        </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Longitude</label>
+                <input type="text" class="form-control" name="longitude">
+            </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Nearest Accommodation
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote12" name="nearest_accommodation">
+                </textarea>
+
+            </div>
+
+          </div>
         </div>
 
         <div class="col-md-12">
@@ -321,26 +410,8 @@
         </div>
 
         <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Supplies Eqipment
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote8" name="supplies_eqipment">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-         <div class="col-md-12">
             <div class="form-group">
-                <label>Aviation Fuel Depot</label><br>
+                <label>Internet</label><br>
 
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="internet_services" value="Available">
@@ -357,6 +428,24 @@
                     <label class="form-check-label" for="beaconUnknown">Data Not Identified</label>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Supplies Equipment
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote8" name="supplies_eqipment">
+                </textarea>
+
+            </div>
+
+          </div>
         </div>
 
         <div class="col-md-12">
@@ -399,13 +488,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Note
+                Navigation Aids (NAVAIDs)
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote11" name="note">
+                <textarea id="summernote2" name="navigation_aids">
                 </textarea>
 
             </div>
@@ -417,13 +506,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Nearest Accommodation
+                Communication
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote12" name="nearest_accommodation">
+                <textarea id="summernote18" name="communication">
                 </textarea>
 
             </div>
@@ -431,17 +520,59 @@
           </div>
         </div>
 
-        <div class="col-md-12">
+          <div class="col-md-12">
+            <div class="form-group">
+                <label>Runway Edge Lights</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsYes" value="Yes">
+                    <label class="form-check-label" for="runway_edge_lightsYes">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsNo" value="No">
+                    <label class="form-check-label" for="runway_edge_lightsNo">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsUnknown" value="Data Not Identified">
+                    <label class="form-check-label" for="runway_edge_lightsUnknown">Data Not Identified</label>
+                </div>
+            </div>
+        </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+                <label>Reil</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reil" id="reilYes" value="Yes">
+                    <label class="form-check-label" for="reilYes">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reil" id="reilNo" value="No">
+                    <label class="form-check-label" for="reilNo">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reil" id="reilUnknown" value="Data Not Identified">
+                    <label class="form-check-label" for="reilUnknown">Data Not Identified</label>
+                </div>
+            </div>
+        </div>
+
+         <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Other Flight Information
+                Runways
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote13" name="other_flight_information">
+                <textarea id="summernote17" name="runways">
                 </textarea>
 
             </div>
@@ -453,13 +584,49 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Other Airport Info
+                Domestic Airlines / Destination
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote14" name="other_reference_website">
+                <textarea id="summernote4" name="domestic_flights">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                International Flight
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote16" name="international_flight">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Other Flight Information
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote13" name="other_flight_information">
                 </textarea>
 
             </div>
@@ -485,35 +652,17 @@
           </div>
         </div>
 
-        <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                International Flight
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote16" name="international_flight">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
          <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Domestic Airlines / Destination
+                Nearest Police Station
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote4" name="domestic_flights">
+                <textarea id="summernote3" name="nearest_police_station">
                 </textarea>
 
             </div>
@@ -558,84 +707,6 @@
         </div>
 
          <div class="col-md-12">
-            <div class="form-group">
-                <label>Runway Edge Lights</label><br>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsYes" value="Yes">
-                    <label class="form-check-label" for="runway_edge_lightsYes">Yes</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsNo" value="No">
-                    <label class="form-check-label" for="runway_edge_lightsNo">No</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="runway_edge_lights" id="runway_edge_lightsUnknown" value="Data Not Identified">
-                    <label class="form-check-label" for="runway_edge_lightsUnknown">Data Not Identified</label>
-                </div>
-            </div>
-        </div>
-
-          <div class="col-md-12">
-            <div class="form-group">
-                <label>Reil</label><br>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="reil" id="reilYes" value="Yes">
-                    <label class="form-check-label" for="reilYes">Yes</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="reil" id="reilNo" value="No">
-                    <label class="form-check-label" for="reilNo">No</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="reil" id="reilUnknown" value="Data Not Identified">
-                    <label class="form-check-label" for="reilUnknown">Data Not Identified</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Runways
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote17" name="runways">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-       <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Navigation Aids (NAVAIDs)
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote2" name="navigation_aids">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-         <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
@@ -646,78 +717,6 @@
             <div class="card-body">
 
                 <textarea id="summernote19" name="nearby_airport_navigation_aids">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Communication
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote18" name="communication">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Nearest Police Station
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote3" name="nearest_police_station">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-         <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Directorate General of Civil Aviation
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote24" name="dgoca">
-                </textarea>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                State-Owned Aviation Operator
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-
-                <textarea id="summernote25" name="soao">
                 </textarea>
 
             </div>
