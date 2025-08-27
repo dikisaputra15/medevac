@@ -70,6 +70,31 @@
 
         <div class="col-md-12">
             <div class="form-group">
+                <label>Icon</label><br>
+
+                @php
+                    $icons = [
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png', 'label' => 'Level 1'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png', 'label' => 'Level 2'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png', 'label' => 'Level 3'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png', 'label' => 'Level 4'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png', 'label' => 'Level 5'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png', 'label' => 'Level 6'],
+                    ];
+                @endphp
+
+                @foreach($icons as $icon)
+                    <label style="margin-right: 15px;">
+                        <input type="radio" name="icon" value="{{ $icon['url'] }}"
+                            @checked(old('icon', $hospital->icon ?? '') === $icon['url'])>
+                        <img src="{{ $icon['url'] }}" style="width:24px; height:24px;"> {{ $icon['label'] }}
+                    </label>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
                 <label>Edit status</label>
                 <input type="text" class="form-control" name="status" value="{{ $hospital->status; }}">
             </div>
@@ -552,32 +577,6 @@
                 <input type="file" class="form-control" name="image">
             </div>
         </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Icon</label><br>
-
-                @php
-                    $icons = [
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png', 'label' => 'Level 1'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png', 'label' => 'Level 2'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png', 'label' => 'Level 3'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png', 'label' => 'Level 4'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png', 'label' => 'Level 5'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png', 'label' => 'Level 6'],
-                    ];
-                @endphp
-
-                @foreach($icons as $icon)
-                    <label style="margin-right: 15px;">
-                        <input type="radio" name="icon" value="{{ $icon['url'] }}"
-                            @checked(old('icon', $hospital->icon ?? '') === $icon['url'])>
-                        <img src="{{ $icon['url'] }}" style="width:24px; height:24px;"> {{ $icon['label'] }}
-                    </label>
-                @endforeach
-            </div>
-        </div>
-
 
         <button type="submit" class="btn btn-primary">Update Data</button>
     </div>

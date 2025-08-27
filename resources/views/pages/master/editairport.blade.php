@@ -73,6 +73,31 @@
             </div>
         </div>
 
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Icon</label><br>
+
+                @php
+                    $icons = [
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png', 'label' => 'International'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png', 'label' => 'Domestic'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png', 'label' => 'Regional Domestic'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png', 'label' => 'Military'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png', 'label' => 'Combined (Civil - Military)'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png', 'label' => 'Private'],
+                    ];
+                @endphp
+
+                @foreach($icons as $icon)
+                    <label style="margin-right: 15px;">
+                        <input type="radio" name="icon" value="{{ $icon['url'] }}"
+                            @checked(old('icon', $airport->icon ?? '') === $icon['url'])>
+                        <img src="{{ $icon['url'] }}" style="width:24px; height:24px;"> {{ $icon['label'] }}
+                    </label>
+                @endforeach
+            </div>
+        </div>
+
         <div class="col-md-12">
             <div class="form-group">
                 <label>Edit IATA Code</label>
@@ -792,32 +817,6 @@
                 <input type="file" class="form-control" name="image">
             </div>
         </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Icon</label><br>
-
-                @php
-                    $icons = [
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png', 'label' => 'International'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png', 'label' => 'Domestic'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png', 'label' => 'Regional Domestic'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png', 'label' => 'Military'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png', 'label' => 'Combined (Civil - Military)'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png', 'label' => 'Private'],
-                    ];
-                @endphp
-
-                @foreach($icons as $icon)
-                    <label style="margin-right: 15px;">
-                        <input type="radio" name="icon" value="{{ $icon['url'] }}"
-                            @checked(old('icon', $airport->icon ?? '') === $icon['url'])>
-                        <img src="{{ $icon['url'] }}" style="width:24px; height:24px;"> {{ $icon['label'] }}
-                    </label>
-                @endforeach
-            </div>
-        </div>
-
 
         <button type="submit" class="btn btn-primary">Update Data</button>
     </div>
