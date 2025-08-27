@@ -31,6 +31,27 @@
             </div>
         </div>
 
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="form-control" name="address">
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Latitude</label>
+                <input type="text" class="form-control" name="latitude">
+            </div>
+        </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Longitude</label>
+                <input type="text" class="form-control" name="longitude">
+            </div>
+        </div>
+
         <div class="col-md-12">
             <div class="form-group">
                 <label>Category</label>
@@ -329,27 +350,6 @@
             </div>
 
           </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Address</label>
-                <input type="text" class="form-control" name="address">
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Latitude</label>
-                <input type="text" class="form-control" name="latitude">
-            </div>
-        </div>
-
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Longitude</label>
-                <input type="text" class="form-control" name="longitude">
-            </div>
         </div>
 
         <div class="col-md-12">

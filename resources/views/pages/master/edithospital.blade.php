@@ -42,6 +42,26 @@
             </div>
         </div>
 
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Edit Address</label>
+                <input type="text" class="form-control" name="address" value="{{ $hospital->address; }}">
+            </div>
+        </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Edit Latitude</label>
+                <input type="text" class="form-control" name="latitude" value="{{ $hospital->latitude; }}">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Edit Longitude</label>
+                <input type="text" class="form-control" name="longitude" value="{{ $hospital->longitude; }}">
+            </div>
+        </div>
+
         <div class="col-md-12">
             <div class="form-group">
                 <label>Edit Facility Level</label>
@@ -157,26 +177,6 @@
             </div>
 
           </div>
-        </div>
-
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Address</label>
-                <input type="text" class="form-control" name="address" value="{{ $hospital->address; }}">
-            </div>
-        </div>
-
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Latitude</label>
-                <input type="text" class="form-control" name="latitude" value="{{ $hospital->latitude; }}">
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Longitude</label>
-                <input type="text" class="form-control" name="longitude" value="{{ $hospital->longitude; }}">
-            </div>
         </div>
 
          <div class="col-md-12">

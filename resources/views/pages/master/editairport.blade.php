@@ -44,6 +44,27 @@
 
         <div class="col-md-12">
             <div class="form-group">
+                <label>Edit Address</label>
+                <input type="text" class="form-control" name="address" value="{{ $airport->address; }}">
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Edit Latitude</label>
+                <input type="text" class="form-control" name="latitude" value="{{ $airport->latitude; }}">
+            </div>
+        </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Edit Longitude</label>
+                <input type="text" class="form-control" name="longitude" value="{{ $airport->longitude; }}">
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
                 <label>Edit Category</label>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="category[]" id="international" value="International"
@@ -359,27 +380,6 @@
             </div>
 
           </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Address</label>
-                <input type="text" class="form-control" name="address" value="{{ $airport->address; }}">
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Latitude</label>
-                <input type="text" class="form-control" name="latitude" value="{{ $airport->latitude; }}">
-            </div>
-        </div>
-
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Longitude</label>
-                <input type="text" class="form-control" name="longitude" value="{{ $airport->longitude; }}">
-            </div>
         </div>
 
         <div class="col-md-12">
