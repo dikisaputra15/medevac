@@ -22,6 +22,13 @@
 
         <div class="col-md-12">
             <div class="form-group">
+                <label>Edit Address</label>
+                <input type="text" class="form-control" name="address" value="{{ $airport->address; }}">
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
                 <label>Edit Provinces, Region</label>
                 <select class="form-control" name="province_id">
                     <?php
@@ -39,13 +46,6 @@
                     <?php } ?>
 
                 </select>
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Address</label>
-                <input type="text" class="form-control" name="address" value="{{ $airport->address; }}">
             </div>
         </div>
 

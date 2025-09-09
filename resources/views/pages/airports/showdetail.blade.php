@@ -183,7 +183,7 @@
                 <div class="card-header fw-bold"><i class="fas fa-map-marker-alt"></i> Location</div>
                 <div class="card-body overflow-auto">
                     <p><strong>Address:</strong>
-                        {{ $province->provinces_region }}, {{ $airport->address }}, Papua New Guinea
+                        {{ $airport->address }}, {{ $province->provinces_region }}, Papua New Guinea
                     </p>
                     <p><strong>Latitude:</strong> {{ $airport->latitude }} </p>
                     <p><strong>Longitude:</strong> {{ $airport->longitude }} </p>
