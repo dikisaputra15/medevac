@@ -166,7 +166,7 @@
             </div>
         </div>
 
-         <div class="col-md-12">
+         <div class="col-md-12" hidden>
             <div class="form-group">
                 <label>Operator</label>
                 <input type="text" class="form-control" name="operator">
@@ -230,7 +230,7 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                State-Owned Aviation Operator
+                Operator
               </h3>
             </div>
             <!-- /.card-header -->
