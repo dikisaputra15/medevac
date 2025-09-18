@@ -6,6 +6,8 @@
 @push('styles')
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+
 <style>
     #map {
         height: 600px;
@@ -360,8 +362,10 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        let routingControl;
         // Data utama dari bandara ini
         const airportData = {
             id: {{ $airport->id }},
@@ -454,7 +458,10 @@
                 const marker = L.marker([item.latitude, item.longitude], { icon: itemIcon })
                     .bindPopup(`
                         <b><a href="${detailUrl}">${name}</a></b> (Airport)<br>
-                        ${distance}
+                        ${distance}<br>
+                        <button class="btn btn-sm btn-primary mt-2" onclick="getDirection(${item.latitude}, ${item.longitude}, '${name}')">
+                            Get Direction
+                        </button>
                     `);
 
                 nearbyMarkersGroup.addLayer(marker);
@@ -467,6 +474,30 @@
                 map.fitBounds(bounds, { padding: [50, 50] });
             }
         }
+
+        window.getDirection = function(lat, lng, name) {
+            if (routingControl) {
+                map.removeControl(routingControl);
+            }
+
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(airportData.latitude, airportData.longitude), // asal
+                    L.latLng(lat, lng) // tujuan
+                ],
+                routeWhileDragging: true,
+                show: false,
+                createMarker: function(i, wp, nWps) {
+                    if (i === 0) {
+                        return L.marker(wp.latLng, { icon: mainAirportIcon }).bindPopup(`<b>${airportData.name}</b><br>Start Point`);
+                    } else if (i === nWps - 1) {
+                        return L.marker(wp.latLng).bindPopup(`<b>${name}</b><br>Destination`);
+                    } else {
+                        return L.marker(wp.latLng);
+                    }
+                }
+            }).addTo(map);
+        };
 
         // Eksekusi utama
         initializeMap();

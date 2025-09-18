@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
 
 <style>
     #map {
@@ -367,14 +368,14 @@
 @endsection
 
 @push('service')
-
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 
 <script>
+
     document.addEventListener('DOMContentLoaded', () => {
-        // Pass initial data from Laravel to JavaScript
         const hospitalData = {
             id: {{ $hospital->id }},
             name: '{{ $hospital->name }}',
@@ -393,12 +394,11 @@
         let mainMarker;
         let nearbyMarkersGroup = L.featureGroup();
         let radiusCircle;
+        let routingControl; // simpan rute aktif
 
-        // Default icons if not provided by the database
         const DEFAULT_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
         const DEFAULT_MAIN_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png';
 
-        // Custom icon for the main hospital
         const mainHospitalIcon = new L.Icon({
             iconUrl: DEFAULT_MAIN_HOSPITAL_ICON_URL,
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -409,28 +409,25 @@
         });
 
         function initializeMap() {
-            map = L.map('map', {
-                fullscreenControl: true
-            }).setView([hospitalData.latitude, hospitalData.longitude], 12);
+            map = L.map('map', { fullscreenControl: true })
+                .setView([hospitalData.latitude, hospitalData.longitude], 12);
 
             const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors',
                 maxZoom: 19
             });
 
-            const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri',
-                maxZoom: 19
-            });
+            const satelliteLayer = L.tileLayer(
+                'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                { attribution: 'Tiles &copy; Esri', maxZoom: 19 }
+            );
 
             satelliteLayer.addTo(map);
 
-            const baseLayers = {
+            L.control.layers({
                 "Satelit Map": satelliteLayer,
                 "Street Map": osmLayer
-            };
-
-            L.control.layers(baseLayers).addTo(map);
+            }).addTo(map);
 
             nearbyMarkersGroup.addTo(map);
         }
@@ -467,6 +464,10 @@
                 marker.bindPopup(`
                     <b><a href="${detailUrl}">${name}</a></b> (Hospital)<br>
                     ${distance}
+                    <br>
+                    <button class="btn btn-sm btn-primary mt-2" onclick="getDirection(${item.latitude}, ${item.longitude}, '${name}')">
+                        Get Direction
+                    </button>
                 `);
 
                 nearbyMarkersGroup.addLayer(marker);
@@ -479,6 +480,31 @@
                 map.fitBounds(bounds, { padding: [50, 50] });
             }
         }
+
+        // === Get Direction Function ===
+        window.getDirection = function(lat, lng, name) {
+            if (routingControl) {
+                map.removeControl(routingControl);
+            }
+
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(hospitalData.latitude, hospitalData.longitude), // asal
+                    L.latLng(lat, lng) // tujuan
+                ],
+                routeWhileDragging: true,
+                show: false,
+                createMarker: function(i, wp, nWps) {
+                    if (i === 0) {
+                        return L.marker(wp.latLng, { icon: mainHospitalIcon })
+                            .bindPopup(`<b>${hospitalData.name}</b><br>Start Point`);
+                    } else if (i === nWps - 1) {
+                        return L.marker(wp.latLng)
+                            .bindPopup(`<b>${name}</b><br>Destination`);
+                    }
+                }
+            }).addTo(map);
+        };
 
         // --- Main execution ---
         initializeMap();

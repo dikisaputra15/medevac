@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
 <style>
     #map {
         height: 600px;
@@ -463,22 +464,22 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Data utama dari bandara ini
         const airportData = {
             id: {{ $airport->id }},
             name: '{{ $airport->airport_name }}',
             latitude: {{ $airport->latitude }},
             longitude: {{ $airport->longitude }},
-            icon: '{{ $airport->icon ?? '' }}', // Pastikan kolom 'icon' ada di model Airport
-            image: '{{ $airport->image ?? '' }}', // Tambahkan jika ada kolom image
+            icon: '{{ $airport->icon ?? '' }}',
+            image: '{{ $airport->image ?? '' }}',
             address: '{{ $airport->address ?? '' }}',
             telephone: '{{ $airport->telephone ?? '' }}',
             website: '{{ $airport->website ?? '' }}'
         };
 
-        // Data bandara dan rumah sakit terdekat (dari controller)
         const nearbyAirports = @json($nearbyAirports);
         const nearbyHospitals = @json($nearbyHospitals);
         const radiusKm = {{ $radius_km }};
@@ -487,13 +488,14 @@
         let mainAirportMarker;
         let nearbyMarkersGroup = L.featureGroup();
         let radiusCircle;
+        let routingControl;
 
-        // Default icons jika tidak disediakan oleh database
+        // Default icons
         const DEFAULT_MAIN_AIRPORT_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png';
         const DEFAULT_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
         const DEFAULT_AIRPORT_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png';
 
-        // Custom icon untuk bandara utama
+        // Custom icon bandara utama
         const mainAirportIcon = new L.Icon({
             iconUrl: DEFAULT_MAIN_AIRPORT_ICON_URL,
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -503,98 +505,142 @@
             shadowSize: [41, 41]
         });
 
-        // Fungsi untuk menginisialisasi peta
         function initializeMap() {
-            map = L.map('map', {
-                fullscreenControl: true
-            }).setView([airportData.latitude, airportData.longitude], 12); // Zoom out sedikit untuk melihat area sekitar
+            map = L.map('map', { fullscreenControl: true })
+                .setView([airportData.latitude, airportData.longitude], 12);
 
-            // --- Tile Layers ---
             const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                attribution: '&copy; OpenStreetMap contributors',
                 maxZoom: 19
             });
 
-            const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri',
-                maxZoom: 19
-            });
+            const satelliteLayer = L.tileLayer(
+                'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                    attribution: 'Tiles &copy; Esri',
+                    maxZoom: 19
+                });
 
             satelliteLayer.addTo(map);
 
-            const baseLayers = {
+            L.control.layers({
                 "Satelit Map": satelliteLayer,
                 "Street Map": osmLayer
-            };
+            }).addTo(map);
 
-            L.control.layers(baseLayers).addTo(map);
-            nearbyMarkersGroup.addTo(map); // Tambahkan grup untuk marker terdekat
+            nearbyMarkersGroup.addTo(map);
         }
 
-        // Fungsi untuk menambahkan marker bandara utama dan lingkaran radius
         function addMainAirportAndCircle() {
             mainAirportMarker = L.marker([airportData.latitude, airportData.longitude], { icon: mainAirportIcon })
                 .addTo(map)
                 .bindPopup(`<b>${airportData.name}</b><br>This is the main airport.`)
                 .openPopup();
 
-            // Tambahkan lingkaran radius
             radiusCircle = L.circle([airportData.latitude, airportData.longitude], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.2,
-                radius: radiusKm * 1000 // Ubah km ke meter
+                radius: radiusKm * 1000
             }).addTo(map);
         }
 
-        // Fungsi untuk menambahkan marker terdekat (bandara dan rumah sakit)
-        function addNearbyMarkers(data, defaultIconUrl, detailUrlPrefix, type) {
+        function addNearbyMarkers(data, defaultIconUrl, type) {
             data.forEach(item => {
                 const itemIcon = L.icon({
-                    iconUrl: item.icon || defaultIconUrl, // Gunakan item.icon dari DB, fallback ke default
+                    iconUrl: item.icon || defaultIconUrl,
                     iconSize: [24, 24],
                     iconAnchor: [12, 24],
                     popupAnchor: [0, -20]
                 });
 
                 const marker = L.marker([item.latitude, item.longitude], { icon: itemIcon });
-
-                // Gunakan properti yang benar tergantung tipe (airport_name untuk bandara, name untuk rumah sakit)
                 const name = item.name || item.airport_name || 'N/A';
-
-                let detailUrl;
-                if (type === 'Airport') {
-                    detailUrl = `/airports/${item.id}/detail`;
-                } else {
-                    detailUrl = `/hospitals/${item.id}`;
-                }
-
                 const distance = item.distance ? `<br><strong>Distance:</strong> ${item.distance.toFixed(2)} km` : '';
 
-                marker.bindPopup(`
+                let detailUrl = (type === 'Airport')
+                    ? `/airports/${item.id}/detail`
+                    : `/hospitals/${item.id}`;
+
+                let popupHtml = `
                     <b><a href="${detailUrl}">${name}</a></b> (${type})<br>
                     ${distance}
-                `);
+                    <br>
+                    <button class="btn btn-sm btn-primary mt-2"
+                        onclick="getDirection(${item.latitude}, ${item.longitude}, '${name}')">
+                        Get Direction
+                    </button>
+                `;
 
+                marker.bindPopup(popupHtml);
                 nearbyMarkersGroup.addLayer(marker);
             });
         }
 
-        // Fungsi untuk menyesuaikan batas peta ke semua marker dan lingkaran
         function fitMapToBounds() {
             const bounds = L.featureGroup([mainAirportMarker, nearbyMarkersGroup, radiusCircle]).getBounds();
-            if (bounds.isValid()) {
-                map.fitBounds(bounds, { padding: [50, 50] });
-            }
+            if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50] });
         }
 
-        // --- Alur Eksekusi Utama ---
+        window.getDirection = function(lat, lng, name) {
+            if (routingControl) {
+                map.removeControl(routingControl);
+            }
+
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(airportData.latitude, airportData.longitude),
+                    L.latLng(lat, lng)
+                ],
+                routeWhileDragging: true,
+                show: true,
+                createMarker: function(i, wp, nWps) {
+                    if (i === 0) {
+                        return L.marker(wp.latLng, { icon: mainAirportIcon }).bindPopup(`<b>${airportData.name}</b><br>Start Point`);
+                    } else if (i === nWps - 1) {
+                        return L.marker(wp.latLng).bindPopup(`<b>${name}</b><br>Destination`);
+                    }
+                }
+            }).addTo(map);
+
+            // sembunyikan panel saat pertama
+            const panel = document.querySelector('.leaflet-routing-container');
+            if (panel) panel.style.display = 'none';
+        };
+
+        // 🔹 Custom control untuk toggle panel
+        L.Control.RouteToggle = L.Control.extend({
+            onAdd: function(map) {
+                const btn = L.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
+                btn.innerHTML = '<i class="fa fa-route"></i>'; // pakai FontAwesome
+                btn.style.backgroundColor = 'white';
+                btn.style.width = '34px';
+                btn.style.height = '34px';
+                btn.style.cursor = 'pointer';
+
+                btn.onclick = function() {
+                    const panel = document.querySelector('.leaflet-routing-container');
+                    if (!panel) return;
+                    panel.style.display = (panel.style.display === 'none') ? 'block' : 'none';
+                };
+
+                return btn;
+            }
+        });
+        L.control.routeToggle = function(opts) {
+            return new L.Control.RouteToggle(opts);
+        }
+
+        // --- Eksekusi ---
         initializeMap();
         addMainAirportAndCircle();
-        addNearbyMarkers(nearbyAirports, DEFAULT_AIRPORT_ICON_URL, 'airports', 'Airport');
-        addNearbyMarkers(nearbyHospitals, DEFAULT_HOSPITAL_ICON_URL, 'hospitals', 'Hospital');
+        addNearbyMarkers(nearbyAirports, DEFAULT_AIRPORT_ICON_URL, 'Airport');
+        addNearbyMarkers(nearbyHospitals, DEFAULT_HOSPITAL_ICON_URL, 'Hospital');
         fitMapToBounds();
+
+        // Tambah tombol toggle ke peta
+        L.control.routeToggle({ position: 'topright' }).addTo(map);
     });
 </script>
+
 
 @endpush

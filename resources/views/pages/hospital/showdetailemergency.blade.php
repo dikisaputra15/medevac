@@ -6,6 +6,7 @@
 @push('styles')
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
 
 <style>
     #map {
@@ -442,136 +443,147 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Pass initial data from Laravel to JavaScript
-        const hospitalData = {
-            id: {{ $hospital->id }},
-            name: '{{ $hospital->name }}',
-            latitude: {{ $hospital->latitude }},
-            longitude: {{ $hospital->longitude }},
-            image: '{{ $hospital->image ?? '' }}',
-            address: '{{ $hospital->address ?? '' }}',
-            telephone: '{{ $hospital->telephone ?? '' }}',
-            website: '{{ $hospital->website ?? '' }}',
-            icon: '{{ $hospital->icon ?? '' }}' // Assuming an 'icon' column in your hospitals table
-        };
-        const nearbyHospitals = @json($nearbyHospitals);
-        const nearbyAirports = @json($nearbyAirports);
-        const radiusKm = {{ $radius_km }};
 
-        let map;
-        let mainMarker;
-        let nearbyMarkersGroup = L.featureGroup();
-        let radiusCircle;
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Data dari Laravel ---
+    const hospitalData = {
+        id: {{ $hospital->id }},
+        name: '{{ $hospital->name }}',
+        latitude: {{ $hospital->latitude }},
+        longitude: {{ $hospital->longitude }},
+        image: '{{ $hospital->image ?? '' }}',
+        address: '{{ $hospital->address ?? '' }}',
+        telephone: '{{ $hospital->telephone ?? '' }}',
+        website: '{{ $hospital->website ?? '' }}',
+        icon: '{{ $hospital->icon ?? '' }}'
+    };
+    const nearbyHospitals = @json($nearbyHospitals);
+    const nearbyAirports = @json($nearbyAirports);
+    const radiusKm = {{ $radius_km }};
 
-        // Default icons if not provided by the database
-        const DEFAULT_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
-        const DEFAULT_AIRPORT_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png';
-        const DEFAULT_MAIN_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png';
+    let map;
+    let mainMarker;
+    let routingControl = null;
+    let nearbyMarkersGroup = L.featureGroup();
+    let radiusCircle;
 
-        // Custom icon for the main hospital (prioritize database icon)
-        const mainHospitalIcon = new L.Icon({
-            iconUrl: DEFAULT_MAIN_HOSPITAL_ICON_URL,
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
+    // Default icons
+    const DEFAULT_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
+    const DEFAULT_AIRPORT_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png';
+    const DEFAULT_MAIN_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png';
+
+    // Main hospital icon
+    const mainHospitalIcon = new L.Icon({
+        iconUrl: DEFAULT_MAIN_HOSPITAL_ICON_URL,
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    // Init Map
+    function initializeMap() {
+        map = L.map('map', {
+            fullscreenControl: true
+        }).setView([hospitalData.latitude, hospitalData.longitude], 12);
+
+        const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            maxZoom: 19
         });
 
-        // Function to initialize the map
-        function initializeMap() {
-            map = L.map('map', {
-                fullscreenControl: true
-            }).setView([hospitalData.latitude, hospitalData.longitude], 12);
+        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri',
+            maxZoom: 19
+        });
 
-            // --- Tile Layers ---
-            const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                maxZoom: 19
+        satelliteLayer.addTo(map);
+
+        const baseLayers = {
+            "Satelit Map": satelliteLayer,
+            "Street Map": osmLayer
+        };
+
+        L.control.layers(baseLayers).addTo(map);
+        nearbyMarkersGroup.addTo(map);
+    }
+
+    // Main hospital + radius
+    function addMainHospitalAndCircle() {
+        mainMarker = L.marker([hospitalData.latitude, hospitalData.longitude], { icon: mainHospitalIcon })
+            .addTo(map)
+            .bindPopup(`<b>${hospitalData.name}</b><br>This is the main hospital.`)
+            .openPopup();
+
+        radiusCircle = L.circle([hospitalData.latitude, hospitalData.longitude], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.2,
+            radius: radiusKm * 1000
+        }).addTo(map);
+    }
+
+    // Tambahkan nearby markers + tombol Get Direction
+    function addNearbyMarkers(data, defaultIconUrl, type) {
+        data.forEach(item => {
+            const itemIcon = L.icon({
+                iconUrl: item.icon || defaultIconUrl,
+                iconSize: [24, 24],
+                iconAnchor: [12, 24],
+                popupAnchor: [0, -20]
             });
 
-            const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri',
-                maxZoom: 19
-            });
+            const marker = L.marker([item.latitude, item.longitude], { icon: itemIcon });
 
-            satelliteLayer.addTo(map);
+            const name = item.name || item.airport_name || 'N/A';
+            const distance = item.distance ? `<br><strong>Distance:</strong> ${item.distance.toFixed(2)} km` : '';
 
-            const baseLayers = {
-                "Satelit Map": satelliteLayer,
-                "Street Map": osmLayer
-            };
+            marker.bindPopup(`
+                <b>${name}</b> (${type})<br>
+                ${distance}
+                <br><button class="btn btn-sm btn-primary mt-2" onclick="getDirection(${item.latitude}, ${item.longitude}, '${name}')">Get Direction</button>
+            `);
 
-            L.control.layers(baseLayers).addTo(map);
+            nearbyMarkersGroup.addLayer(marker);
+        });
+    }
 
-            nearbyMarkersGroup.addTo(map);
+    // Fungsi Get Direction
+    window.getDirection = function(lat, lng, destName) {
+        if (routingControl) {
+            map.removeControl(routingControl);
         }
+        routingControl = L.Routing.control({
+            waypoints: [
+                L.latLng(hospitalData.latitude, hospitalData.longitude),
+                L.latLng(lat, lng)
+            ],
+            routeWhileDragging: false,
+            show: false,
+            addWaypoints: false,
+            collapsible: true
+        }).addTo(map);
+    }
 
-        // Function to add the main hospital marker and circle
-        function addMainHospitalAndCircle() {
-            mainMarker = L.marker([hospitalData.latitude, hospitalData.longitude], { icon: mainHospitalIcon })
-                .addTo(map)
-                .bindPopup(`<b>${hospitalData.name}</b><br>This is the main hospital.`)
-                .openPopup();
-
-            // Add the radius circle
-            radiusCircle = L.circle([hospitalData.latitude, hospitalData.longitude], {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.2,
-                radius: radiusKm * 1000 // Convert km to meters
-            }).addTo(map);
+    // Fit bounds
+    function fitMapToBounds() {
+        const bounds = L.featureGroup([mainMarker, nearbyMarkersGroup, radiusCircle]).getBounds();
+        if (bounds.isValid()) {
+            map.fitBounds(bounds, { padding: [50, 50] });
         }
+    }
 
-        // Function to add nearby markers
-        function addNearbyMarkers(data, defaultIconUrl, detailUrlPrefix, type) {
-            data.forEach(item => {
-                const itemIcon = L.icon({
-                    iconUrl: item.icon || defaultIconUrl, // Use item.icon from DB, fallback to default
-                    iconSize: [24, 24],
-                    iconAnchor: [12, 24],
-                    popupAnchor: [0, -20]
-                });
-
-                const marker = L.marker([item.latitude, item.longitude], { icon: itemIcon });
-
-                const name = item.name || item.airport_name || 'N/A';
-
-                let detailUrl;
-                if (type === 'Airport') {
-                    detailUrl = `/airports/${item.id}/detail`;
-                } else {
-                    detailUrl = `/hospitals/${item.id}`;
-                }
-
-                const distance = item.distance ? `<br><strong>Distance:</strong> ${item.distance.toFixed(2)} km` : '';
-
-                marker.bindPopup(`
-                    <b><a href="${detailUrl}">${name}</a></b> (${type})<br>
-                    ${distance}
-                `);
-
-                nearbyMarkersGroup.addLayer(marker);
-            });
-        }
-
-        // Function to fit map bounds to all markers and the circle
-        function fitMapToBounds() {
-            const bounds = L.featureGroup([mainMarker, nearbyMarkersGroup, radiusCircle]).getBounds();
-            if (bounds.isValid()) {
-                map.fitBounds(bounds, { padding: [50, 50] });
-            }
-        }
-
-        // --- Main execution flow ---
-        initializeMap();
-        addMainHospitalAndCircle();
-        addNearbyMarkers(nearbyHospitals, DEFAULT_HOSPITAL_ICON_URL, 'hospitals', 'Hospital');
-        addNearbyMarkers(nearbyAirports, DEFAULT_AIRPORT_ICON_URL, 'airports', 'Airport');
-        fitMapToBounds();
-    });
+    // Run
+    initializeMap();
+    addMainHospitalAndCircle();
+    addNearbyMarkers(nearbyHospitals, DEFAULT_HOSPITAL_ICON_URL, 'Hospital');
+    addNearbyMarkers(nearbyAirports, DEFAULT_AIRPORT_ICON_URL, 'Airport');
+    fitMapToBounds();
+});
 </script>
+
 @endpush
