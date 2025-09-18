@@ -81,6 +81,8 @@
 
     .card-header{
         padding: 0.25rem 1.25rem;
+        color: #3c66b5;
+        font-weight: bold;
     }
 
     .mb-4{
@@ -365,8 +367,7 @@
 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        let routingControl;
-        // Data utama dari bandara ini
+
         const airportData = {
             id: {{ $airport->id }},
             name: '{{ $airport->airport_name }}',
@@ -387,6 +388,7 @@
         let mainAirportMarker;
         let nearbyMarkersGroup = L.featureGroup();
         let radiusCircle;
+        let routingControl;
 
         // Default icon
         const DEFAULT_MAIN_AIRPORT_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png';
@@ -475,6 +477,7 @@
             }
         }
 
+        // === Get Direction Function ===
         window.getDirection = function(lat, lng, name) {
             if (routingControl) {
                 map.removeControl(routingControl);
@@ -486,24 +489,58 @@
                     L.latLng(lat, lng) // tujuan
                 ],
                 routeWhileDragging: true,
-                show: false,
+                show: true,
                 createMarker: function(i, wp, nWps) {
                     if (i === 0) {
-                        return L.marker(wp.latLng, { icon: mainAirportIcon }).bindPopup(`<b>${airportData.name}</b><br>Start Point`);
+                        return L.marker(wp.latLng, { icon: mainAirportIcon }) // pakai icon bandara
+                            .bindPopup(`<b>${airportData.name}</b><br>Start Point`);
                     } else if (i === nWps - 1) {
-                        return L.marker(wp.latLng).bindPopup(`<b>${name}</b><br>Destination`);
-                    } else {
-                        return L.marker(wp.latLng);
+                        return L.marker(wp.latLng)
+                            .bindPopup(`<b>${name}</b><br>Destination`);
                     }
                 }
             }).addTo(map);
+
+            // sembunyikan panel bawaan saat pertama kali
+            const panel = document.querySelector('.leaflet-routing-container');
+            if (panel) {
+                panel.style.display = 'none';
+            }
+
+            // buat tombol toggle kalau belum ada
+            if (!document.getElementById('toggle-route-panel')) {
+                const toggleBtn = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+                toggleBtn.id = 'toggle-route-panel';
+                toggleBtn.innerHTML = '<a href="#" title="Show/Hide Route Panel"><i class="fa fa-route"></i></a>';
+                toggleBtn.style.alignItems = 'center';
+                toggleBtn.style.justifyContent = 'center';
+
+                toggleBtn.onclick = function(e) {
+                    e.preventDefault();
+                    if (panel.style.display === 'none') {
+                        panel.style.display = 'block';
+                    } else {
+                        panel.style.display = 'none';
+                    }
+                };
+
+                // pasang tombol di pojok kanan atas map
+                map.getContainer().appendChild(toggleBtn);
+                toggleBtn.style.position = 'absolute';
+                toggleBtn.style.top = '60px';
+                toggleBtn.style.right = '10px';
+                toggleBtn.style.zIndex = 1000;
+            }
         };
+
 
         // Eksekusi utama
         initializeMap();
         addMainAirportAndCircle();
         addNearbyAirports(nearbyAirports);
         fitMapToBounds();
+
+
     });
 </script>
 

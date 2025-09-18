@@ -60,6 +60,8 @@
 
     .card-header{
         padding: 0.25rem 1.25rem;
+        color: #3c66b5;
+        font-weight: bold;
     }
 
     .mb-4{

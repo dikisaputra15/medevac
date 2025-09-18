@@ -70,6 +70,8 @@
 
     .card-header{
         padding: 0.25rem 1.25rem;
+        color: #3c66b5;
+        font-weight: bold;
     }
 
     .mb-4{
@@ -465,6 +467,7 @@
 <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -484,18 +487,14 @@
         const nearbyHospitals = @json($nearbyHospitals);
         const radiusKm = {{ $radius_km }};
 
-        let map;
-        let mainAirportMarker;
+        let map, mainAirportMarker, radiusCircle, routingControl;
         let nearbyMarkersGroup = L.featureGroup();
-        let radiusCircle;
-        let routingControl;
 
         // Default icons
         const DEFAULT_MAIN_AIRPORT_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png';
         const DEFAULT_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
         const DEFAULT_AIRPORT_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png';
 
-        // Custom icon bandara utama
         const mainAirportIcon = new L.Icon({
             iconUrl: DEFAULT_MAIN_AIRPORT_ICON_URL,
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -561,7 +560,7 @@
                     ? `/airports/${item.id}/detail`
                     : `/hospitals/${item.id}`;
 
-                let popupHtml = `
+                marker.bindPopup(`
                     <b><a href="${detailUrl}">${name}</a></b> (${type})<br>
                     ${distance}
                     <br>
@@ -569,9 +568,7 @@
                         onclick="getDirection(${item.latitude}, ${item.longitude}, '${name}')">
                         Get Direction
                     </button>
-                `;
-
-                marker.bindPopup(popupHtml);
+                `);
                 nearbyMarkersGroup.addLayer(marker);
             });
         }
@@ -581,54 +578,67 @@
             if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50] });
         }
 
-        window.getDirection = function(lat, lng, name) {
-            if (routingControl) {
-                map.removeControl(routingControl);
+       window.getDirection = function(lat, lng, name) {
+    if (routingControl) {
+        map.removeControl(routingControl);
+    }
+
+    routingControl = L.Routing.control({
+        waypoints: [
+            L.latLng(airportData.latitude, airportData.longitude),
+            L.latLng(lat, lng)
+        ],
+        routeWhileDragging: true,
+        show: true,
+        createMarker: function(i, wp, nWps) {
+            if (i === 0) {
+                return L.marker(wp.latLng, { icon: mainAirportIcon })
+                    .bindPopup(`<b>${airportData.name}</b><br>Start Point`);
+            } else if (i === nWps - 1) {
+                return L.marker(wp.latLng)
+                    .bindPopup(`<b>${name}</b><br>Destination`);
             }
+        }
+    }).addTo(map);
 
-            routingControl = L.Routing.control({
-                waypoints: [
-                    L.latLng(airportData.latitude, airportData.longitude),
-                    L.latLng(lat, lng)
-                ],
-                routeWhileDragging: true,
-                show: true,
-                createMarker: function(i, wp, nWps) {
-                    if (i === 0) {
-                        return L.marker(wp.latLng, { icon: mainAirportIcon }).bindPopup(`<b>${airportData.name}</b><br>Start Point`);
-                    } else if (i === nWps - 1) {
-                        return L.marker(wp.latLng).bindPopup(`<b>${name}</b><br>Destination`);
-                    }
-                }
-            }).addTo(map);
+    // Default: panel disembunyikan dulu
+    const panel = document.querySelector('.leaflet-routing-container');
+    if (panel) panel.style.display = 'none';
 
-            // sembunyikan panel saat pertama
+    // 🔵 Tampilkan tombol toggle setelah routing aktif
+    const toggleBtn = document.getElementById('routeToggleBtn');
+    if (toggleBtn) toggleBtn.style.display = 'flex';
+};
+
+
+        // === Custom Control for Toggle Route Panel ===
+L.Control.RouteToggle = L.Control.extend({
+    onAdd: function(map) {
+        const btn = L.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
+        btn.innerHTML = '<i class="fa fa-route"></i>';
+        btn.style.backgroundColor = 'white';
+        btn.style.width = '34px';
+        btn.style.height = '34px';
+        btn.style.display = 'none'; // 🔴 sembunyikan dulu
+        btn.style.alignItems = 'center';
+        btn.style.justifyContent = 'center';
+        btn.style.cursor = 'pointer';
+        btn.id = 'routeToggleBtn'; // kasih ID biar gampang akses
+
+        btn.onclick = function(e) {
+            e.preventDefault();
             const panel = document.querySelector('.leaflet-routing-container');
-            if (panel) panel.style.display = 'none';
+            if (!panel) return;
+            panel.style.display = (panel.style.display === 'none') ? 'block' : 'none';
         };
 
-        // 🔹 Custom control untuk toggle panel
-        L.Control.RouteToggle = L.Control.extend({
-            onAdd: function(map) {
-                const btn = L.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
-                btn.innerHTML = '<i class="fa fa-route"></i>'; // pakai FontAwesome
-                btn.style.backgroundColor = 'white';
-                btn.style.width = '34px';
-                btn.style.height = '34px';
-                btn.style.cursor = 'pointer';
+        return btn;
+    }
+});
 
-                btn.onclick = function() {
-                    const panel = document.querySelector('.leaflet-routing-container');
-                    if (!panel) return;
-                    panel.style.display = (panel.style.display === 'none') ? 'block' : 'none';
-                };
-
-                return btn;
-            }
-        });
-        L.control.routeToggle = function(opts) {
-            return new L.Control.RouteToggle(opts);
-        }
+L.control.routeToggle = function(opts) {
+    return new L.Control.RouteToggle(opts);
+}
 
         // --- Eksekusi ---
         initializeMap();
@@ -637,8 +647,9 @@
         addNearbyMarkers(nearbyHospitals, DEFAULT_HOSPITAL_ICON_URL, 'Hospital');
         fitMapToBounds();
 
-        // Tambah tombol toggle ke peta
+        // pasang tombol toggle di kanan atas (di bawah baselayer)
         L.control.routeToggle({ position: 'topright' }).addTo(map);
+
     });
 </script>
 

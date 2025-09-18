@@ -60,10 +60,23 @@
 
     .card-header{
         padding: 0.25rem 1.25rem;
+        color: #3c66b5;
+        font-weight: bold;
     }
 
     .mb-4{
         margin-bottom: 0.5rem !important;
+    }
+
+    .leaflet-routing-container-hide .leaflet-routing-collapse-btn
+    {
+        left: 8px;
+        top: 8px;
+    }
+
+    .leaflet-control-container .leaflet-routing-container-hide {
+        width: 48px;
+        height: 48px;
     }
 </style>
 @endpush
