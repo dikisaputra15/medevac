@@ -167,45 +167,42 @@
         </div>
     </div>
 
-    <div class="row">
-
-         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-plane"></i>Domestic</div>
-                <div class="card-body overflow-auto" style="max-height: 300px;">
+   <div class="row">
+    <!-- Kolom kiri dengan 3 card -->
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-header fw-bold"><i class="fas fa-plane"></i> Domestic</div>
+            <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->domestic_flights; ?>
-                </div>
             </div>
         </div>
 
-         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Other General Flight Information</div>
-                <div class="card-body overflow-auto" style="max-height: 300px;">
-                <?php echo $airport->other_flight_information; ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-globe"></i>International</div>
-                <div class="card-body overflow-auto" style="max-height: 300px;">
+        <div class="card mb-3">
+            <div class="card-header fw-bold"><i class="fas fa-globe"></i> International</div>
+            <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->international_flight; ?>
-                </div>
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i>Airport Flight Information</div>
-                <div class="card-body overflow-auto" style="max-height: 300px;">
-                <?php echo $airport->flight_information; ?>
-                </div>
+        <div class="card">
+            <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i> Flight Info</div>
+            <div class="card-body overflow-auto" style="max-height: 300px;">
+                <?php echo $airport->other_flight_information; ?>
             </div>
         </div>
-
     </div>
+
+    <!-- Kolom kanan dengan 1 card besar -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i> Flight Tracker</div>
+            <div class="card-body overflow-auto">
+                <iframe src="https://globe.adsbexchange.com/?lat=-6.2&lon=106.8&zoom=7" width="100%" height="600" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </div>
 

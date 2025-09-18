@@ -555,8 +555,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = item.name || item.airport_name || 'N/A';
             const distance = item.distance ? `<br><strong>Distance:</strong> ${item.distance.toFixed(2)} km` : '';
 
+            let detailUrl = (type === 'Airport')
+                    ? `/airports/${item.id}/detail`
+                    : `/hospitals/${item.id}`;
+
             marker.bindPopup(`
-                <b>${name}</b> (${type})<br>
+                <b><a href="${detailUrl}">${name}</a></b> (${type})<br>
                 ${distance}
                 <br><button class="btn btn-sm btn-primary mt-2" onclick="getDirection(${item.latitude}, ${item.longitude}, '${name}')">Get Direction</button>
             `);
