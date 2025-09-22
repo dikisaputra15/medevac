@@ -93,11 +93,6 @@
 
         <div class="d-flex gap-2 ms-auto">
 
-            <button onclick="history.back()" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
-               <i class="bi bi-arrow-left fs-3"></i>
-                <small>Back</small>
-            </button>
-
             <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/'.$hospital->id) ? 'active' : '' }}">
                 <img src="{{ asset('images/icon-menu-general-info.png') }}" style="width: 18px; height: 24px;">
                 <small>General</small>
