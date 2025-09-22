@@ -41,12 +41,48 @@
     td {
       vertical-align: middle;
     }
-    .header-company { background-color: #d6b77d !important; }
-    .header-aircraft { background-color: #c1b8ae !important; }
-    .header-service { background-color: #c3d1cc !important; }
-    .header-weblink  { background-color: #c6c3bd !important; }
-    .header-other    { background-color: #b8c7cc !important; }
-    .icon { color: #0056d2; font-weight: bold; }
+    .table thead th {
+      text-align: center;
+      vertical-align: middle;
+      font-weight: bold;
+      font-size: 14px;
+      color: #000;
+    }
+    .table td{
+        vertical-align: middle;
+    }
+    .header-charter { background-color: #d9ceb2; }
+    .header-charter-2 { background-color: #ede8db; }
+    .header-charter-3 { background-color: #f4f1e9; }
+    .header-fleet-2 { background-color: #f4f0e6; }
+    .header-fleet-3 { background-color: #faf8f3; }
+    .header-aircraft { background-color: #a7a18f; }
+    .header-aircraft-2 { background-color: #c9c5bb; }
+    .header-aircraft-3 { background-color: #dfdcd6; }
+    .header-rotary { background-color: #d5d1c9; }
+    .header-rotary-2 { background-color: #e6e3df; }
+    .header-service  { background-color: #c0cec6; }
+    .header-service-2  { background-color: #d5dfd9; }
+    .header-service-3  { background-color: #e6ece8; }
+    .header-service-cargo-1  { background-color: #e2eae5; }
+    .header-service-cargo-2  { background-color: #eef2ef; }
+    .header-service-medevac-1  { background-color: #e8efeb; }
+    .header-service-medevac-2  { background-color: #f3f8f5; }
+    .header-other    { background-color: #b6c8ca; }
+    .header-other-2    { background-color: #cedadc; }
+    .header-other-3    { background-color: #e2e9ea; }
+    .header-icon {
+      display: block;
+      margin: 0 auto;
+    }
+    .icon.minus{
+        font-size: 36px;
+        color: #9b9b9b;
+        font-weight: bold;
+    }
+    .notes-col {
+        text-align: left !important;
+    }
 
 </style>
 
@@ -55,7 +91,6 @@
 @section('conten')
 
 <div class="card">
-
      <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
         <div class="d-flex gap-2 align-items-center">
             <h2 class="fw-bold">AIR CHARTER INFORMATION - Papua New Guinea </h2>
