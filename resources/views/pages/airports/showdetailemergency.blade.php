@@ -99,43 +99,43 @@
 
               <!-- Button 2 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/detail') ? 'active' : '' }}">
-                <i class="bi bi-file-earmark-text-fill fs-3"></i>
+                <img src="{{ asset('images/icon-menu-general-info.png') }}" style="width: 18px; height: 24px;">
                 <small>General</small>
             </a>
 
             <!-- Button 3 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/navigation" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/navigation') ? 'active' : '' }}">
-                <i class="bi bi-compass fs-3"></i>
+                <img src="{{ asset('images/icon-navaids-white.png') }}" style="width: 24px; height: 24px;">
                 <small>Navigation</small>
             </a>
 
              <!-- Button 4 -->
              <a href="{{ url('airports') }}/{{$airport->id}}/airlinesdestination" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/airlinesdestination') ? 'active' : '' }}">
-                <i class="bi bi-airplane-engines fs-3"></i>
-                <small>Airlines/Destination</small>
+                <img src="{{ asset('images/icon-destination-white.png') }}" style="width: 24px; height: 24px;">
+                <small>Destination</small>
             </a>
 
             <!-- Button 5 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/emergency" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/emergency') ? 'active' : '' }}">
-                <i class="bi bi-chat-dots-fill fs-3"></i>
-                <small>Emergency Support</small>
+                <img src="{{ asset('images/icon-emergency-support-white.png') }}" style="width: 24px; height: 24px;">
+                <small>Emergency</small>
             </a>
 
              <!-- Button 5 -->
             <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
-                <i class="bi bi-hospital fs-3"></i>
-                <small>Medical Facility</small>
+                 <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
+                <small>Medical</small>
             </a>
 
             <!-- Button 6 -->
             <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
-                <i class="bi bi-airplane-engines fs-3"></i>
+                <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
                 <small>Air Charter</small>
             </a>
 
             <!-- Button 7 -->
             <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
-            <i class="bi bi-bank fs-3"></i>
+            <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
                 <small>Embassies</small>
             </a>
 
@@ -159,7 +159,7 @@
 
         <div class="col-sm-8 d-flex flex-column gap-3">
             <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-map"></i> Emergency Support Tools</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-emergency-support.png') }}" style="width: 24px; height: 24px;"> Emergency Support Tools</div>
                 <div class="card-body p-0">
                     <div id="map"></div>
                 </div>
@@ -228,14 +228,14 @@
 
         <div class="col-sm-4 d-flex flex-column gap-3">
             <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Nearest Police Station</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-police.png') }}" style="width: 24px; height: 24px;"> Nearest Police Station</div>
                 <div class="card-body overflow-auto">
                     <?php echo $airport->nearest_police_station; ?>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-notes-medical"></i>Emergency Medical Support</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-medical-support-website.png') }}" style="width: 24px; height: 24px;"> Emergency Medical Support</div>
                 <div class="card-body overflow-auto">
                         <?php echo $hospital->medical_support_website; ?>
                 </div>

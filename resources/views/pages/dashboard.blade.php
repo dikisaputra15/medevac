@@ -66,6 +66,62 @@
             width: 30px;
             height: 30px;
         }
+
+        p{
+        margin-bottom: 8px;
+            line-height: 18px;
+        }
+
+        .btn-danger{
+            background-color:#395272;
+            border-color: transparent;
+        }
+
+        .btn-danger:hover{
+            background-color:#5686c3;
+            border-color: transparent;
+        }
+
+        .btn.active {
+            background-color: #5686c3 !important;
+            border-color: transparent !important;
+            color: #fff !important;
+        }
+
+        .p-3{
+            padding: 10px !important;
+            margin: 0 3px;
+        }
+
+        .btn-outline-danger{
+            color: #FFFFFF;
+            background-color:#395272;
+            border-color: transparent;
+        }
+
+        .btn-outline-danger:hover{
+            background-color:#5686c3;
+            border-color: transparent;
+        }
+
+        .fa,
+        .fab,
+        .fad,
+        .fal,
+        .far,
+        .fas {
+            color: #346abb;
+        }
+
+        .card-header{
+            padding: 0.25rem 1.25rem;
+            color: #3c66b5;
+            font-weight: bold;
+        }
+
+        .mb-4{
+            margin-bottom: 0.5rem !important;
+        }
     </style>
 
 @endpush
@@ -74,11 +130,38 @@
 
 <div class="card">
 
+    <div class="d-flex justify-content-end p-3" style="background-color: #dfeaf1;">
+
+        <div class="d-flex gap-2 mt-2">
+
+            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
+                <i class="bi bi-airplane fs-3"></i>
+                <small>Airports</small>
+            </a>
+
+            <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
+             <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
+                <small>Medical</small>
+            </a>
+
+            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
+                  <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
+                <small>Air Charter</small>
+            </a>
+
+            <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
+            <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
+                <small>Embassies</small>
+            </a>
+
+        </div>
+    </div>
+
     <div class="filter-container p-3">
         <form id="filterForm">
             <div class="row g-3 align-items-end">
                 {{-- Filter for Airports --}}
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <select id="airport_name" class="form-select select21-search" name="airport_name">
                         <option value="">🔍 Airport Name</option>
                         @foreach($airportNames as $name)
@@ -87,7 +170,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <select id="airport_category" class="form-select select22-search" name="airport_category">
                         <option value="">🔍 Airport Category</option>
                         @foreach($airportCategories as $category)
@@ -96,13 +179,9 @@
                     </select>
                 </div>
 
-                <div class="col-md-4">
-                    <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
-                    <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="400" value="0">
-                </div>
 
                 {{-- Filter for Hospitals --}}
-                <div class="col-md-4 mt-2">
+                <div class="col-md-2">
                     <select id="hospital_name" class="form-select select23-search" name="hospital_name">
                         <option value="">🔍 Medical Facility Name</option>
                         @foreach($hospitalNames as $name)
@@ -111,7 +190,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-4 mt-2">
+                <div class="col-md-2">
                     <select id="hospital_category" class="form-select select24-search" name="hospital_category">
                         <option value="">🔍 Medical Facility Category</option>
                         @foreach($hospitalCategories as $category)
@@ -120,12 +199,18 @@
                     </select>
                 </div>
 
-                 <div class="col-md-4 mt-2">
+                <div class="col-md-4 d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary">Apply Filter</button>
                     <button type="button" id="resetFilter" class="btn btn-secondary">Reset Filter</button>
                 </div>
 
-                <div class="col-md-12 mt-2">
+                <div class="col-md-2">
+                    <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
+                    <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="400" value="0">
+                </div>
+
+
+                <div class="col-md-2">
                     <label class="form-label d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#provinceCollapse" aria-expanded="false" aria-controls="provinceCollapse">
                         <span class="me-1">Provinces Region</span>
                         <i class="bi bi-chevron-down" id="provinceToggleIcon"></i>

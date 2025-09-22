@@ -111,43 +111,43 @@
 
               <!-- Button 2 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/detail') ? 'active' : '' }}">
-                <i class="bi bi-file-earmark-text-fill fs-3"></i>
+                <img src="{{ asset('images/icon-menu-general-info.png') }}" style="width: 18px; height: 24px;">
                 <small>General</small>
             </a>
 
             <!-- Button 3 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/navigation" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/navigation') ? 'active' : '' }}">
-                <i class="bi bi-compass fs-3"></i>
+                <img src="{{ asset('images/icon-navaids-white.png') }}" style="width: 24px; height: 24px;">
                 <small>Navigation</small>
             </a>
 
              <!-- Button 4 -->
              <a href="{{ url('airports') }}/{{$airport->id}}/airlinesdestination" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/airlinesdestination') ? 'active' : '' }}">
-                <i class="bi bi-airplane-engines fs-3"></i>
-                <small>Airlines/Destination</small>
+                <img src="{{ asset('images/icon-destination-white.png') }}" style="width: 24px; height: 24px;">
+                <small>Destination</small>
             </a>
 
             <!-- Button 5 -->
             <a href="{{ url('airports') }}/{{$airport->id}}/emergency" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/emergency') ? 'active' : '' }}">
-                <i class="bi bi-chat-dots-fill fs-3"></i>
-                <small>Emergency Support</small>
+                <img src="{{ asset('images/icon-emergency-support-white.png') }}" style="width: 24px; height: 24px;">
+                <small>Emergency</small>
             </a>
 
              <!-- Button 5 -->
             <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
-                <i class="bi bi-hospital fs-3"></i>
-                <small>Medical Facility</small>
+                <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
+                <small>Medical</small>
             </a>
 
             <!-- Button 6 -->
             <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
-                <i class="bi bi-airplane-engines fs-3"></i>
+               <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
                 <small>Air Charter</small>
             </a>
 
             <!-- Button 7 -->
             <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
-            <i class="bi bi-bank fs-3"></i>
+            <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
                 <small>Embassies</small>
             </a>
 
@@ -169,33 +169,37 @@
 
    <div class="row">
     <!-- Kolom kiri dengan 3 card -->
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card mb-3">
-            <div class="card-header fw-bold"><i class="fas fa-plane"></i> Domestic</div>
+            <div class="card-header fw-bold"><img src="{{ asset('images/icon-domestic-flight-png.png') }}" style="width: 30px; height: 30px;"> Domestic</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->domestic_flights; ?>
             </div>
         </div>
 
         <div class="card mb-3">
-            <div class="card-header fw-bold"><i class="fas fa-globe"></i> International</div>
+            <div class="card-header fw-bold"><img src="{{ asset('images/icon-international-flight.png') }}" style="width: 30px; height: 30px;"> International</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->international_flight; ?>
             </div>
         </div>
+    </div>
 
+    <div class="col-md-2">
         <div class="card">
-            <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i> Flight Info</div>
-            <div class="card-body overflow-auto" style="max-height: 300px;">
+            <div class="card-header fw-bold"><img src="{{ asset('images/suport-service-icon.png') }}" style="width: 30px; height: 30px;"> Information Support</div>
+            <div class="card-body overflow-auto">
                 <?php echo $airport->other_flight_information; ?>
+                <?php echo $airport->general_flight_information; ?>
+                <?php echo $airport->aircraft_information; ?>
             </div>
         </div>
     </div>
 
     <!-- Kolom kanan dengan 1 card besar -->
-    <div class="col-md-8">
+    <div class="col-md-7">
         <div class="card">
-            <div class="card-header fw-bold"><i class="fas fa-plane-arrival"></i> Flight Tracker</div>
+            <div class="card-header fw-bold"><img src="{{ asset('images/flight-tracker-icon.png') }}" style="width: 30px; height: 30px;"> Flight Tracker</div>
             <div class="card-body overflow-auto">
                 <iframe src="https://globe.adsbexchange.com/?lat=-6.2&lon=106.8&zoom=7" width="100%" height="600" frameborder="0"></iframe>
             </div>

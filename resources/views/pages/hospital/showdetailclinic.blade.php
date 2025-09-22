@@ -88,20 +88,20 @@
             </button>
             <!-- Button 2 -->
             <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/'.$hospital->id) ? 'active' : '' }}">
-                <i class="bi bi-file-earmark-text-fill fs-3"></i>
+                <img src="{{ asset('images/icon-menu-general-info.png') }}" style="width: 18px; height: 24px;">
                 <small>General</small>
             </a>
 
             <!-- Button 3 -->
             <a href="{{ url('hospitals/clinic') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/clinic/'.$hospital->id) ? 'active' : '' }}">
-                <i class="bi bi-hospital fs-3"></i>
-                <small>Clinical Services</small>
+                <img src="{{ asset('images/icon-menu-medical-facility-white.png') }}" style="width: 18px; height: 24px;">
+                <small>Clinical</small>
             </a>
 
             <!-- Button 4 -->
             <a href="{{ url('hospitals/emergency') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/emergency/'.$hospital->id) ? 'active' : '' }}">
-                <i class="bi bi-chat-dots-fill fs-3"></i>
-                <small>Emergency Support</small>
+                <img src="{{ asset('images/icon-emergency-support-white.png') }}" style="width: 24px; height: 24px;">
+                <small>Emergency</small>
             </a>
             <!-- Button 5 -->
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
@@ -110,13 +110,13 @@
             </a>
 
             <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
-                <i class="bi bi-airplane-engines fs-3"></i>
+                 <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
                 <small>Air Charter</small>
             </a>
 
             <!-- Button 7 -->
             <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
-            <i class="bi bi-bank fs-3"></i>
+            <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
                 <small>Embassies</small>
             </a>
         </div>
@@ -138,82 +138,92 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-stethoscope"></i>Clinical Services</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-menu-medical-facility.png') }}" style="width: 18px; height: 24px;"> Clinical Services</div>
               <div class="card-body overflow-auto">
-                <table class="table table-hover clinical-service-table">
-                    <tr>
-                        <td>Inpatient Services</td>
-                        <td>{{ $hospital->inpatient_services }}</td>
-                    </tr>
-                    <tr>
-                        <td>Outpatient Services</td>
-                        <td>{{ $hospital->outpatient_services }}</td>
-                    </tr>
-                    <tr>
-                        <td>24 hr ER Service</td>
-                        <td>{{ $hospital->hour_emergency_services }}</td>
-                    </tr>
-                    <tr>
-                        <td>Ambulance</td>
-                        <td>{{ $hospital->ambulance }}</td>
-                    </tr>
-                    <tr>
-                        <td>Helipad</td>
-                        <td>{{ $hospital->helipad }}</td>
-                    </tr>
-                    <tr>
-                        <td>Note</td>
-                        <td>{{ $hospital->comments }}</td>
-                    </tr>
-                    <tr>
-                        <td>Intensive Care Unit (ICU)</td>
-                        <td>{{ $hospital->icu }}</td>
-                    </tr>
-                    <tr>
-                        <td>Medical</td>
-                        <td>{{ $hospital->medical }}</td>
-                    </tr>
-                    <tr>
-                        <td>Pediatric</td>
-                        <td>{{ $hospital->pediatric }}</td>
-                    </tr>
-                    <tr>
-                        <td>Dental</td>
-                        <td>{{ $hospital->dental }}</td>
-                    </tr>
-                    <tr>
-                        <td>Optical</td>
-                        <td>{{ $hospital->optical }}</td>
-                    </tr>
-                    <tr>
-                        <td>Integraed Outreach Clinic (IOC)</td>
-                        <td>{{ $hospital->ioc }}</td>
-                    </tr>
-                    <tr>
-                        <td>Laboratory</td>
-                        <td>{{ $hospital->laboratory }}</td>
-                    </tr>
-                    <tr>
-                        <td>Pharmacy</td>
-                        <td>{{ $hospital->pharmacy }}</td>
-                    </tr>
-                    <tr>
-                        <td>Medical Imaging</td>
-                        <td>{{ $hospital->medical_imaging }}</td>
-                    </tr>
-                    <tr>
-                        <td>Medical Student Training</td>
-                        <td>{{ $hospital->medical_student_training }}</td>
-                    </tr>
-                </table>
+                <div class="row">
+                <div class="col-sm-6">
+                    <table class="table table-hover clinical-service-table">
+                        <tr>
+                            <td>Inpatient</td>
+                            <td>{{ $hospital->inpatient_services }}</td>
+                        </tr>
+                        <tr>
+                            <td>Outpatient</td>
+                            <td>{{ $hospital->outpatient_services }}</td>
+                        </tr>
+                        <tr>
+                            <td>24 hr ER</td>
+                            <td>{{ $hospital->hour_emergency_services }}</td>
+                        </tr>
+                        <tr>
+                            <td>Ambulance</td>
+                            <td>{{ $hospital->ambulance }}</td>
+                        </tr>
+                        <tr>
+                            <td>Helipad</td>
+                            <td>{{ $hospital->helipad }}</td>
+                        </tr>
+                        <tr>
+                            <td>Note</td>
+                            <td>{{ $hospital->comments }}</td>
+                        </tr>
+                        <tr>
+                            <td>ICU</td>
+                            <td>{{ $hospital->icu }}</td>
+                        </tr>
+                        <tr>
+                            <td>Medical</td>
+                            <td>{{ $hospital->medical }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <table class="table table-hover clinical-service-table">
+                        <tr>
+                            <td>Pediatric</td>
+                            <td>{{ $hospital->pediatric }}</td>
+                        </tr>
+                        <tr>
+                            <td>Dental</td>
+                            <td>{{ $hospital->dental }}</td>
+                        </tr>
+                        <tr>
+                            <td>Optical</td>
+                            <td>{{ $hospital->optical }}</td>
+                        </tr>
+                        <tr>
+                            <td>Integraed Outreach Clinic (IOC)</td>
+                            <td>{{ $hospital->ioc }}</td>
+                        </tr>
+                        <tr>
+                            <td>Laboratory</td>
+                            <td>{{ $hospital->laboratory }}</td>
+                        </tr>
+                        <tr>
+                            <td>Pharmacy</td>
+                            <td>{{ $hospital->pharmacy }}</td>
+                        </tr>
+                        <tr>
+                            <td>Medical Imaging</td>
+                            <td>{{ $hospital->medical_imaging }}</td>
+                        </tr>
+                        <tr>
+                            <td>Medical Student Training</td>
+                            <td>{{ $hospital->medical_student_training }}</td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
             </div>
             </div>
         </div>
 
         <div class="col-sm-6">
             <div class="card">
-                  <div class="card-header fw-bold"><i class="fas fa-user-nurse"></i>Medical Personnel</div>
+                  <div class="card-header fw-bold"><img src="{{ asset('images/icon-medical-personel.png') }}" style="width: 24px; height: 24px;"> Medical Personnel</div>
              <div class="card-body overflow-auto">
+                 <div class="row">
+                <div class="col-sm-6">
                 <table class="table table-hover clinical-service-table">
                     <tr>
                         <td>Doctors</td>
@@ -235,6 +245,10 @@
                         <td>Community Health Workers/Orderlies</td>
                         <td>{{ $hospital->community_health }}</td>
                     </tr>
+                </table>
+                </div>
+                <div class="col-sm-6">
+                <table class="table table-hover clinical-service-table">
                     <tr>
                         <td>Health Inspectors</td>
                         <td>{{ $hospital->health_inspectors }}</td>
@@ -256,6 +270,8 @@
                         <td>{{ $hospital->others }}</td>
                     </tr>
                 </table>
+                </div>
+                </div>
             </div>
             </div>
         </div>

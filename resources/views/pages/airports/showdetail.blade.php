@@ -4,9 +4,11 @@
 @section('page-title', 'Papua New Guinea Airports')
 
 @push('styles')
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
 <style>
     #map {
-        height: 700px;
+        height: 600px;
     }
 
     table {
@@ -91,37 +93,37 @@
             </button>
 
             <a href="{{ url('airports') }}/{{$airport->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/detail') ? 'active' : '' }}">
-                <i class="bi bi-file-earmark-text-fill fs-3"></i>
+                <img src="{{ asset('images/icon-menu-general-info.png') }}" style="width: 18px; height: 24px;">
                 <small>General</small>
             </a>
 
             <a href="{{ url('airports') }}/{{$airport->id}}/navigation" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/navigation') ? 'active' : '' }}">
-                <i class="bi bi-compass fs-3"></i>
+                <img src="{{ asset('images/icon-navaids-white.png') }}" style="width: 24px; height: 24px;">
                 <small>Navigation</small>
             </a>
 
             <a href="{{ url('airports') }}/{{$airport->id}}/airlinesdestination" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/airlinesdestination') ? 'active' : '' }}">
-                <i class="bi bi-airplane-engines fs-3"></i>
-                <small>Airlines/Destination</small>
+                <img src="{{ asset('images/icon-destination-white.png') }}" style="width: 24px; height: 24px;">
+                <small>Destination</small>
             </a>
 
             <a href="{{ url('airports') }}/{{$airport->id}}/emergency" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/emergency') ? 'active' : '' }}">
-                <i class="bi bi-chat-dots-fill fs-3"></i>
-                <small>Emergency Support</small>
+                <img src="{{ asset('images/icon-emergency-support-white.png') }}" style="width: 24px; height: 24px;">
+                <small>Emergency</small>
             </a>
 
             <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
-                <i class="bi bi-hospital fs-3"></i>
-                <small>Medical Facility</small>
+                <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
+                <small>Medical</small>
             </a>
 
             <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
-                <i class="bi bi-airplane-engines fs-3"></i>
+                <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
                 <small>Air Charter</small>
             </a>
 
             <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
-            <i class="bi bi-bank fs-3"></i>
+            <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
                 <small>Embassies</small>
             </a>
         </div>
@@ -142,9 +144,9 @@
 
 
     <div class="row">
-         <div class="col-md-4">
+        <div class="col-md-3">
                 <div class="card">
-                        <div class="card-header fw-bold"><i class="fas fa-plane"></i> General Airport Info</div>
+                        <div class="card-header fw-bold"><img src="{{ asset('images/icon-general-info.png') }}" style="width: 24px; height: 24px;"> General Airport Info</div>
                         <div class="card-body overflow-auto">
                             <p><strong>Category:</strong> {{ $airport->category }} </p>
                             <p><strong>IATA Code:</strong> {{ $airport->iata_code }} </p>
@@ -169,7 +171,7 @@
                 </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-2">
             <div class="card">
                 <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Details</div>
                 <div class="card-body overflow-auto">
@@ -181,7 +183,7 @@
             </div>
 
             <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-map-marker-alt"></i> Location</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-location.png') }}" style="width: 24px; height: 24px;"> Location</div>
                 <div class="card-body overflow-auto">
                     <p><strong>Address:</strong>
                         {{ $airport->address }}, {{ $province->provinces_region }}, Papua New Guinea
@@ -192,16 +194,16 @@
             </div>
 
             <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-hotel"></i> Nearest Accomodation</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-nearest-accomodation.png') }}" style="width: 24px; height: 24px;"> Nearest Accomodation</div>
                 <div class="card-body overflow-auto">
                     {!! $airport->nearest_accommodation !!} {{-- Menggunakan {!! !!} jika kontennya HTML --}}
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-2">
             <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-info-circle"></i> Support Services</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-support-service.png') }}" style="width: 24px; height: 24px;"> Support Services</div>
                 <div class="card-body overflow-auto">
                     <p>
                         <strong>Air Traffic:</strong> {{ $airport->air_traffic }} <br>
@@ -224,6 +226,14 @@
             </div>
         </div>
 
+        <div class="col-md-5">
+             <div class="card">
+                <div class="card-body">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -231,5 +241,47 @@
 @endsection
 
 @push('service')
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
+<script>
+    const latitude = {{ $airport->latitude }};
+    const longitude = {{ $airport->longitude }};
+    const embassyName = '{{ $airport->airport_name }}';
 
+    const map = L.map('map', {
+        fullscreenControl: true
+    }).setView([latitude, longitude], 17);
+
+    // --- Define Tile Layers ---
+    // 1. Street Map (OpenStreetMap)
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18 // OSM generally goes up to zoom level 22
+    });
+
+    // 2. Satellite Map (Esri World Imagery) - Recommended, no API key needed
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri',
+        maxZoom: 18 // Esri World Imagery also typically goes up to zoom level 22
+    });
+
+    // Add the satellite layer to the map by default
+    satelliteLayer.addTo(map);
+
+    // --- Add Layer Control ---
+    // Define the base layers that the user can switch between
+   const baseLayers = {
+        "Satelit Map": satelliteLayer,
+        "Street Map": osmLayer
+    };
+
+    // Add the layer control to the map. This will appear in the top-right corner.
+    L.control.layers(baseLayers).addTo(map);
+
+    // Add a marker at the embassy's location
+    L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup(embassyName) // Display the embassy's name when the marker is clicked
+        .openPopup(); // Automatically open the popup when the map loads
+</script>
 @endpush

@@ -98,20 +98,20 @@
             </button>
             <!-- Button 2 -->
             <a href="{{ url('hospitals') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/'.$hospital->id) ? 'active' : '' }}">
-                <i class="bi bi-file-earmark-text-fill fs-3"></i>
+                 <img src="{{ asset('images/icon-menu-general-info.png') }}" style="width: 18px; height: 24px;">
                 <small>General</small>
             </a>
 
             <!-- Button 3 -->
             <a href="{{ url('hospitals/clinic') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/clinic/'.$hospital->id) ? 'active' : '' }}">
-                <i class="bi bi-hospital fs-3"></i>
-                <small>Clinical Services</small>
+                <img src="{{ asset('images/icon-menu-medical-facility-white.png') }}" style="width: 18px; height: 24px;">
+                <small>Clinical</small>
             </a>
 
             <!-- Button 4 -->
             <a href="{{ url('hospitals/emergency') }}/{{$hospital->id}}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospitals/emergency/'.$hospital->id) ? 'active' : '' }}">
-                <i class="bi bi-chat-dots-fill fs-3"></i>
-                <small>Emergency Support</small>
+                <img src="{{ asset('images/icon-emergency-support-white.png') }}" style="width: 24px; height: 24px;">
+                <small>Emergency</small>
             </a>
             <!-- Button 5 -->
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
@@ -120,13 +120,13 @@
             </a>
 
             <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
-                <i class="bi bi-airplane-engines fs-3"></i>
+                 <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
                 <small>Air Charter</small>
             </a>
 
             <!-- Button 7 -->
             <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
-            <i class="bi bi-bank fs-3"></i>
+            <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
                 <small>Embassies</small>
             </a>
         </div>
@@ -149,7 +149,7 @@
 
         <div class="col-md-8">
              <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-map"></i>Emergency Support Tools</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-emergency-support.png') }}" style="width: 24px; height: 24px;"> Emergency Support Tools</div>
                 <div class="card-body p-0">
                     <div id="map"></div>
                 </div>
@@ -221,13 +221,13 @@
 
         <div class="col-md-4">
            <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-user-shield"></i>Nearest Police station</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-police.png') }}" style="width: 24px; height: 24px;"> Nearest Police station</div>
                 <div class="card-body overflow-auto">
                     <?php echo $hospital->nearest_police_station; ?>
                 </div>
             </div>
             <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-notes-medical"></i>Emergency Medical Support</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-medical-support-website.png') }}" style="width: 24px; height: 24px;"> Emergency Medical Support</div>
                 <div class="card-body overflow-auto">
                     <?php echo $hospital->medical_support_website; ?>
                 </div>

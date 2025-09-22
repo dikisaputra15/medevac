@@ -12,9 +12,7 @@
     </ul>
 
     <div class="header bg-white mb-2">
-        <h3>
-             @yield('page-title', '')
-        </h3>
+       <a href="/home"> <img src="{{ asset('images/CMT-logo.png') }}"> </a>
     </div>
 
     <!-- Right navbar links -->

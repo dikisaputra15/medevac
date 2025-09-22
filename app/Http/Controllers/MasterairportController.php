@@ -105,6 +105,8 @@ class MasterairportController extends Controller
         $airport->note = $request->input('note');
         $airport->nearest_accommodation = $request->input('nearest_accommodation');
         $airport->other_flight_information = $request->input('other_flight_information');
+        $airport->general_flight_information = $request->input('general_flight_information');
+        $airport->aircraft_information = $request->input('aircraft_information');
         $airport->other_reference_website = $request->input('other_reference_website');
         $airport->flight_information = $request->input('flight_information');
         $airport->international_flight = $request->input('international_flight');
@@ -190,6 +192,8 @@ class MasterairportController extends Controller
             'note' => $request->input('note'),
             'nearest_accommodation' => $request->input('nearest_accommodation'),
             'other_flight_information' => $request->input('other_flight_information'),
+            'general_flight_information' => $request->input('general_flight_information'),
+            'aircraft_information' => $request->input('aircraft_information'),
             'other_reference_website' => $request->input('other_reference_website'),
             'flight_information' => $request->input('flight_information'),
             'international_flight' => $request->input('international_flight'),

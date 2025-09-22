@@ -644,13 +644,49 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Other Flight Information
+                Specific Airport Flight Information
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
                 <textarea id="summernote13" name="other_flight_information">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                General Flight Information
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote26" name="general_flight_information">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Aircraft Information
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote27" name="aircraft_information">
                 </textarea>
 
             </div>
@@ -790,6 +826,8 @@
     $('#summernote23').summernote()
     $('#summernote24').summernote()
     $('#summernote25').summernote()
+    $('#summernote26').summernote()
+    $('#summernote27').summernote()
 
   })
 </script>
