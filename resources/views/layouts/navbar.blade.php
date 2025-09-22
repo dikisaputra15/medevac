@@ -1,33 +1,27 @@
-<!-- Preloader -->
-<!-- <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{asset('AdminLTE')}}/dist/img/AdminLTELogo.png" height="60" width="60">
-</div> -->
- <!-- Navbar -->
- <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
+<nav class="navbar">
+    <div class="d-flex align-items-center w-100 justify-content-between">
+        <a href="/home">
+            <img src="{{ asset('images/CMT-logo.png') }}" alt="CMT Logo" class="brand-image">
+        </a>
 
-    <div class="header bg-white mb-2">
-       <a href="/home"> <img src="{{ asset('images/CMT-logo.png') }}"> </a>
-    </div>
+        <ul class="navbar-nav d-flex flex-row align-items-center">
+            @role('admin')
+            <li class="nav-item me-3">
+                <a class="btn btn-primary" href="/administrator" target="__blank">
+                    Admin
+                </a>
+            </li>
+            @endrole
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-              <a class="btn btn-danger" title="Logout" href=""
-                  onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
+            <li class="nav-item">
+                <a class="nav-link" href="#"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-power-off"></i>
-              </a>
-
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                  @csrf
-              </form>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
+                </a>
+            </li>
+        </ul>
+    </div>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
+</nav>
