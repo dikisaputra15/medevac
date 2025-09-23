@@ -129,34 +129,50 @@
 @section('conten')
 
 <div class="card">
+    <div class="row" style="background-color: #dfeaf1;">
+        <div class="col-md-6">
+            <div class="d-flex p-3">
+                <div class="d-flex gap-2">
+                    <a href="https://pg.concordreview.com/concord-homepage-new-layout-2/new-incident-tracking/" class="btn d-flex flex-column align-items-center" target="_blank">
+                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/07/incident-tracking-icon.png" style="width: 48px; height: 48px;">
+                        <small>Incident Tracking</small>
+                    </a>
 
-    <div class="d-flex justify-content-end p-3" style="background-color: #dfeaf1;">
+                    <a href="http://pg.concordreview.com/papua-new-guinea-png-dashboard-overview/" class="btn d-flex flex-column align-items-center" target="_blank">
+                    <img src="https://pg.concordreview.com/wp-content/uploads/2023/12/icon-overview-dashboard.png" style="width: 48px; height: 48px;">
+                        <small>Incident Dashboard</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex justify-content-end p-3">
+                <div class="d-flex gap-2 mt-2">
 
-        <div class="d-flex gap-2 mt-2">
+                    <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
+                        <i class="bi bi-airplane fs-3"></i>
+                        <small>Airports</small>
+                    </a>
 
-            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
-                <i class="bi bi-airplane fs-3"></i>
-                <small>Airports</small>
-            </a>
+                    <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
+                    <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
+                        <small>Medical</small>
+                    </a>
 
-            <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
-             <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
-                <small>Medical</small>
-            </a>
+                    <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
+                        <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
+                        <small>Air Charter</small>
+                    </a>
 
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
-                  <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
-                <small>Air Charter</small>
-            </a>
-
-            <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
-            <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
-                <small>Embassies</small>
-            </a>
-
+                    <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
+                    <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
+                        <small>Embassies</small>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-
+    
     <div class="filter-container p-3">
         <form id="filterForm">
             <div class="row g-3 align-items-end">

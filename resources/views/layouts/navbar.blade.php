@@ -6,16 +6,6 @@
 
         <ul class="navbar-nav d-flex flex-row align-items-center">
 
-            <a href="https://pg.concordreview.com/concord-homepage-new-layout-2/new-incident-tracking/" class="btn btn-danger d-flex flex-column align-items-center p-3" target="_blank">
-            <img src="https://pg.concordreview.com/wp-content/uploads/2025/07/incident-tracking-icon.png" style="width: 18px; height: 18px;">
-                <small>Incident Tracking</small>
-            </a>
-
-            <a href="http://pg.concordreview.com/papua-new-guinea-png-dashboard-overview/" class="btn btn-danger d-flex flex-column align-items-center p-3" target="_blank">
-            <img src="https://pg.concordreview.com/wp-content/uploads/2023/12/icon-overview-dashboard.png" style="width: 18px; height: 18px;">
-                <small>Incident Dashboard</small>
-            </a>
-
             @role('admin')
             <li class="nav-item me-3">
                 <a class="btn btn-primary" href="/administrator" target="_blank">
