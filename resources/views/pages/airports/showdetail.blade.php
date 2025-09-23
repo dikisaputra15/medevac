@@ -169,7 +169,7 @@
 
         <div class="col-md-2">
             <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Details</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/contact-icon.png') }}" style="width: 24px; height: 24px;"> Contact Details</div>
                 <div class="card-body overflow-auto">
                     <p><strong>Telephone:</strong> <?php echo $airport->telephone; ?></p>
                     <p><strong>Fax:</strong> <?php echo $airport->fax; ?> </p>
