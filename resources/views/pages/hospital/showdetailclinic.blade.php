@@ -133,7 +133,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
-                <div class="card-header fw-bold"><img src="{{ asset('images/icon-menu-medical-facility.png') }}" style="width: 18px; height: 24px;"> Clinical Services</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-menu-medical-facility.png') }}" style="width: 24px; height: 24px;"> Clinical Services</div>
               <div class="card-body overflow-auto">
                 <div class="row">
                 <div class="col-sm-6">
@@ -215,7 +215,7 @@
 
         <div class="col-sm-6">
             <div class="card">
-                  <div class="card-header fw-bold"><img src="{{ asset('images/icon-medical-personel.png') }}" style="width: 24px; height: 24px;"> Medical Personnel</div>
+                  <div class="card-header fw-bold"><img src="{{ asset('images/icon-medical-personel.png') }}" style="width: 32px; height: 24px;"> Medical Personnel</div>
              <div class="card-body overflow-auto">
                  <div class="row">
                 <div class="col-sm-6">

@@ -205,7 +205,7 @@
             </div>
 
             <div class="card">
-                <div class="card-header fw-bold"><img src="{{ asset('images/icon-nearest-accomodation.png') }}" style="width: 24px; height: 24px;">  Nearest Accommodation</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-nearest-accomodation.png') }}" style="width: 24px; height: 18px;">  Nearest Accommodation</div>
                 <div class="card-body overflow-auto">
                     <?php echo $hospital->nearest_accommodation; ?>
                 </div>

@@ -179,7 +179,7 @@
             </div>
 
             <div class="card">
-                <div class="card-header fw-bold"><img src="{{ asset('images/icon-location.png') }}" style="width: 24px; height: 24px;"> Location</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-location.png') }}" style="width: 18px; height: 24px;"> Location</div>
                 <div class="card-body overflow-auto">
                     <p><strong>Address:</strong>
                         {{ $airport->address }}, {{ $province->provinces_region }}, Papua New Guinea
@@ -190,7 +190,7 @@
             </div>
 
             <div class="card">
-                <div class="card-header fw-bold"><img src="{{ asset('images/icon-nearest-accomodation.png') }}" style="width: 24px; height: 24px;"> Nearest Accomodation</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-nearest-accomodation.png') }}" style="width: 24px; height: 18px;"> Nearest Accomodation</div>
                 <div class="card-body overflow-auto">
                     {!! $airport->nearest_accommodation !!} {{-- Menggunakan {!! !!} jika kontennya HTML --}}
                 </div>
