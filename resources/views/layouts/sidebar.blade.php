@@ -1,7 +1,7 @@
  <!-- Main Sidebar Container -->
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="/home" class="brand-link d-flex align-items-center">
+    <a href="/administrator" class="brand-link d-flex align-items-center">
         <!-- Logo di kiri -->
         <img src="{{ asset('AdminLTE') }}/dist/img/cclogo.jpeg"
             alt="AdminLTE Logo"
@@ -26,7 +26,7 @@
                with font-awesome or any other icon font library -->
           <li class="nav-header">Hi, {{auth()->user()->name}}</li>
           <li class="nav-item {{ request()->is('/') ? 'menu-open' : '' }}">
-            <a href="/home" class="nav-link">
+            <a href="/administrator" class="nav-link">
              <i class="bi bi-house-door-fill"></i>
               <p>
                 Dashboard

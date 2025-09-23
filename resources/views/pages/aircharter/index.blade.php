@@ -97,11 +97,6 @@
         </div>
 
         <div class="d-flex gap-2 ms-auto">
-
-            <a href="{{ url('aircharter') }}" class="btn btn-outline-danger d-flex flex-column align-items-center p-3">
-               <i class="bi bi-arrow-left fs-3"></i>
-                <small>Back</small>
-            </a>
              <!-- Button 5 -->
             <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3">
                 <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">

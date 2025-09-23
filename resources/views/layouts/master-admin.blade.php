@@ -37,11 +37,12 @@
   @stack('styles')
 
 </head>
-<body>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
-@include('layouts.navbar')
+@include('layouts.navbar-admin')
+@include('layouts.sidebar')
 <!-- Content Wrapper. Contains page content -->
-<div class="content">
+<div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">

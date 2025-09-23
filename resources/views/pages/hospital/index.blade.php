@@ -52,12 +52,90 @@
      .p-modal{
         text-align:justify;
     }
+
+       .btn-danger{
+            background-color:#395272;
+            border-color: transparent;
+        }
+
+        .btn-danger:hover{
+            background-color:#5686c3;
+            border-color: transparent;
+        }
+
+        .btn.active {
+            background-color: #5686c3 !important;
+            border-color: transparent !important;
+            color: #fff !important;
+        }
+
+        .p-3{
+            padding: 10px !important;
+            margin: 0 3px;
+        }
+
+        .btn-outline-danger{
+            color: #FFFFFF;
+            background-color:#395272;
+            border-color: transparent;
+        }
+
+        .btn-outline-danger:hover{
+            background-color:#5686c3;
+            border-color: transparent;
+        }
+
+        .fa,
+        .fab,
+        .fad,
+        .fal,
+        .far,
+        .fas {
+            color: #346abb;
+        }
+
+        .card-header{
+            padding: 0.25rem 1.25rem;
+            color: #3c66b5;
+            font-weight: bold;
+        }
+
+        .mb-4{
+            margin-bottom: 0.5rem !important;
+        }
 </style>
 @endpush
 
 @section('conten')
 
 <div class="card">
+
+    <div class="d-flex justify-content-end p-3" style="background-color: #dfeaf1;">
+
+        <div class="d-flex gap-2 mt-2">
+
+            <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
+                <i class="bi bi-airplane fs-3"></i>
+                <small>Airports</small>
+            </a>
+
+            <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
+             <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
+                <small>Medical</small>
+            </a>
+
+            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
+                  <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
+                <small>Air Charter</small>
+            </a>
+
+            <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
+            <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
+                <small>Embassies</small>
+            </a>
+
+        </div>
+    </div>
 
     <div class="filter-container p-3">
         <form id="filterForm">

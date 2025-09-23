@@ -104,6 +104,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/hospitaldata/{id}/toggle-status', [MasterhospitalController::class, 'toggleStatus'])->name('hospitaldata.toggleStatus');
     Route::post('/embassydata/{id}/toggle-status', [MasterembessyController::class, 'toggleStatus'])->name('embassydata.toggleStatus');
 
+    Route::get('/administrator', [App\Http\Controllers\HomeController::class, 'administrator']);
+
 });
 
 Route::middleware(['web', 'jwt.login'])->group(function () {
