@@ -1,4 +1,4 @@
-<footer class="main-footer">
+<footer class="main-footer" style="margin-left:0;">
     <strong>Copyright &copy; 2025 <a href="https://www.concord-consulting.com/" target="__blank">Concord Consulting Indonesia</a>.</strong>
 </footer>
 
