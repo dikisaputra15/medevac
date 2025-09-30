@@ -192,7 +192,7 @@
                             <td>{{ $hospital->optical }}</td>
                         </tr>
                         <tr>
-                            <td>Integraed Outreach Clinic (IOC)</td>
+                            <td>Integrated Outreach Clinic (IOC)</td>
                             <td>{{ $hospital->ioc }}</td>
                         </tr>
                         <tr>
