@@ -67,6 +67,10 @@
     .mb-4{
         margin-bottom: 0.5rem !important;
     }
+
+    .clinical-service-table td{
+        padding: 6px;
+    }
 </style>
 
 @endpush
