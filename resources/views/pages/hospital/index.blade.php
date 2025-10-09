@@ -116,6 +116,16 @@
         .basic{
             border-bottom: 3px solid #b4a911ff;
         }
+
+        /* Boder */
+        .bl{
+            border-left: 2px solid #DDDDDD;
+        }
+
+        .br{
+            border-right: 2px solid #DDDDDD;
+        }
+
 </style>
 @endpush
 
@@ -216,7 +226,7 @@
     </div>
 
     <div class="col-md-12">
-        <div class="d-flex justify-content-between align-items-center gap-3 my-2">
+        <div class="d-flex justify-content-between align-items-center gap-3">
 
         <div class="d-flex align-items-center gap-2">
             <button class="btn btn-link p-0 fw-bold text-decoration-underline text-dark" data-bs-toggle="modal" data-bs-target="#disclaimerModal">
@@ -230,10 +240,10 @@
                 <span class="fw-bold pb-2 d-inline-block">Classification:</span>
             </div>
             <!-- Classification -->
-            <div class="text-end">
-                <div class="row mb-1">
-                    <div class="col-4 text-center fw-bold advanced">Advanced</div>
-                    <div class="col-4 text-center fw-bold intermediete">Intermediate</div>
+            <div class="text-end" style="min-width: 600px;">
+                <div class="row">
+                    <div class="col-4 text-center fw-bold advanced br">Advanced</div>
+                    <div class="col-4 text-center fw-bold intermediete br">Intermediate</div>
                     <div class="col-4 text-center fw-bold basic">Basic</div>
                 </div>
 
@@ -245,7 +255,7 @@
                             <small>Level 6</small>
                         </button>
                     </div>
-                    <div class="col-2 text-primary">
+                    <div class="col-2 text-primary br">
                         <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
                             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:30px; height:30px;">
                             <small>Level 5</small>
@@ -258,7 +268,7 @@
                             <small>Level 4</small>
                         </button>
                     </div>
-                    <div class="col-2 text-success">
+                    <div class="col-2 text-success br">
                         <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
                             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:30px; height:30px;">
                             <small>Level 3</small>
