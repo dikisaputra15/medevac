@@ -80,6 +80,32 @@
 
         <div class="col-md-12">
             <div class="form-group">
+                <label>Hospital Classification Group</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="facility_category" value="Advanced">
+                    <label class="form-check-label">Advanced</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="facility_category" value="Intermediete">
+                    <label class="form-check-label">Intermediete</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="facility_category" value="Basic">
+                    <label class="form-check-label">Basic</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="facility_category" value="Specialized">
+                    <label class="form-check-label">Specialized</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
                 <label>Icon</label>
                 <input type="radio" name="icon" value="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png"><img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24; height:24;"> Level 1
                 <input type="radio" name="icon" value="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png"><img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:24; height:24;"> Level 2

@@ -133,7 +133,7 @@
         <div class="col-md-6">
             <div class="d-flex p-3">
                 <div class="d-flex gap-2">
-                   
+
                 </div>
             </div>
         </div>
@@ -252,7 +252,7 @@
                         <div class="d-flex align-items-center gap-3">
 
                             <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
-                                <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png" style="width:18px; height:18px;">
+                                <img src="https://concord-consulting.com/static/img/cmt/icon/icon-international-airport-orange.png" style="width:18px; height:18px;">
                                 <small>International</small>
                             </button>
 
@@ -269,6 +269,11 @@
                             <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level2Modal">
                                 <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png" style="width:18px; height:18px;">
                                 <small>Combined (Civil-Military)</small>
+                            </button>
+
+                            <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level7Modal">
+                                <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png" style="width:18px; height:18px;">
+                                <small>Military</small>
                             </button>
 
                             <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level1Modal">

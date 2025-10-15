@@ -91,7 +91,7 @@ class HospitalController extends Controller
             id, name, icon, latitude, longitude,
             ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance
         ", [$latitude, $longitude, $latitude])
-        ->having('distance', '<', $radius_km)
+        ->having('distance', '<=', $radius_km)
         ->where('id', '!=', $hospital->id) // Exclude the current hospital
         ->orderBy('distance')
         ->get();
@@ -101,7 +101,7 @@ class HospitalController extends Controller
             id, airport_name AS name, icon, latitude, longitude,
             ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance
         ", [$latitude, $longitude, $latitude])
-        ->having('distance', '<', $radius_km)
+        ->having('distance', '<=', $radius_km)
         ->orderBy('distance')
         ->get();
 
@@ -127,7 +127,7 @@ class HospitalController extends Controller
             id, name, icon, latitude, longitude,
             ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance
         ", [$latitude, $longitude, $latitude])
-        ->having('distance', '<', $radius_km)
+        ->having('distance', '<=', $radius_km)
         ->where('id', '!=', $hospital->id) // Exclude the current hospital
         ->orderBy('distance')
         ->get();
@@ -137,7 +137,7 @@ class HospitalController extends Controller
             id, airport_name AS name, icon, latitude, longitude,
             ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance
         ", [$latitude, $longitude, $latitude])
-        ->having('distance', '<', $radius_km)
+        ->having('distance', '<=', $radius_km)
         ->orderBy('distance')
         ->get();
 

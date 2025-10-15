@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
         radiusCircle = L.circle([hospitalData.latitude, hospitalData.longitude], {
             color: 'red',
             fillColor: '#f03',
-            fillOpacity: 0.2,
+            fillOpacity: 0.1,
             radius: radiusKm * 1000
         }).addTo(map);
     }
