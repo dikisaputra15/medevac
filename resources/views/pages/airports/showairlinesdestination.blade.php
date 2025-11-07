@@ -200,7 +200,7 @@
         <div class="card">
             <div class="card-header fw-bold"><img src="{{ asset('images/flight-tracker-icon.png') }}" style="width: 30px; height: 30px;"> Flight Tracker</div>
             <div class="card-body overflow-auto">
-                <iframe src="https://globe.adsbexchange.com/?lat=-6.2&lon=106.8&zoom=7" width="100%" height="600" frameborder="0"></iframe>
+                <iframe src="https://globe.adsbexchange.com/?lat=-9.4&lon=147.1&zoom=5" width="100%" height="600" frameborder="0"></iframe>
             </div>
         </div>
     </div>

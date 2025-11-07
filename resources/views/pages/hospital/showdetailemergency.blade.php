@@ -78,6 +78,81 @@
         width: 48px;
         height: 48px;
     }
+
+     /* Classification section */
+    .classification {
+      display: flex;
+      width: 100%;
+    }
+
+    .class-column {
+      flex: 1;
+      text-align: center;
+
+    }
+    .class-column:last-child {
+      border-right: none;
+    }
+
+    .class-header {
+      font-weight: 600;
+      padding: 0.1rem 0;
+    }
+
+    /* Color bars */
+    .class-medical-classification {border: none; text-align: center;}
+    .class-airport-category {border: none;}
+    .class-advanced { border-bottom: 3px solid #0070c0; }
+    .class-intermediate { border-bottom: 3px solid #00b050; }
+    .class-basic { border-bottom: 3px solid #ffc000; }
+
+    /* Hospital layout */
+    .hospital-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+
+    /* For side-by-side classes */
+    .hospital-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+    }
+
+    .hospital-item {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .hospital-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Image inside icon box */
+    .hospital-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Airfield icons */
+    .category-item img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+    }
 </style>
 @endpush
 
@@ -150,73 +225,129 @@
         <div class="col-md-8">
              <div class="card">
                 <div class="card-header fw-bold"><img src="{{ asset('images/icon-emergency-support.png') }}" style="width: 24px; height: 24px;"> Emergency Support Tools</div>
+
+                 <!-- Legend container -->
+                  <div class="classification">
+                    <!-- Airfield Classification -->
+                    <div class="classification" style="margin-right: 30px; width: 30%;">
+                      <!-- Airport -->
+                      <div class="class-column">
+                        <div class="class-header class-airport-category">Airfield Classification</div>
+                        <div class="hospital-list">
+                          <div class="hospital-row" style="flex-direction: column;">
+                            <!-- Airport row 1 -->
+                            <div class="hospital-item">
+                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png" style="width:18px; height:18px;">
+                                  <small>International</small>
+                              </button>
+
+                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png" style="width:18px; height:18px;">
+                                  <small>Domestic</small>
+                              </button>
+
+                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png" style="width:18px; height:18px;">
+                                  <small>Regional</small>
+                              </button>
+                            </div>
+                            <!-- Airport row 2 -->
+                            <div class="hospital-item">
+                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level2Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png" style="width:18px; height:18px;">
+                                  <small>Civil-Military</small>
+                              </button>
+
+                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png" style="width:18px; height:18px;">
+                                  <small>Military</small>
+                              </button>
+
+                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level1Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png" style="width:18px; height:18px;">
+                                  <small>Private</small>
+                              </button>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Hospital Classification -->
+                    <div class="classification" style="flex-direction: column; width:100%;">
+                      <div class="class-header class-medical-classification">Medical Facility Classification</div>
+                      <div class="classification">
+                        <!-- Advanced -->
+                        <div class="class-column">
+                          <div class="class-header class-advanced">Advanced</div>
+                          <div class="hospital-list">
+                            <div class="hospital-item">
+                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level66Modal">
+                                <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:24px; height:24px;">
+                                <small>Level 6</small>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Intermediate -->
+                        <div class="class-column">
+                          <div class="class-header class-intermediate">Intermediate</div>
+                          <div class="hospital-list">
+                            <div class="hospital-row">
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
+                                  <small>Level 5</small>
+                                </button>
+                              </div>
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level44Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
+                                  <small>Level 4</small>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Basic -->
+                        <div class="class-column">
+                          <div class="class-header class-basic">Basic</div>
+                          <div class="hospital-list">
+                            <div class="hospital-row">
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level33Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:24px; height:24px;">
+                                  <small>Level 3</small>
+                                </button>
+                              </div>
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level22Modal">
+                                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:24px; height:24px;">
+                                    <small>Level 2</small>
+                                </button>
+                              </div>
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level11Modal">
+                                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24px; height:24px;">
+                                    <small>Level 1</small>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 <div class="card-body p-0">
                     <div id="map"></div>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="d-flex justify-content-between align-items-center" style="margin-bottom:0; margin-top:0;">
-                    <div class="d-flex align-items-center">
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level66Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:24px; height:24px;">
-                            <small>Level 6</small>
-                        </button>
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
-                            <small>Level 5</small>
-                        </button>
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level44Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
-                            <small>Level 4</small>
-                        </button>
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level33Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:24px; height:24px;">
-                            <small>Level 3</small>
-                        </button>
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level22Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:24px; height:24px;">
-                            <small>Level 2</small>
-                        </button>
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level11Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24px; height:24px;">
-                            <small>Level 1</small>
-                        </button>
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png" style="width:18px; height:18px;">
-                            <small>International</small>
-                        </button>
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png" style="width:18px; height:18px;">
-                            <small>Domestic</small>
-                        </button>
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png" style="width:18px; height:18px;">
-                            <small>Regional Domestic</small>
-                        </button>
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level2Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png" style="width:18px; height:18px;">
-                            <small>Combined</small>
-                        </button>
-
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level1Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png" style="width:18px; height:18px;">
-                            <small>Private</small>
-                        </button>
-
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="col-md-4">
@@ -459,147 +590,288 @@
 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Data dari Laravel ---
-    const hospitalData = {
-        id: {{ $hospital->id }},
-        name: '{{ $hospital->name }}',
-        latitude: {{ $hospital->latitude }},
-        longitude: {{ $hospital->longitude }},
-        image: '{{ $hospital->image ?? '' }}',
-        address: '{{ $hospital->address ?? '' }}',
-        telephone: '{{ $hospital->telephone ?? '' }}',
-        website: '{{ $hospital->website ?? '' }}',
-        icon: '{{ $hospital->icon ?? '' }}'
-    };
+    const hospitalData = {!! json_encode([
+        'id'        => $hospital->id,
+        'name'      => $hospital->name,
+        'latitude'  => $hospital->latitude,
+        'longitude' => $hospital->longitude,
+        'icon'      => $hospital->icon ?? '',
+    ]) !!};
+
     const nearbyHospitals = @json($nearbyHospitals);
     const nearbyAirports = @json($nearbyAirports);
-    const radiusKm = {{ $radius_km }};
+    let radiusKm = {{ $radius_km }}; // default radius
 
-    let map;
-    let mainMarker;
-    let routingControl = null;
+    let map, mainMarker, radiusCircle, routingControl = null;
     let nearbyMarkersGroup = L.featureGroup();
-    let radiusCircle;
 
-    // Default icons
+    // === ICON DEFAULT ===
     const DEFAULT_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
-    const DEFAULT_AIRPORT_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png';
+    const DEFAULT_AIRPORT_ICON_URL  = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png';
     const DEFAULT_MAIN_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png';
 
-    // Main hospital icon
     const mainHospitalIcon = new L.Icon({
         iconUrl: DEFAULT_MAIN_HOSPITAL_ICON_URL,
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
+        iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
     });
 
-    // Init Map
+    // === INISIALISASI PETA ===
     function initializeMap() {
-        map = L.map('map', {
-            fullscreenControl: true
-        }).setView([hospitalData.latitude, hospitalData.longitude], 12);
+        map = L.map('map')
+            .setView([hospitalData.latitude, hospitalData.longitude], 11);
 
         const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            maxZoom: 19
+            attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
         });
 
         const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri',
-            maxZoom: 19
-        });
+            attribution: 'Tiles © Esri', maxZoom: 19
+        }).addTo(map);
 
-        satelliteLayer.addTo(map);
+        L.control.layers(
+            { "Street Map": osmLayer, "Satellite Map": satelliteLayer },
+            null,
+            { position: 'topleft' }
+        ).addTo(map);
 
-        const baseLayers = {
-            "Satelit Map": satelliteLayer,
-            "Street Map": osmLayer
-        };
+        L.control.fullscreen({ position: 'topleft' }).addTo(map);
 
-        L.control.layers(baseLayers).addTo(map);
+        // === Styling posisi kontrol ===
+        const style = document.createElement('style');
+        style.textContent = `
+        .leaflet-top.leaflet-left .leaflet-control-layers { margin-top: 5px !important; }
+        .leaflet-top.leaflet-left .leaflet-control-zoom { margin-top: 10px !important; }
+        `;
+        document.head.appendChild(style);
+
         nearbyMarkersGroup.addTo(map);
     }
 
-    // Main hospital + radius
+    // === MARKER UTAMA DAN RADIUS ===
     function addMainHospitalAndCircle() {
         mainMarker = L.marker([hospitalData.latitude, hospitalData.longitude], { icon: mainHospitalIcon })
             .addTo(map)
-            .bindPopup(`<b>${hospitalData.name}</b><br>This is the main hospital.`)
-            .openPopup();
+            .bindPopup(`<b>${hospitalData.name}</b><br>This is the main hospital.`);
 
         radiusCircle = L.circle([hospitalData.latitude, hospitalData.longitude], {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.2,
-            radius: radiusKm * 1000
+            color: 'red', fillColor: '#f03', fillOpacity: 0.1, radius: radiusKm * 1000
         }).addTo(map);
     }
 
-    // Tambahkan nearby markers + tombol Get Direction
-    function addNearbyMarkers(data, defaultIconUrl, type) {
+    // === TAMBAH MARKER SEKITAR ===
+    function addNearbyMarkers(data, defaultIconUrl, type, filters = {}) {
         data.forEach(item => {
-            const itemIcon = L.icon({
-                iconUrl: item.icon || defaultIconUrl,
-                iconSize: [24, 24],
-                iconAnchor: [12, 24],
-                popupAnchor: [0, -20]
+            const distance = calculateDistance(
+                hospitalData.latitude, hospitalData.longitude,
+                item.latitude, item.longitude
+            );
+            if (distance > radiusKm) return;
+
+            // Filter hospital
+            if (type === 'Hospital' && filters.hospitalLevels?.length > 0) {
+                const level = (item.facility_level || '').toLowerCase();
+                const allowed = filters.hospitalLevels.map(l => l.toLowerCase());
+                if (!allowed.includes(level)) return;
+            }
+
+            // Filter airport
+            if (type === 'Airport' && filters.airportClassifications?.length > 0) {
+                const categories = (item.category || '').split(',').map(c => c.trim().toLowerCase());
+                const allowed = filters.airportClassifications.map(c => c.toLowerCase());
+                if (!categories.some(cat => allowed.includes(cat))) return;
+            }
+
+            const icon = L.icon({
+                iconUrl: item.icon || defaultIconUrl, iconSize: [24, 24],
+                iconAnchor: [12, 24], popupAnchor: [0, -20]
             });
 
-            const marker = L.marker([item.latitude, item.longitude], { icon: itemIcon });
-
+            const marker = L.marker([item.latitude, item.longitude], { icon });
             const name = item.name || item.airport_name || 'N/A';
-            const distance = item.distance ? `<br><strong>Distance:</strong> ${item.distance.toFixed(2)} km` : '';
-
-            let detailUrl = (type === 'Airport')
-                    ? `/airports/${item.id}/detail`
-                    : `/hospitals/${item.id}`;
+            const level = item.facility_level || item.category || 'N/A';
+            const url = (type === 'Airport')
+                ? `/airports/${item.id}/detail`
+                : `/hospitals/${item.id}`;
 
             marker.bindPopup(`
-                <b><a href="${detailUrl}">${name}</a></b> (${type})<br>
-                ${distance}
-                <br><button class="btn btn-sm btn-primary mt-2" onclick="getDirection(${item.latitude}, ${item.longitude}, '${name}')">Get Direction</button>
+                <div style="font-size:13px;">
+                    <a href="${url}" target="_blank">${name}</a><br>
+                    ${level}<br>
+                    <strong>Distance:</strong> ${distance.toFixed(2)} km<br>
+                    <button class="btn btn-sm btn-primary mt-2"
+                        onclick="getDirection(${item.latitude}, ${item.longitude})">
+                        Get Direction
+                    </button>
+                </div>
             `);
 
             nearbyMarkersGroup.addLayer(marker);
         });
     }
 
-    // Fungsi Get Direction
-    window.getDirection = function(lat, lng, destName) {
-        if (routingControl) {
-            map.removeControl(routingControl);
-        }
+    // === HITUNG JARAK ===
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) ** 2 +
+            Math.cos(lat1 * Math.PI / 180) *
+            Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) ** 2;
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    // === ROUTING ===
+    window.getDirection = function(lat, lng) {
+        if (routingControl) map.removeControl(routingControl);
         routingControl = L.Routing.control({
             waypoints: [
                 L.latLng(hospitalData.latitude, hospitalData.longitude),
                 L.latLng(lat, lng)
             ],
-            routeWhileDragging: false,
-            show: false,
-            addWaypoints: false,
-            collapsible: true
+            routeWhileDragging: false, addWaypoints: false,
+            collapsible: true, show: false,
+            createMarker: () => null,
+            lineOptions: { styles: [{ color: 'red', opacity: 0.7, weight: 4 }] }
         }).addTo(map);
-    }
+    };
 
-    // Fit bounds
+    // === FIT MAP ===
     function fitMapToBounds() {
         const bounds = L.featureGroup([mainMarker, nearbyMarkersGroup, radiusCircle]).getBounds();
-        if (bounds.isValid()) {
-            map.fitBounds(bounds, { padding: [50, 50] });
-        }
+        if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50] });
     }
 
-    // Run
+    // === UPDATE MARKER ===
+    function updateMarkers(filterType, hospitalLevels, airportClassifications) {
+        nearbyMarkersGroup.clearLayers();
+        map.removeLayer(radiusCircle);
+        addMainHospitalAndCircle();
+
+        const filters = { hospitalLevels, airportClassifications };
+        if (filterType === 'hospital') {
+            addNearbyMarkers(nearbyHospitals, DEFAULT_HOSPITAL_ICON_URL, 'Hospital', filters);
+        } else if (filterType === 'airport') {
+            addNearbyMarkers(nearbyAirports, DEFAULT_AIRPORT_ICON_URL, 'Airport', filters);
+        } else {
+            addNearbyMarkers(nearbyHospitals, DEFAULT_HOSPITAL_ICON_URL, 'Hospital', filters);
+            addNearbyMarkers(nearbyAirports, DEFAULT_AIRPORT_ICON_URL, 'Airport', filters);
+        }
+
+        fitMapToBounds();
+    }
+
+    // === FILTER CONTROL (TETAP TERBUKA & ADA RADIUS) ===
+    const FilterControl = L.Control.extend({
+        options: { position: 'topright' },
+        onAdd: function() {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control p-2 bg-white rounded');
+            container.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+            container.style.width = '220px';
+            container.style.maxHeight = '420px';
+            container.style.overflowY = 'auto';
+
+            container.innerHTML = `
+                <h6><strong>Filter</strong></h6>
+
+                <label><strong>Radius:</strong> <span id="radiusLabel">${radiusKm}</span> km</label>
+                <input type="range" id="radiusRange" min="10" max="500" step="10" value="${radiusKm}" class="form-range mb-2">
+
+                <select id="mapFilter" class="form-select form-select-sm mb-2">
+                    <option value="all">Show All</option>
+                    <option value="hospital">Hospitals</option>
+                    <option value="airport">Airports</option>
+                </select>
+
+                <div id="hospitalFilter" style="display:none;">
+                    <strong>Facility Level:</strong><br>
+                        ${[
+                            { alias: 'Class 1', value: '1 - Village Health Post (VHP)' },
+                            { alias: 'Class 2', value: '2 - Community Health Post (CHP)' },
+                            { alias: 'Class 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
+                            { alias: 'Class 4', value: '4 - District Hospital - Rural Health Services (DH)' },
+                            { alias: 'Class 5', value: '5 - Provincial Hospital, Health Services and Public Health Programs (PHA)' },
+                            { alias: 'Class 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' }
+                        ].map(c => `
+                            <label style="display:block;font-size:12px;">
+                                <input type="checkbox" name="hospitalLevel" value="${c.value}">
+                                ${c.alias}
+                            </label>
+                        `).join('')}
+                </div>
+
+                <div id="airportFilter" style="display:none;margin-top:8px;">
+                    <strong>Category:</strong><br>
+                    ${['International','Domestic','Regional Domestic','Military','Regional','Private']
+                        .map(cls => `<label style="display:block;font-size:13px;">
+                            <input type="checkbox" name="airportClass" value="${cls}"> ${cls}
+                        </label>`).join('')}
+                </div>
+
+                <button id="resetFilter" class="btn btn-sm btn-secondary mt-3 w-100">Reset Filter</button>
+            `;
+
+            L.DomEvent.disableClickPropagation(container);
+
+            const radiusSlider = container.querySelector('#radiusRange');
+            const radiusLabel = container.querySelector('#radiusLabel');
+            radiusSlider.addEventListener('input', () => {
+                radiusKm = parseInt(radiusSlider.value);
+                radiusLabel.textContent = radiusKm;
+                refreshFilters();
+            });
+
+            const filterSelect = container.querySelector('#mapFilter');
+            const hospitalDiv = container.querySelector('#hospitalFilter');
+            const airportDiv = container.querySelector('#airportFilter');
+            const resetBtn = container.querySelector('#resetFilter');
+
+            function refresh() {
+                const selectedType = filterSelect.value;
+                const selectedHospitalLevels = Array.from(container.querySelectorAll('input[name="hospitalLevel"]:checked')).map(el => el.value);
+                const selectedAirportClasses = Array.from(container.querySelectorAll('input[name="airportClass"]:checked')).map(el => el.value);
+                updateMarkers(selectedType, selectedHospitalLevels, selectedAirportClasses);
+            }
+
+            filterSelect.addEventListener('change', () => {
+                const val = filterSelect.value;
+                hospitalDiv.style.display = val === 'hospital' ? 'block' : 'none';
+                airportDiv.style.display = val === 'airport' ? 'block' : 'none';
+                refresh();
+            });
+
+            container.querySelectorAll('input[name="hospitalLevel"]').forEach(chk => chk.addEventListener('change', refresh));
+            container.querySelectorAll('input[name="airportClass"]').forEach(chk => chk.addEventListener('change', refresh));
+
+            resetBtn.addEventListener('click', () => {
+                container.querySelectorAll('input[type="checkbox"]').forEach(chk => chk.checked = false);
+                filterSelect.value = 'all';
+                hospitalDiv.style.display = 'none';
+                airportDiv.style.display = 'none';
+                radiusKm = {{ $radius_km }};
+                radiusSlider.value = radiusKm;
+                radiusLabel.textContent = radiusKm;
+                refresh();
+            });
+
+            return container;
+        }
+    });
+
+    function refreshFilters() {
+        const selectedType = document.querySelector('#mapFilter')?.value || 'all';
+        const selectedHospitalLevels = Array.from(document.querySelectorAll('input[name="hospitalLevel"]:checked')).map(el => el.value);
+        const selectedAirportClasses = Array.from(document.querySelectorAll('input[name="airportClass"]:checked')).map(el => el.value);
+        updateMarkers(selectedType, selectedHospitalLevels, selectedAirportClasses);
+    }
+
+    // === JALANKAN ===
     initializeMap();
     addMainHospitalAndCircle();
-    addNearbyMarkers(nearbyHospitals, DEFAULT_HOSPITAL_ICON_URL, 'Hospital');
-    addNearbyMarkers(nearbyAirports, DEFAULT_AIRPORT_ICON_URL, 'Airport');
-    fitMapToBounds();
+    updateMarkers('all', [], []);
+    map.addControl(new FilterControl());
 });
 </script>
 

@@ -120,11 +120,11 @@ class HospitalController extends Controller
 
         $latitude = $hospital->latitude;
         $longitude = $hospital->longitude;
-        $radius_km = 100; // Your desired radius
+        $radius_km = 500; // Your desired radius
 
         // Fetch nearby hospitals (excluding the current one)
         $nearbyHospitals = Hospital::selectRaw("
-            id, name, icon, latitude, longitude,
+            id, name, icon, latitude, longitude, facility_level,
             ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance
         ", [$latitude, $longitude, $latitude])
         ->having('distance', '<', $radius_km)
@@ -134,7 +134,7 @@ class HospitalController extends Controller
 
          // Fetch nearby airports
         $nearbyAirports = Airport::selectRaw("
-            id, airport_name AS name, icon, latitude, longitude,
+            id, airport_name AS name, icon, latitude, longitude, category,
             ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance
         ", [$latitude, $longitude, $latitude])
         ->having('distance', '<', $radius_km)
@@ -159,7 +159,13 @@ class HospitalController extends Controller
 
         // Filter by category
         $query->when($request->filled('category'), function ($q) use ($request) {
-            $q->where('facility_level', 'like', '%' . $request->input('category') . '%');
+            $categories = $request->input('category'); // bisa array atau string
+
+            if (is_array($categories)) {
+                $q->whereIn('facility_level', $categories);
+            } else {
+                $q->where('facility_level', 'like', '%' . $categories . '%');
+            }
         });
 
         // Filter by location

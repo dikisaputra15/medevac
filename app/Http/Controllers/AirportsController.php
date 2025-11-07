@@ -202,7 +202,7 @@ class AirportsController extends Controller
             ->orderBy('distance')
             ->get();
 
-        $radius_km = 100; // Radius lingkaran untuk ditampilkan di peta
+        $radius_km = 500; // Radius lingkaran untuk ditampilkan di peta
 
         return view('pages.airports.showdetailemergency', compact('airport', 'nearbyAirports', 'nearbyHospitals', 'radius_km', 'hospital'));
     }

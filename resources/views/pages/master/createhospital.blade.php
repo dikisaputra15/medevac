@@ -246,38 +246,108 @@
           </div>
         </div>
 
-        <div class="col-md-12">
+         <div class="col-md-12">
             <div class="form-group">
-                <label>Inpatient Services</label>
-                <input type="text" class="form-control" name="inpatient_services">
+                <label>Inpatient Services</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inpatient_services" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inpatient_services" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inpatient_services" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Outpatient Services</label>
-                <input type="text" class="form-control" name="outpatient_services">
-            </div>
-        </div>
+                <label>Outpatient Services</label><br>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Hour Emergency Services</label>
-                <input type="text" class="form-control" name="hour_emergency_services">
-            </div>
-        </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="outpatient_services" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Ambulance</label>
-                <input type="text" class="form-control" name="ambulance">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="outpatient_services" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="outpatient_services" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Helipad</label>
-                <input type="text" class="form-control" name="helipad">
+                <label>Hour Emergency Services</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="hour_emergency_services" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="hour_emergency_services" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="hour_emergency_services" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Ambulance</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ambulance" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ambulance" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ambulance" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Helipad</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="helipad" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="helipad" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="helipad" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
             </div>
         </div>
 
@@ -285,7 +355,7 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Comments
+                Note
               </h3>
             </div>
             <!-- /.card-header -->
@@ -301,78 +371,232 @@
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>ICU</label>
-                <input type="text" class="form-control" name="icu">
+                <label>ICU</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="icu" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="icu" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="icu" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Medical</label>
-                <input type="text" class="form-control" name="medical">
-            </div>
-        </div>
+                <label>Medical</label><br>
 
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Pediatric</label>
-                <input type="text" class="form-control" name="pediatric">
-            </div>
-        </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medical" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
 
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Maternal</label>
-                <input type="text" class="form-control" name="maternal">
-            </div>
-        </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medical" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
 
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Dental</label>
-                <input type="text" class="form-control" name="dental">
-            </div>
-        </div>
-
-          <div class="col-md-12">
-            <div class="form-group">
-                <label>Optical</label>
-                <input type="text" class="form-control" name="optical">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medical" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>IOC</label>
-                <input type="text" class="form-control" name="ioc">
-            </div>
-        </div>
+                <label>Pediatric</label><br>
 
-          <div class="col-md-12">
-            <div class="form-group">
-                <label>Laboratory</label>
-                <input type="text" class="form-control" name="laboratory">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pediatric" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pediatric" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pediatric" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
             </div>
         </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Pharmacy</label>
-                <input type="text" class="form-control" name="pharmacy">
+                <label>Maternal</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="maternal" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="maternal" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="maternal" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
+            </div>
+        </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Dental</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="dental" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="dental" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="dental" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
+            </div>
+        </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Optical</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="optical" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="optical" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="optical" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Medical Imaging</label>
-                <input type="text" class="form-control" name="medical_imaging">
+                <label>IOC</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ioc" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ioc" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ioc" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
             </div>
         </div>
 
-          <div class="col-md-12">
+         <div class="col-md-12">
             <div class="form-group">
-                <label>Medical Student Training</label>
-                <input type="text" class="form-control" name="medical_student_training">
+                <label>Laboratory</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="laboratory" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="laboratory" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="laboratory" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
+            </div>
+        </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Pharmacy</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pharmacy" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pharmacy" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pharmacy" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
+            </div>
+        </div>
+
+         <div class="col-md-12">
+            <div class="form-group">
+                <label>Medical Imaging</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medical_imaging" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medical_imaging" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medical_imaging" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Medical Student Training</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medical_student_training" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medical_student_training" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medical_student_training" value="Data not identified">
+                    <label class="form-check-label">Data not identified</label>
+                </div>
             </div>
         </div>
 
