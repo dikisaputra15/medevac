@@ -352,15 +352,21 @@
 
         <div class="col-md-4">
            <div class="card">
-                <div class="card-header fw-bold"><img src="{{ asset('images/icon-police.png') }}" style="width: 24px; height: 24px;"> Nearest Police station</div>
+                <div class="card-header fw-bold"><i class="bi bi-airplane fs-3"></i> Nearest Airfield</div>
                 <div class="card-body overflow-auto">
-                    <?php echo $hospital->nearest_police_station; ?>
+                    <?php echo $hospital->nearest_airfield; ?>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header fw-bold"><img src="{{ asset('images/icon-medical-support-website.png') }}" style="width: 24px; height: 24px;"> Emergency Medical Support</div>
                 <div class="card-body overflow-auto">
                     <?php echo $hospital->medical_support_website; ?>
+                </div>
+            </div>
+             <div class="card">
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-police.png') }}" style="width: 24px; height: 24px;"> Nearest Police station</div>
+                <div class="card-body overflow-auto">
+                    <?php echo $hospital->nearest_police_station; ?>
                 </div>
             </div>
         </div>

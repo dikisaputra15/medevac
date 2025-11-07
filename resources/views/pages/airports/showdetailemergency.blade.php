@@ -360,9 +360,9 @@
 
         <div class="col-sm-4 d-flex flex-column gap-3">
             <div class="card">
-                <div class="card-header fw-bold"><img src="{{ asset('images/icon-police.png') }}" style="width: 24px; height: 24px;"> Nearest Police Station</div>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;"> Nearest Medical Facility</div>
                 <div class="card-body overflow-auto">
-                    <?php echo $airport->nearest_police_station; ?>
+                    <?php echo $airport->nearest_medical_facility; ?>
                 </div>
             </div>
 
@@ -370,6 +370,13 @@
                 <div class="card-header fw-bold"><img src="{{ asset('images/icon-medical-support-website.png') }}" style="width: 24px; height: 24px;"> Emergency Medical Support</div>
                 <div class="card-body overflow-auto">
                         <?php echo $hospital->medical_support_website; ?>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-police.png') }}" style="width: 24px; height: 24px;"> Nearest Police Station</div>
+                <div class="card-body overflow-auto">
+                    <?php echo $airport->nearest_police_station; ?>
                 </div>
             </div>
         </div>
