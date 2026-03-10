@@ -1,12 +1,12 @@
 @extends('layouts.master-admin')
 
-@section('title','Embessy')
+@section('title','Embassy')
 
 @section('conten')
 
 <div class="card">
     <div class="card-header bg-white">
-        <h3>Embessy List</h3>
+        <h3>Embassy List</h3>
     </div>
 
      <div id="session" data-session="{{ session('success') }}"></div>
