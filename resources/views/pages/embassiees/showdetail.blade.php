@@ -129,10 +129,10 @@
                 <p>
                     <strong>Fax:</strong> {{ $embassy->fax ?? '-' }}
                 </p>
-                    <strong>Email:</strong> {{ $embassy->email ?? '-' }}
+                    <strong>Email:</strong> {!! $embassy->email ?? '-' !!}
                 </p>
                 <p>
-                    <strong>Website:</strong> <a href="{{ $embassy->website }}" target="_blank">{{ $embassy->website }}</a>
+                    <strong>Website:</strong> <a href="{{ $embassy->website }}" target="_blank">{!! $embassy->website !!}</a>
                 </p>
                 <p>
                     <strong>Latitude:</strong> {{ $embassy->latitude ?? '-' }}
