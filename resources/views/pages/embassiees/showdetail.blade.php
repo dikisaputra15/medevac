@@ -76,7 +76,7 @@
 
     <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
         <div class="d-flex gap-2 align-items-center">
-            <h2 class="fw-bold">{{ $embassy->name_embassiees }} - Papua New Guinea</h2>
+            <h2 class="fw-bold">{{ $embassy->name_embassiees }}</h2>
         </div>
 
         <div class="d-flex gap-2 ms-auto">
