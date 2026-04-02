@@ -124,10 +124,10 @@
                 <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Information</div>
                 <div class="card-body">
                 <p>
-                    <strong>Telephone:</strong> {{ $embassy->telephone ?? '-' }}
+                    <strong>Telephone:</strong> {!! $embassy->telephone ?? '-' !!}
                 </p>
                 <p>
-                    <strong>Fax:</strong> {{ $embassy->fax ?? '-' }}
+                    <strong>Fax:</strong> {!! $embassy->fax ?? '-' !!}
                 </p>
                     <strong>Email:</strong> {!! $embassy->email ?? '-' !!}
                 </p>
