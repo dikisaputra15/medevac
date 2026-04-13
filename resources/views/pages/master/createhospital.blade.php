@@ -709,13 +709,6 @@
             </div>
         </div>
 
-          <div class="col-md-12">
-            <div class="form-group">
-                <label>Others</label>
-                <input type="text" class="form-control" name="others">
-            </div>
-        </div>
-
         <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">

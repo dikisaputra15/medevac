@@ -806,13 +806,6 @@
             </div>
         </div>
 
-          <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Others</label>
-                <input type="text" class="form-control" name="others" value="{{ $hospital->others; }}">
-            </div>
-        </div>
-
         <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
