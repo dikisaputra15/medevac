@@ -615,7 +615,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const nearbyHospitals = @json($nearbyHospitals);
     const nearbyAirports = @json($nearbyAirports);
-    let radiusKm = {{ $radius_km }}; // default radius
+    let radiusKm = 100; // default radius
 
     let map, mainMarker, radiusCircle, routingControl = null;
     let nearbyMarkersGroup = L.featureGroup();
@@ -826,12 +826,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div id="hospitalFilter" style="display:none;">
                     <strong>Facility Level:</strong><br>
                         ${[
-                            { alias: 'Class 1', value: '1 - Village Health Post (VHP)' },
-                            { alias: 'Class 2', value: '2 - Community Health Post (CHP)' },
-                            { alias: 'Class 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
-                            { alias: 'Class 4', value: '4 - District Hospital - Rural Health Services (DH)' },
-                            { alias: 'Class 5', value: '5 - Provincial Hospital, Health Services and Public Health Programs (PHA)' },
-                            { alias: 'Class 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' }
+                            { alias: 'Level 1', value: '1 - Village Health Post (VHP)' },
+                            { alias: 'Level 2', value: '2 - Community Health Post (CHP)' },
+                            { alias: 'Level 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
+                            { alias: 'Level 4', value: '4 - District Hospital - Rural Health Services (DH)' },
+                            { alias: 'Level 5', value: '5 - Provincial Hospital, Health Services and Public Health Programs (PHA)' },
+                            { alias: 'Level 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' }
                         ].map(c => `
                             <label style="display:block;font-size:12px;">
                                 <input type="checkbox" name="hospitalLevel" value="${c.value}">

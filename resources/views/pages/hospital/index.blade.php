@@ -104,27 +104,80 @@
             margin-bottom: 0.5rem !important;
         }
 
-        /* Classification */
-        .advanced{
-            border-bottom: 3px solid #397fff;
-        }
+        /* Classification section */
+    .classification {
+      display: flex;
+      width: 100%;
+    }
 
-        .intermediete{
-            border-bottom: 3px solid #48d12c;
-        }
+    .class-column {
+      flex: 1;
+      text-align: center;
 
-        .basic{
-            border-bottom: 3px solid #b4a911ff;
-        }
+    }
+    .class-column:last-child {
+      border-right: none;
+    }
 
-        /* Boder */
-        .bl{
-            border-left: 2px solid #DDDDDD;
-        }
+    .class-header {
+      font-weight: 600;
+      padding: 0.1rem 0;
+    }
 
-        .br{
-            border-right: 2px solid #DDDDDD;
-        }
+    /* Color bars */
+    .class-medical-classification {border: none; text-align: center;}
+    .class-airport-category {border: none;}
+    .class-advanced { border-bottom: 3px solid #0070c0; }
+    .class-intermediate { border-bottom: 3px solid #00b050; }
+    .class-basic { border-bottom: 3px solid #ffc000; }
+
+    /* Hospital layout */
+    .hospital-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+
+    /* For side-by-side classes */
+    .hospital-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+    }
+
+    .hospital-item {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .hospital-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Image inside icon box */
+    .hospital-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Airfield icons */
+    .category-item img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+    }
 
 </style>
 @endpush
@@ -175,55 +228,70 @@
                 <span class="fw-bold pb-2 d-inline-block">Classification:</span>
             </div>
             <!-- Classification -->
-            <div class="text-end" style="min-width: 600px;">
-                <div class="row">
-                    <div class="col-4 text-center fw-bold advanced br">Advanced</div>
-                    <div class="col-4 text-center fw-bold intermediete br">Intermediate</div>
-                    <div class="col-4 text-center fw-bold basic">Basic</div>
-                </div>
+            <div class="classification" style="flex-direction: column; width:100%;">
+                      <div class="classification">
+                        <!-- Advanced -->
+                        <div class="class-column">
+                          <div class="class-header class-advanced">Advanced</div>
+                          <div class="hospital-list">
+                            <div class="hospital-item">
+                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
+                                <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:24px; height:24px;">
+                                <small>Level 6</small>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
 
-                <div class="row text-center">
-                <!-- Advanced -->
-                    <div class="col-2 text-danger">
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:30px; height:30px;">
-                            <small>Level 6</small>
-                        </button>
+                        <!-- Intermediate -->
+                        <div class="class-column">
+                          <div class="class-header class-intermediate">Intermediate</div>
+                          <div class="hospital-list">
+                            <div class="hospital-row">
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
+                                  <small>Level 5</small>
+                                </button>
+                              </div>
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
+                                  <small>Level 4</small>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Basic -->
+                        <div class="class-column">
+                          <div class="class-header class-basic">Basic</div>
+                          <div class="hospital-list">
+                            <div class="hospital-row">
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:24px; height:24px;">
+                                  <small>Level 3</small>
+                                </button>
+                              </div>
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level2Modal">
+                                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:24px; height:24px;">
+                                    <small>Level 2</small>
+                                </button>
+                              </div>
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level1Modal">
+                                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24px; height:24px;">
+                                    <small>Level 1</small>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-2 text-primary br">
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:30px; height:30px;">
-                            <small>Level 5</small>
-                        </button>
-                    </div>
-                    <!-- Intermediete -->
-                    <div class="col-2 text-purple">
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:30px; height:30px;">
-                            <small>Level 4</small>
-                        </button>
-                    </div>
-                    <div class="col-2 text-success br">
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:30px; height:30px;">
-                            <small>Level 3</small>
-                        </button>
-                    </div>
-                    <!-- Basic -->
-                    <div class="col-2 text-warning">
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level2Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:30px; height:30px;">
-                            <small>Level 2</small>
-                        </button>
-                    </div>
-                    <div class="col-2 text-info">
-                        <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level1Modal">
-                            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:30px; height:30px;">
-                            <small>Level 1</small>
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
 
         </div>
@@ -252,7 +320,7 @@
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 1</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 1</h5>
          </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -270,7 +338,7 @@
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 2</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 2</h5>
          </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -288,7 +356,7 @@
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 3</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 3</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -306,7 +374,7 @@
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 4</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 4</h5>
          </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -324,7 +392,7 @@
       <div class="modal-header">
         <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 5</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 5</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -342,7 +410,7 @@
       <div class="modal-header">
         <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 6</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 6</h5>
         </div>
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -586,12 +654,12 @@ const FilterPanel = L.Control.extend({
                 </select>
                 <label>Facility Level:</label>
                ${[
-                    { alias: 'Class 1', value: '1 - Village Health Post (VHP)' },
-                    { alias: 'Class 2', value: '2 - Community Health Post (CHP)' },
-                    { alias: 'Class 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
-                    { alias: 'Class 4', value: '4 - District Hospital - Rural Health Services (DH)' },
-                    { alias: 'Class 5', value: '5 - Provincial Hospital, Health Services and Public Health Programs (PHA)' },
-                    { alias: 'Class 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' }
+                    { alias: 'Level 1', value: '1 - Village Health Post (VHP)' },
+                    { alias: 'Level 2', value: '2 - Community Health Post (CHP)' },
+                    { alias: 'Level 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
+                    { alias: 'Level 4', value: '4 - District Hospital - Rural Health Services (DH)' },
+                    { alias: 'Level 5', value: '5 - Provincial Hospital, Health Services and Public Health Programs (PHA)' },
+                    { alias: 'Level 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' }
                 ].map(c => `
                     <label style="display:block;font-size:12px;">
                         <input type="checkbox" name="hospitalLevel" value="${c.value}">

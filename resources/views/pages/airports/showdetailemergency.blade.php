@@ -504,7 +504,7 @@
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 1</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 1</h5>
          </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -522,7 +522,7 @@
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 2</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 2</h5>
          </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -540,7 +540,7 @@
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 3</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 3</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -558,7 +558,7 @@
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 4</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 4</h5>
          </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -576,7 +576,7 @@
       <div class="modal-header">
         <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 5</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 5</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -594,7 +594,7 @@
       <div class="modal-header">
         <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class 6</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Level 6</h5>
         </div>
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -633,7 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const nearbyAirports = @json($nearbyAirports);
     const nearbyHospitals = @json($nearbyHospitals);
-    let radiusKm = {{ $radius_km }};
+    let radiusKm = 100;
 
     let map, mainAirportMarker, radiusCircle, routingControl = null;
     const nearbyMarkersGroup = L.featureGroup();
@@ -864,12 +864,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div id="hospitalFilter" style="display:none;">
                     <strong>Facility Level:</strong><br>
                         ${[
-                            { alias: 'Class 1', value: '1 - Village Health Post (VHP)' },
-                            { alias: 'Class 2', value: '2 - Community Health Post (CHP)' },
-                            { alias: 'Class 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
-                            { alias: 'Class 4', value: '4 - District Hospital - Rural Health Services (DH)' },
-                            { alias: 'Class 5', value: '5 - Provincial Hospital, Health Services and Public Health Programs (PHA)' },
-                            { alias: 'Class 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' }
+                            { alias: 'Level 1', value: '1 - Village Health Post (VHP)' },
+                            { alias: 'Level 2', value: '2 - Community Health Post (CHP)' },
+                            { alias: 'Level 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
+                            { alias: 'Level 4', value: '4 - District Hospital - Rural Health Services (DH)' },
+                            { alias: 'Level 5', value: '5 - Provincial Hospital, Health Services and Public Health Programs (PHA)' },
+                            { alias: 'Level 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' }
                         ].map(c => `
                             <label style="display:block;font-size:12px;">
                                 <input type="checkbox" name="hospitalLevel" value="${c.value}">
