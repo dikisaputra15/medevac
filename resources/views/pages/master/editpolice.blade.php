@@ -255,9 +255,9 @@
         @php
             $icons = [
                 ['url' => asset('images/dot-blue-ring-royal-papua.png'), 'label' => 'Royal Papua New Guinea Constabulary (Commissioner HQ)'],
-                ['url' => asset('images/dot-green-divisi-comand.png'), 'label' => 'Divisional Command'],
+                ['url' => asset('images/dot-red.png'), 'label' => 'Divisional Command'],
                 ['url' => asset('images/dot-orange-ppc.png'), 'label' => 'Provincial Police Command (PPC)'],
-                ['url' => asset('images/dot-red-police-station.png'), 'label' => 'Police Station'],
+                ['url' => asset('images/dot-green.png'), 'label' => 'Police Station'],
             ];
         @endphp
 
