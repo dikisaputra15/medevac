@@ -842,7 +842,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 <div id="airportFilter" style="display:none;margin-top:8px;">
                     <strong>Category:</strong><br>
-                    ${['International','Domestic','Regional Domestic','Military','Regional','Private']
+                    ${['International','Domestic','Military','Regional','Private']
                         .map(cls => `<label style="display:block;font-size:13px;">
                             <input type="checkbox" name="airportClass" value="${cls}"> ${cls}
                         </label>`).join('')}

@@ -7,6 +7,7 @@ use App\Http\Controllers\AircharterController;
 use App\Http\Controllers\MasterairportController;
 use App\Http\Controllers\MasterhospitalController;
 use App\Http\Controllers\MasterembessyController;
+use App\Http\Controllers\MasterPoliceController;
 use App\Http\Controllers\MasteraircharterController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -91,11 +92,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/api/airports', [AirportsController::class, 'filter']);
     Route::get('/api/embassy', [EmbassieesController::class, 'filter']);
     Route::get('/api/hospital', [HospitalController::class, 'filter']);
+    Route::get('/api/polices', [PoliceController::class, 'filter']);
     Route::post('/user/{user}/update-role', [UserController::class, 'updateRole'])->name('user.updateRole');
+
+    Route::resource('police', PoliceController::class);
 
     Route::resource('airportdata', MasterairportController::class);
     Route::resource('hospitaldata', MasterhospitalController::class);
     Route::resource('embessydata', MasterembessyController::class);
+    Route::resource('policedata', MasterPoliceController::class);
     Route::resource('aircharterdata', MasteraircharterController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('user', UserController::class);
@@ -103,6 +108,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/airportdata/{id}/toggle-status', [MasterairportController::class, 'toggleStatus'])->name('airportdata.toggleStatus');
     Route::post('/hospitaldata/{id}/toggle-status', [MasterhospitalController::class, 'toggleStatus'])->name('hospitaldata.toggleStatus');
     Route::post('/embassydata/{id}/toggle-status', [MasterembessyController::class, 'toggleStatus'])->name('embassydata.toggleStatus');
+    Route::post('/policedata/{id}/toggle-status', [MasterPoliceController::class, 'toggleStatus'])->name('policedata.toggleStatus');
 
     Route::get('/administrator', [App\Http\Controllers\HomeController::class, 'administrator']);
 
