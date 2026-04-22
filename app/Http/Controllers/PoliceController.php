@@ -16,7 +16,7 @@ class PoliceController extends Controller
         // `filter()` removes null/empty values.
         $policeNames = Police::distinct()->pluck('name_police')->filter()->sort()->values();
         $policeCategories = Police::distinct()->pluck('category')->filter()->sort()->values();
-        $policeLocations = Airport::distinct()->pluck('location')->filter()->sort()->values();
+        $policeLocations = Police::distinct()->pluck('location')->filter()->sort()->values();
 
         $provinces = Provincesregion::all(); // Get all provinces
 
@@ -70,7 +70,7 @@ class PoliceController extends Controller
             $haversine = "(6371 * acos(cos(radians(?)) * cos(radians(latitude))
                             * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude))))";
 
-            $query->selectRaw("airports.*, $haversine AS distance", [
+            $query->selectRaw("police.*, $haversine AS distance", [
                     $centerLat, $centerLng, $centerLat
                 ])
                 ->whereRaw("$haversine < ?", [
@@ -133,5 +133,11 @@ class PoliceController extends Controller
         // Execute the query and return JSON response
         $police = $query->get();
         return response()->json($police);
+    }
+
+    public function showdetail($id)
+    {
+        $police = Police::findOrFail($id);
+        return view('pages.police.showdetail', compact('police'));
     }
 }

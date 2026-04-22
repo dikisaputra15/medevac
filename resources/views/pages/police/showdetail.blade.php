@@ -76,12 +76,12 @@
 
     <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
         <div class="d-flex gap-2 align-items-center">
-            <h2 class="fw-bold">{{ $embassy->name_embassiees }}</h2>
+            <h2 class="fw-bold">{{ $police->name_police }}</h2>
         </div>
 
         <div class="d-flex gap-2 ms-auto">
             <!-- Button 2 -->
-            <a href="{{ url('embassiees') }}/{{$embassy->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees/'.$embassy->id.'/detail') ? 'active' : '' }}">
+            <a href="{{ url('embassiees') }}/{{$police->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees/'.$police->id.'/detail') ? 'active' : '' }}">
                 <img src="{{ asset('images/icon-menu-general-info.png') }}" style="width: 18px; height: 24px;">
                 <small>General</small>
             </a>
@@ -97,25 +97,30 @@
                 <small>Air Charter</small>
             </a>
 
+            <!-- Button 7 -->
+            <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
+             <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
+                <small>Medical</small>
+            </a>
+
             <a href="{{ url('police') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('police') ? 'active' : '' }}">
             <i class="bi bi-person-badge" style="width: 24px; height: 24px;"></i>
                 <small>Police</small>
             </a>
 
-            <!-- Button 7 -->
-            <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
-             <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
-                <small>Medical</small>
+            <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
+            <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
+                <small>Embassies</small>
             </a>
         </div>
     </div>
 
     <div class="card mb-4 position-relative">
         <div class="card-body" style="padding:0 7px;">
-            <small><i>Last Updated {{ $embassy->created_at->format('M Y') }}</i></small>
+            <small><i>Last Updated {{ $police->created_at->format('M Y') }}</i></small>
 
             @role('admin')
-            <a href="{{ route('embessydata.edit', $embassy->id) }}"
+            <a href="{{ route('policedata.edit', $police->id) }}"
             style="position:absolute; right:7px;" title="edit">
                 <i class="fas fa-edit"></i>
             </a>
@@ -129,24 +134,24 @@
                 <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Information</div>
                 <div class="card-body">
                 <p>
-                    <strong>Telephone:</strong> {!! $embassy->telephone ?? '-' !!}
+                    <strong>Telephone:</strong> {!! $police->telephone ?? '-' !!}
                 </p>
                 <p>
-                    <strong>Fax:</strong> {!! $embassy->fax ?? '-' !!}
+                    <strong>Fax:</strong> {!! $police->fax ?? '-' !!}
                 </p>
-                    <strong>Email:</strong> {!! $embassy->email ?? '-' !!}
-                </p>
-                <p>
-                    <strong>Website:</strong> <a href="{{ $embassy->website }}" target="_blank">{!! $embassy->website !!}</a>
+                    <strong>Email:</strong> {!! $police->email ?? '-' !!}
                 </p>
                 <p>
-                    <strong>Latitude:</strong> {{ $embassy->latitude ?? '-' }}
+                    <strong>Website:</strong> <a href="{{ $police->website }}" target="_blank">{!! $police->website !!}</a>
                 </p>
                 <p>
-                    <strong>Longitude:</strong> {{ $embassy->longitude ?? '-' }}
+                    <strong>Latitude:</strong> {{ $police->latitude ?? '-' }}
+                </p>
+                <p>
+                    <strong>Longitude:</strong> {{ $police->longitude ?? '-' }}
                 </p>
                  <p>
-                    <strong>Location:</strong> {{ $embassy->location ?? '-' }}
+                    <strong>Location:</strong> {{ $police->location ?? '-' }}
                 </p>
             </div>
             </div>
@@ -171,9 +176,9 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.6.0/Control.FullScreen.js"></script>
 <script>
-    const latitude = {{ $embassy->latitude }};
-    const longitude = {{ $embassy->longitude }};
-    const embassyName = '{{ $embassy->name_embassiees }}'; // Using the embassy name from your data
+    const latitude = {{ $police->latitude }};
+    const longitude = {{ $police->longitude }};
+    const policeName = '{{ $police->name_police }}'; // Using the embassy name from your data
 
     const map = L.map('map', {
         fullscreenControl: true
@@ -208,7 +213,7 @@
     // Add a marker at the embassy's location
     L.marker([latitude, longitude])
         .addTo(map)
-        .bindPopup(embassyName) // Display the embassy's name when the marker is clicked
+        .bindPopup(policeName) // Display the embassy's name when the marker is clicked
         .openPopup(); // Automatically open the popup when the map loads
 </script>
 

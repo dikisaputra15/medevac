@@ -117,14 +117,14 @@
             </a>
           </li>
 
-           <!-- <li class="nav-item {{ request()->is('police') ? 'menu-open' : '' }}">
+           <li class="nav-item {{ request()->is('police') ? 'menu-open' : '' }}">
             <a href="{{ url('police') }}" class="nav-link">
             <i class="bi bi-person-badge"></i>
               <p>
                 Police
               </p>
             </a>
-          </li> -->
+          </li>
 
         </ul>
       </nav>

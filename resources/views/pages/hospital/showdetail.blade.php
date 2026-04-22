@@ -164,7 +164,7 @@
     <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
         <div class="d-flex flex-column gap-1">
             <h2 class="fw-bold">{{ $hospital->name }}</h2>
-            <span class="fw-bold"><b>Global Classification:</b> {{ $hospital->facility_category }} | <b>Country Classification:</b> {{ $hospital->facility_level }}</span>
+            <span class="fw-bold"><b>Global Classification:</b> {{ $hospital->facility_category }} | <b>Country Classification:</b> Level {{ $hospital->facility_level }}</span>
         </div>
 
         <div class="d-flex gap-2 ms-auto">
@@ -197,6 +197,11 @@
             <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
                  <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
                 <small>Air Charter</small>
+            </a>
+
+            <a href="{{ url('police') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('police') ? 'active' : '' }}">
+            <i class="bi bi-person-badge" style="width: 24px; height: 24px;"></i>
+                <small>Police</small>
             </a>
 
             <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">

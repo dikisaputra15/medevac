@@ -11,6 +11,7 @@ use App\Http\Controllers\MasterPoliceController;
 use App\Http\Controllers\MasteraircharterController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PoliceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -96,6 +97,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/user/{user}/update-role', [UserController::class, 'updateRole'])->name('user.updateRole');
 
     Route::resource('police', PoliceController::class);
+    Route::get('/police/{id}/detail', [PoliceController::class, 'showdetail']);
 
     Route::resource('airportdata', MasterairportController::class);
     Route::resource('hospitaldata', MasterhospitalController::class);
