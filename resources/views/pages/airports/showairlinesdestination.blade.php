@@ -245,7 +245,7 @@
             </div>
 
             <div class="card-body overflow-auto">
-                <iframe src="https://globe.adsbexchange.com/?lat=-9.4&lon=147.1&zoom=5" width="100%" height="600" frameborder="0"></iframe>
+                <iframe src="https://globe.adsbexchange.com/?lat=-9.4&lon=147.2&zoom=5" width="100%" height="600" frameborder="0"></iframe>
             </div>
         </div>
     </div>
