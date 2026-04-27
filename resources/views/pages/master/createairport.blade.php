@@ -64,8 +64,8 @@
                     <label class="form-check-label" for="domestic">Domestic</label>
                 </div>
                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="category[]" id="regionaldomestic" value="Regional Domestic">
-                    <label class="form-check-label" for="domestic">Regional Domestic</label>
+                    <input class="form-check-input" type="checkbox" name="category[]" id="regionaldomestic" value="Regional">
+                    <label class="form-check-label" for="domestic">Regional</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="category[]" id="military" value="Military">
@@ -86,7 +86,7 @@
                     $icons = [
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png', 'label' => 'International'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png', 'label' => 'Domestic'],
-                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png', 'label' => 'Regional Domestic'],
+                        ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png', 'label' => 'Regional'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png', 'label' => 'Military'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png', 'label' => 'Combined (Civil - Military)'],
                         ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png', 'label' => 'Private'],
