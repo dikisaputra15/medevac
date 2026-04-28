@@ -1452,6 +1452,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             container.querySelectorAll('input[name="hospitalLevel"]').forEach(chk => chk.addEventListener('change', refresh));
             container.querySelectorAll('input[name="airportClass"]').forEach(chk => chk.addEventListener('change', refresh));
+            container.querySelectorAll('input[name="policeCategory"]').forEach(chk => chk.addEventListener('change', refresh));
 
             resetBtn.addEventListener('click', () => {
                 container.querySelectorAll('input[type="checkbox"]').forEach(chk => chk.checked = false);
