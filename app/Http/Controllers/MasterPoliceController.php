@@ -68,7 +68,6 @@ class MasterPoliceController extends Controller
 
         $police->province_id = $request->input('province_id');
         $police->name_police = $request->input('name_police');
-        $police->classification = $request->input('classification');
         $police->level = $request->input('level');
         $police->category = $request->input('category');
         $police->location = $request->input('location');
@@ -106,7 +105,6 @@ class MasterPoliceController extends Controller
         $data = [
             'province_id' => $request->input('province_id'),
             'name_police' => $request->input('name_police'),
-            'classification' => $request->input('classification'),
             'level' => $request->input('level'),
             'category' => $request->input('category'),
             'location' => $request->input('location'),

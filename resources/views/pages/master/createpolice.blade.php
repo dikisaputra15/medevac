@@ -54,7 +54,7 @@
 
             <div class="col-md-12">
             <div class="form-group">
-                <label>Police Level</label><br>
+                <label>Police Classification (Global)</label><br>
 
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="level" value="Layer 1">
@@ -78,54 +78,34 @@
             </div>
         </div>
 
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Police Classification</label><br>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="classification" value="National HQ">
-                    <label class="form-check-label">National HQ</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="classification" value="Regional / Macro Command">
-                    <label class="form-check-label">Regional / Macro Command</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="classification" value="Provincial / Territorial Command">
-                    <label class="form-check-label">Provincial / Territorial Command</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="classification" value="Local Police Station">
-                    <label class="form-check-label">Local Police Station</label>
-                </div>
-            </div>
-        </div>
 
          <div class="col-md-12">
             <div class="form-group">
-                <label>Police Category</label><br>
+                <label>Police Classification (Country)</label><br>
 
+                <input type="hidden" name="icon" id="icon">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="category" value="Royal Papua New Guinea Constabulary (Commissioner HQ)">
+                    <input class="form-check-input category-radio" type="radio" name="category" value="Royal Papua New Guinea Constabulary (Commissioner HQ)" data-icon="{{ asset('images/dot-blue-ring-royal-papua.png') }}">
+                    <img src="{{ asset('images/dot-blue-ring-royal-papua.png') }}" style="width:12px; height:12px;">
                     <label class="form-check-label">Royal Papua New Guinea Constabulary (Commissioner HQ)</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="category" value="Divisional Command">
+                    <input class="form-check-input category-radio" type="radio" name="category" value="Divisional Command" data-icon="{{ asset('images/dot-red.png') }}">
+                    <img src="{{ asset('images/dot-red.png') }}" style="width:12px; height:12px;">
                     <label class="form-check-label">Divisional Command</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="category" value="Provincial Police Command (PPC)">
+                    <input class="form-check-input category-radio" type="radio" name="category" value="Provincial Police Command (PPC)" data-icon="{{ asset('images/dot-orange-ppc.png') }}">
+                    <img src="{{ asset('images/dot-orange-ppc.png') }}" style="width:12px; height:12px;">
                     <label class="form-check-label">Provincial Police Command (PPC)</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="category" value="Police Station">
-                    <label class="form-check-label">Police Station</label>
+                    <input class="form-check-input category-radio" type="radio" name="category" value="District Police Command / Police Station" data-icon="{{ asset('images/dot-green.png') }}">
+                    <img src="{{ asset('images/dot-green.png') }}" style="width:12px; height:12px;">
+                    <label class="form-check-label">District Police Command / Police Station</label>
                 </div>
             </div>
         </div>
@@ -220,29 +200,6 @@
           </div>
         </div>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Icon</label><br>
-
-                @php
-                    $icons = [
-                        ['url' => asset('images/dot-blue-ring-royal-papua.png'), 'label' => 'Royal Papua New Guinea Constabulary (Commissioner HQ)'],
-                        ['url' => asset('images/dot-red.png'), 'label' => 'Divisional Command'],
-                        ['url' => asset('images/dot-orange-ppc.png'), 'label' => 'Provincial Police Command (PPC)'],
-                        ['url' => asset('images/dot-green.png'), 'label' => 'Police Station'],
-                    ];
-                @endphp
-
-                @foreach($icons as $icon)
-                    <label style="margin-right: 15px;">
-                        <input type="radio" name="icon" value="{{ $icon['url'] }}">
-                        <img src="{{ $icon['url'] }}" style="width:17px; height:17px;">
-                        {{ $icon['label'] }}
-                    </label>
-                @endforeach
-            </div>
-        </div>
-
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
@@ -260,5 +217,14 @@
     $('#summernote5').summernote()
 
   })
+</script>
+<script>
+document.querySelectorAll('.category-radio').forEach(radio => {
+    radio.addEventListener('change', function() {
+
+        document.getElementById('icon').value = this.dataset.icon;
+
+    });
+});
 </script>
 @endpush
