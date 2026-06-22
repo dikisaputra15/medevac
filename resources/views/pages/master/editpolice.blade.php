@@ -257,4 +257,24 @@
 
   })
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.querySelectorAll('.category-radio').forEach(radio => {
+
+        radio.addEventListener('change', function () {
+
+            document.getElementById('icon').value = this.dataset.icon;
+
+            document.querySelectorAll('.police-option')
+                .forEach(item => item.classList.remove('selected'));
+
+            this.closest('.police-option')
+                .classList.add('selected');
+        });
+
+    });
+
+});
+</script>
 @endpush
