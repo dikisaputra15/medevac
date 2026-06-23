@@ -1096,7 +1096,6 @@ function addHospitalMarkers(data) {
                 ${h.address || 'N/A'}
                 ${h.provinces_region ? ', ' + h.provinces_region : ''}, Papua New Guinea<br>
             <strong>Coords:</strong> ${h.latitude}, ${h.longitude}<br>
-            <strong>Province:</strong> ${h.provinces_region || 'N/A'}<br>
             ${h.id ? `<a href="/hospitals/${h.id}" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
         `);
     });

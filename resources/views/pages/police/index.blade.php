@@ -374,7 +374,7 @@ function addPoliceMarkers(data) {
             <h5>${police.name_police || 'N/A'}</h5>
             <strong>Address:</strong>
                 ${police.location || 'N/A'}
-                ${police.province_name || 'N/A'}, Thailand<br>
+                ${police.province_name || 'N/A'}, Papua New Guinea<br>
             <strong>Phone:</strong> ${police.telephone || 'N/A'}<br>
             <strong>Website:</strong> ${police.website || 'N/A'}<br>
             ${police.id ? `<a href="/police/${police.id}/detail" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
