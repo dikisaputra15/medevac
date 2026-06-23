@@ -423,10 +423,6 @@
                         <td>Casuals</td>
                         <td>{{ $hospital->casuals }}</td>
                     </tr>
-                    <tr>
-                        <td>Others</td>
-                        <td>{{ $hospital->others }}</td>
-                    </tr>
                 </table>
                 </div>
                 </div>
