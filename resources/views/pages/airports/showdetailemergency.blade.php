@@ -357,6 +357,44 @@
                         </div>
                       </div>
                     </div>
+
+                     <div class="class-column">
+                        <div class="class-header class-airport-category">POLICE CLASSIFICATION</div>
+
+                        <div class="airport-list">
+                            <div class="hospital-row" style="flex-direction: column;">
+
+                                <!-- Baris Atas (3) -->
+                                <div class="hospital-item">
+                                    <button class="btn p-1">
+                                        <img src="{{ asset('images/dot-blue-ring-royal-papua.png') }}" style="width:12px; height:12px;">
+                                        <small>Royal Papua New Guinea Constabulary (Commissioner HQ)</small>
+                                    </button>
+
+                                    <button class="btn p-1">
+                                        <img src="{{ asset('images/dot-red.png') }}" style="width:12px; height:12px;">
+                                        <small>Divisional Command</small>
+                                    </button>
+                                </div>
+
+                                <!-- Baris Bawah (2) -->
+                                <div class="hospital-item">
+                                    <button class="btn p-1">
+                                         <img src="{{ asset('images/dot-orange-ppc.png') }}" style="width:12px; height:12px;">
+                                        <small>Provincial Police Command (PPC)</small>
+                                    </button>
+
+                                    <button class="btn p-1">
+                                        <img src="{{ asset('images/dot-green.png') }}" style="width:12px; height:12px;">
+                                        <small>District Police Command / Police Station</small>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
                   </div>
 
                 <div class="card-body p-0">
@@ -1160,7 +1198,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const nearbyAirports = @json($nearbyAirports);
     const nearbyHospitals = @json($nearbyHospitals);
-     const nearbyPolices = @json($nearbyPolices);
+    const nearbyPolices = @json($nearbyPolices);
+    const nearbyEmbassy = @json($nearbyEmbassy);
     let radiusKm = 100;
 
     let map, mainAirportMarker, radiusCircle, routingControl = null;
@@ -1170,6 +1209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const DEFAULT_HOSPITAL_ICON_URL     = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
     const DEFAULT_AIRPORT_ICON_URL      = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png';
     const DEFAULT_POLICE_ICON_URL = 'https://png.pngtree.com/png-vector/20221211/ourmid/pngtree-minimal-location-map-icon-logo-symbol-vector-design-transparent-background-png-image_6520892.png';
+    const DEFAULT_EMBASSY_ICON_URL = '/images/embassy-icon-new.png';
 
     const mainAirportIcon = new L.Icon({
         iconUrl: DEFAULT_MAIN_AIRPORT_ICON_URL,
@@ -1245,7 +1285,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!airportCategories.some(cat => allowed.includes(cat))) return;
             }
 
-             // Filter police
+              // Filter police
            if (type === 'Police' && filters.policeCategories?.length > 0) {
                 const categories = (item.category || '')
                     .split(',')
@@ -1256,14 +1296,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!categories.some(cat => allowed.includes(cat))) return;
             }
 
+            const isPolice = type === 'Police';
+
             const icon = L.icon({
                 iconUrl: item.icon || defaultIconUrl,
-                iconSize: [24, 24], iconAnchor: [12, 24], popupAnchor: [0, -20]
+                iconSize: isPolice ? [12, 12] : [24, 24], // kecilkan police
+                iconAnchor: isPolice ? [15, 30] : [12, 24],
+                popupAnchor: isPolice ? [0, -25] : [0, -20]
             });
 
             const marker = L.marker([item.latitude, item.longitude], { icon });
             const name = item.name || item.airport_name || item.name_police || 'N/A';
-            const level = item.facility_level || item.category || item.category || 'N/A';
+            const level = item.facility_level || item.category || item.category || '';
             const distanceText = `<strong>Distance:</strong> ${distance.toFixed(2)} km`;
 
             let detailUrl = '#';
@@ -1274,6 +1318,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailUrl = `/hospitals/${item.id}`;
             } else if (type === 'Police') {
                 detailUrl = `/police/${item.id}/detail`;
+            } else if (type === 'Embassy') {
+                detailUrl = `/embassiees/${item.id}/detail`;
             }
 
             marker.bindPopup(`
@@ -1303,65 +1349,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // === Routing ===
-  window.getDirection = function(lat, lng, name) {
-    if (routingControl) map.removeControl(routingControl);
+    window.getDirection = function(lat, lng, name) {
+        if (routingControl) map.removeControl(routingControl);
 
-    // ✅ Loading dulu
-    Swal.fire({
-        title: 'Finding Route...',
-        text: `Searching route to ${name}`,
-        allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading();
-        }
-    });
+        routingControl = L.Routing.control({
+            waypoints: [
+                L.latLng(airportData.latitude, airportData.longitude),
+                L.latLng(lat, lng)
+            ],
+            routeWhileDragging: false,
+            addWaypoints: false,
+            collapsible: true,
+            show: false,
+            createMarker: () => null,
+            lineOptions: { styles: [{ color: 'red', opacity: 0.7, weight: 4 }] }
+        }).addTo(map);
 
-    routingControl = L.Routing.control({
-        waypoints: [
-            L.latLng(airportData.latitude, airportData.longitude),
-            L.latLng(lat, lng)
-        ],
-        routeWhileDragging: false,
-        addWaypoints: false,
-        collapsible: true,
-        show: false,
-        createMarker: () => null,
-        lineOptions: { styles: [{ color: 'red', opacity: 0.7, weight: 4 }] }
-    }).addTo(map);
-
-    // ✅ Kalau route ditemukan
-    routingControl.on('routesfound', function(e) {
-        Swal.close();
-
-        const routes = e.routes;
-
-        if (!routes || routes.length === 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Route Not Found',
-                text: `No available route to ${name}`
-            });
-            return;
-        }
-
-        // Biar marker tetap di atas
-        if (mainAirportMarker?.bringToFront) mainAirportMarker.bringToFront();
-        nearbyMarkersGroup.eachLayer(marker => {
-            if (marker.bringToFront) marker.bringToFront();
+        routingControl.on('routesfound', () => {
+            if (mainAirportMarker?.bringToFront) mainAirportMarker.bringToFront();
+            nearbyMarkersGroup.eachLayer(marker => marker.bringToFront && marker.bringToFront());
         });
-    });
-
-    // ❌ Kalau error (ini penting)
-    routingControl.on('routingerror', function(e) {
-        Swal.close();
-
-        Swal.fire({
-            icon: 'error',
-            title: 'Routing Error',
-            text: `Route to ${name} is not available`
-        });
-    });
-};
+    };
 
     function fitMapToBounds() {
         const bounds = L.featureGroup([mainAirportMarker, nearbyMarkersGroup, radiusCircle]).getBounds();
@@ -1381,11 +1389,42 @@ document.addEventListener('DOMContentLoaded', () => {
             addNearbyMarkers(nearbyAirports, DEFAULT_AIRPORT_ICON_URL, 'Airport', filters);
         } else if (filterType === 'police') {
             addNearbyMarkers(nearbyPolices, DEFAULT_POLICE_ICON_URL, 'Police', filters);
+        } else if (filterType === 'embassy') {
+            addNearbyMarkers(
+                nearbyEmbassy,
+                DEFAULT_EMBASSY_ICON_URL,
+                'Embassy',
+                filters
+            );
         }
-          else {
-            addNearbyMarkers(nearbyHospitals, DEFAULT_HOSPITAL_ICON_URL, 'Hospital', filters);
-            addNearbyMarkers(nearbyAirports, DEFAULT_AIRPORT_ICON_URL, 'Airport', filters);
-            addNearbyMarkers(nearbyPolices, DEFAULT_POLICE_ICON_URL, 'Police', filters);
+        else {
+            addNearbyMarkers(
+                nearbyHospitals,
+                DEFAULT_HOSPITAL_ICON_URL,
+                'Hospital',
+                filters
+            );
+
+            addNearbyMarkers(
+                nearbyAirports,
+                DEFAULT_AIRPORT_ICON_URL,
+                'Airport',
+                filters
+            );
+
+            addNearbyMarkers(
+                nearbyPolices,
+                DEFAULT_POLICE_ICON_URL,
+                'Police',
+                filters
+            );
+
+            addNearbyMarkers(
+                nearbyEmbassy,
+                DEFAULT_EMBASSY_ICON_URL,
+                'Embassy',
+                filters
+            );
         }
 
         fitMapToBounds();
@@ -1408,26 +1447,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 <select id="mapFilter" class="form-select form-select-sm mb-2">
                     <option value="all">Show All</option>
-                    <option value="hospital">Hospitals</option>
-                    <option value="airport">Airports</option>
+                    <option value="hospital">Medical</option>
+                    <option value="airport">Aviation</option>
                     <option value="police">Police</option>
+                    <option value="embassy">Embassy</option>
                 </select>
 
                 <div id="hospitalFilter" style="display:none;">
                     <strong>Facility Level:</strong><br>
-                        ${[
-                            { alias: 'Level 1', value: '1 - Village Health Post (VHP)' },
-                            { alias: 'Level 2', value: '2 - Community Health Post (CHP)' },
-                            { alias: 'Level 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
-                            { alias: 'Level 4', value: '4 - District Hospital - Rural Health Services (DH)' },
+                     ${[
+                            { alias: 'Level 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' },
                             { alias: 'Level 5', value: '5 - Provincial Hospital, Health Services and Public Health Programs (PHA)' },
-                            { alias: 'Level 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' }
-                        ].map(c => `
-                            <label style="display:block;font-size:12px;">
-                                <input type="checkbox" name="hospitalLevel" value="${c.value}">
-                                ${c.alias}
-                            </label>
-                        `).join('')}
+                            { alias: 'Level 4', value: '4 - District Hospital - Rural Health Services (DH)' },
+                            { alias: 'Level 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
+                            { alias: 'Level 2', value: '2 - Community Health Post (CHP)' },
+                            { alias: 'Level 1', value: '1 - Village Health Post (VHP)' }
+                        ].map(lvl => `
+                        <label style="display:block;font-size:13px;">
+                            <input type="checkbox" name="hospitalLevel" value="${lvl}"> ${lvl}
+                        </label>`).join('')}
                 </div>
 
                 <div id="airportFilter" style="display:none;margin-top:8px;">
@@ -1439,13 +1477,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         </label>`).join('')}
                 </div>
 
-                <div id="policeFilter" style="display:none;margin-top:8px;">
+                 <div id="policeFilter" style="display:none;margin-top:8px;">
                     <strong>Police Category:</strong><br>
                     ${[
                         'Royal Papua New Guinea Constabulary (Commissioner HQ)',
                         'Divisional Command',
                         'Provincial Police Command (PPC)',
-                        'Police Station'
+                        'District Police Command / Police Station'
                     ].map(cat => `
                         <label style="display:block;font-size:13px;">
                             <input type="checkbox" name="policeCategory" value="${cat}"> ${cat}
@@ -1471,7 +1509,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initializeMap();
     addMainAirportAndCircle();
-    updateMarkers('all', [], []);
+    updateMarkers('all', [], [], []);
     map.addControl(new FilterRadiusControl());
 
     // === Event Binding ===
@@ -1502,8 +1540,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('mapFilter').value = 'all';
             document.getElementById('hospitalFilter').style.display = 'none';
             document.getElementById('airportFilter').style.display = 'none';
-            document.getElementById('policeFilter').style.display = 'none';
-            radiusKm = {{ $radius_km }};
+             document.getElementById('policeFilter').style.display = 'none';
+            radiusKm = 100;
             document.getElementById('radiusRange').value = radiusKm;
             document.getElementById('radiusLabel').textContent = radiusKm;
             refreshFilters();

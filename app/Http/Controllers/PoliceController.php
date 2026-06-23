@@ -25,7 +25,12 @@ class PoliceController extends Controller
 
      public function filter(Request $request)
     {
-        $query = Police::query();
+        $query = Police::query()
+            ->leftJoin('provincesregions', 'police.province_id', '=', 'provincesregions.id')
+            ->select(
+                'police.*',
+                'provincesregions.provinces_region as province_name'
+            );
 
         $query->where('police_status', true);
 
@@ -35,8 +40,12 @@ class PoliceController extends Controller
         });
 
         // 2. Filter by Category (case-insensitive search)
-        $query->when($request->filled('category'), function ($q) use ($request) {
-            $q->where('category', $request->input('category'));
+        $query->when($request->filled('categories'), function ($q) use ($request) {
+
+            $categories = (array) $request->input('categories');
+
+            $q->whereIn('category', $categories);
+
         });
 
         // 3. Filter by Location (Address - case-insensitive search)
@@ -131,8 +140,31 @@ class PoliceController extends Controller
 
 
         // Execute the query and return JSON response
-        $police = $query->get();
-        return response()->json($police);
+       $polices = $query->get();
+        $categoryCounts = [
+            'Royal Papua New Guinea Constabulary (Commissioner HQ)' => 0,
+            'Divisional Command' => 0,
+            'Provincial Police Command (PPC)' => 0,
+            'District Police Command / Police Station' => 0,
+        ];
+
+       foreach ($polices as $police) {
+
+            if (empty($police->category)) {
+                continue;
+            }
+
+            $cat = trim($police->category);
+
+            if (isset($categoryCounts[$cat])) {
+                $categoryCounts[$cat]++;
+            }
+        }
+
+        return response()->json([
+            'polices' => $polices,
+            'categoryCounts' => $categoryCounts
+        ]);
     }
 
     public function showdetail($id)

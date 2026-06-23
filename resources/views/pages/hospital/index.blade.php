@@ -1092,7 +1092,9 @@ function addHospitalMarkers(data) {
             <h5 style="border-bottom:1px solid #ccc;">${h.name || 'N/A'}</h5>
             <strong>Global Classification:</strong> ${h.facility_category || 'N/A'}<br>
             <strong>Country Classification:</strong> ${h.facility_level || 'N/A'}<br>
-            <strong>Address:</strong> ${h.address || 'N/A'}<br>
+            <strong>Address:</strong>
+                ${h.address || 'N/A'}
+                ${h.provinces_region ? ', ' + h.provinces_region : ''}, Papua New Guinea<br>
             <strong>Coords:</strong> ${h.latitude}, ${h.longitude}<br>
             <strong>Province:</strong> ${h.provinces_region || 'N/A'}<br>
             ${h.id ? `<a href="/hospitals/${h.id}" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
@@ -1120,17 +1122,31 @@ async function applyHospitalFilters() {
         filters.center_lng = lastClickedLocation.lng;
     }
 
-    const hospitals = await fetchHospitalData(filters);
+    const result = await fetchHospitalData(filters);
+
+    const hospitals = result.hospitals;
+    const levelCounts = result.levelCounts;
 
     const filteredHospitals = hospitals.filter(h => {
         if (levels.length === 0) return true;
         if (!h.facility_level) return false;
-        const dbLevels = h.facility_level.split(',').map(c => c.trim().toLowerCase());
-        return levels.some(sel => dbLevels.includes(sel.toLowerCase()));
+        return levels.some(
+            sel => h.facility_level.trim().toLowerCase() === sel.trim().toLowerCase()
+        );
     });
 
     addHospitalMarkers(filteredHospitals);
     document.getElementById('totalCountDisplay').innerHTML = `<strong>Hospitals:</strong> ${filteredHospitals.length}`;
+
+    Object.keys(levelCounts).forEach(level => {
+
+        const id = level.replace(/[^a-zA-Z0-9]/g,'-');
+        const el = document.getElementById(`count-${id}`);
+
+        if (el) {
+            el.textContent = levelCounts[level];
+        }
+    });
 }
 
 // === Select2 Inisialisasi ===
@@ -1152,15 +1168,12 @@ const FilterPanel = L.Control.extend({
     onAdd: function () {
         const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
         Object.assign(div.style, {
-           background: 'white',
-            borderRadius: '6px',
+            background: 'white',
+            borderRadius: '8px',
             boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-            minWidth: '300px',
-            maxWidth: '300px',
-            maxHeight: '70vh',
-            overflowY: 'auto',
-            fontSize: '11px',
-            padding: '0'
+            minWidth: '260px',
+            maxHeight: '85vh',
+            overflowY: 'auto'
         });
 
         div.innerHTML = `
@@ -1181,18 +1194,18 @@ const FilterPanel = L.Control.extend({
                     @endforeach
                 </select>
                 <label>Facility Level:</label>
-               ${[
-                    { alias: 'Level 1', value: '1 - Village Health Post (VHP)' },
-                    { alias: 'Level 2', value: '2 - Community Health Post (CHP)' },
-                    { alias: 'Level 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
-                    { alias: 'Level 4', value: '4 - District Hospital - Rural Health Services (DH)' },
+                ${[
+                    { alias: 'Level 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' },
                     { alias: 'Level 5', value: '5 - Provincial Hospital, Health Services and Public Health Programs (PHA)' },
-                    { alias: 'Level 6', value: '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' }
+                    { alias: 'Level 4', value: '4 - District Hospital - Rural Health Services (DH)' },
+                    { alias: 'Level 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
+                    { alias: 'Level 2', value: '2 - Community Health Post (CHP)' },
+                    { alias: 'Level 1', value: '1 - Village Health Post (VHP)' }
                 ].map(c => `
-                    <label style="display:block;font-size:12px;">
-                        <input type="checkbox" name="hospitalLevel" value="${c.value}">
-                        ${c.alias}
-                    </label>
+                <label style="display:block;font-size:13px;margin-bottom:4px;">
+                    <input type="checkbox" name="hospitalLevel" value="${c.value}">
+                    ${c.alias} (<span id="count-${c.value.replace(/[^a-zA-Z0-9]/g,'-')}">0</span>)
+                </label>
                 `).join('')}
                 <hr>
                 <strong>Province</strong>

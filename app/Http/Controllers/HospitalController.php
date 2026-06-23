@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Hospital;
 use App\Models\Airport;
 use App\Models\Police;
+use App\Models\Embassiees;
 use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 
@@ -157,13 +158,29 @@ class HospitalController extends Controller
         ->orderBy('distance')
         ->get();
 
-        return view('pages.hospital.showdetailemergency', compact('hospital','nearbyHospitals','radius_km','nearbyAirports','nearbyPolices'));
+         // === NEARBY EMBASSY ===
+        $nearbyEmbassy = Embassiees::selectRaw("
+            id, name_embassiees AS name, latitude, longitude, location, telephone, fax, email, website,
+            ( 6371 * acos(
+                cos( radians(?) )
+                * cos( radians( latitude ) )
+                * cos( radians( longitude ) - radians(?) )
+                + sin( radians(?) )
+                * sin( radians( latitude ) )
+            )) AS distance
+        ", [$latitude, $longitude, $latitude])
+        ->where('embassy_status', true)
+        ->having('distance', '<=', $radius_km)
+        ->orderBy('distance')
+        ->get();
+
+        return view('pages.hospital.showdetailemergency', compact('hospital','nearbyHospitals','radius_km','nearbyAirports','nearbyPolices','nearbyEmbassy'));
     }
 
     public function filter(Request $request)
     {
         $query = Hospital::query();
-        $query->join('provincesregions', 'hospitals.province_id', '=', 'provincesregions.id');
+        $query->leftJoin('provincesregions', 'provincesregions.id', '=', 'hospitals.province_id');
         $query->select('hospitals.*', 'provincesregions.provinces_region');
 
         $query->where('hospital_status', true);
@@ -270,6 +287,31 @@ class HospitalController extends Controller
 
          // Execute the query and return JSON response
         $hospitals = $query->get();
-        return response()->json($hospitals);
+         $levelCounts = [
+            '1 - Village Health Post (VHP)' => 0,
+            '2 - Community Health Post (CHP)' => 0,
+            '3 - Health Center / Urban Clinic (HC-UC)' => 0,
+            '4 - District Hospital - Rural Health Services (DH)' => 0,
+            '5 - Provincial Hospital, Health Services and Public Health Programs (PHA)' => 0,
+            '6 - National Referral Specialist - Tertiary Teaching Hospital - Health Services (NHA)' => 0,
+        ];
+
+        foreach ($hospitals as $hospital) {
+
+            if (empty($hospital->facility_level)) {
+                continue;
+            }
+
+            $level = trim($hospital->facility_level);
+
+            if (isset($levelCounts[$level])) {
+                $levelCounts[$level]++;
+            }
+        }
+
+        return response()->json([
+            'hospitals' => $hospitals,
+            'levelCounts' => $levelCounts
+        ]);
     }
 }

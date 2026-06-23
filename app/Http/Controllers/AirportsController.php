@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Airport;
 use App\Models\Hospital;
 use App\Models\Police;
+use App\Models\Embassiees;
 use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 use Exception; // Import Exception for better error handling
@@ -35,7 +36,12 @@ class AirportsController extends Controller
      */
     public function filter(Request $request)
     {
-        $query = Airport::query();
+        $query = Airport::query()
+            ->leftJoin('provincesregions', 'airports.province_id', '=', 'provincesregions.id')
+            ->select(
+                'airports.*',
+                'provincesregions.provinces_region as province_name'
+            );
 
         $query->where('airport_status', true);
 
@@ -45,8 +51,15 @@ class AirportsController extends Controller
         });
 
         // 2. Filter by Category (case-insensitive search)
-        $query->when($request->filled('category'), function ($q) use ($request) {
-            $q->where('category', $request->input('category'));
+        $query->when($request->filled('categories'), function ($q) use ($request) {
+            $categories = (array) $request->input('categories');
+
+            $q->where(function ($sub) use ($categories) {
+                foreach ($categories as $cat) {
+                    // Cari kategori yang mengandung kata tersebut (case-insensitive)
+                    $sub->orWhere('category', 'like', "%$cat%");
+                }
+            });
         });
 
         // 3. Filter by Location (Address - case-insensitive search)
@@ -142,7 +155,33 @@ class AirportsController extends Controller
 
         // Execute the query and return JSON response
         $airports = $query->get();
-        return response()->json($airports);
+         $categoryCounts = [
+            'International' => 0,
+            'Domestic' => 0,
+            'Military' => 0,
+            'Regional' => 0,
+            'Private' => 0,
+        ];
+
+        foreach ($airports as $airport) {
+
+            if (!$airport->category) {
+                continue;
+            }
+
+            $categories = array_map('trim', explode(',', $airport->category));
+
+            foreach ($categories as $cat) {
+                if (isset($categoryCounts[$cat])) {
+                    $categoryCounts[$cat]++;
+                }
+            }
+        }
+
+        return response()->json([
+            'airports' => $airports,
+            'categoryCounts' => $categoryCounts
+        ]);
     }
 
     // Unchanged methods for other functionalities
@@ -208,9 +247,25 @@ class AirportsController extends Controller
             ->orderBy('distance')
             ->get();
 
-        $radius_km = 500; // Radius lingkaran untuk ditampilkan di peta
+          // === NEARBY EMBASSY ===
+        $nearbyEmbassy = Embassiees::selectRaw("
+            id, name_embassiees AS name, latitude, longitude, location, telephone, fax, email, website,
+            ( 6371 * acos(
+                cos( radians(?) )
+                * cos( radians( latitude ) )
+                * cos( radians( longitude ) - radians(?) )
+                + sin( radians(?) )
+                * sin( radians( latitude ) )
+            )) AS distance
+        ", [$airport->latitude, $airport->longitude, $airport->latitude])
+        ->where('embassy_status', true)
+        ->having('distance', '<=', 500)
+        ->orderBy('distance')
+        ->get();
 
-        return view('pages.airports.showdetailemergency', compact('airport', 'nearbyAirports', 'nearbyHospitals', 'radius_km', 'hospital', 'nearbyPolices'));
+        $radius_km = 100; // Radius lingkaran untuk ditampilkan di peta
+
+        return view('pages.airports.showdetailemergency', compact('airport', 'nearbyAirports', 'nearbyHospitals', 'radius_km', 'hospital', 'nearbyPolices', 'nearbyEmbassy'));
     }
 
     public function showairlinesdestination($id)
