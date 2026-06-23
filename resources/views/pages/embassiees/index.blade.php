@@ -554,7 +554,7 @@ document.addEventListener('click', e => {
                 <h5 style="border-bottom:1px solid #cccccc;">${embassy.name_embassiees || 'N/A'}</h5>
                 <strong>Address:</strong> ${embassy.location || 'N/A'}<br>
                 <strong>Telephone:</strong> ${embassy.telephone || 'N/A'}<br>
-                ${embassy.website ? `<strong>Website:</strong><a href='${embassy.website}' target='__blank'> ${embassy.website} </a><br>` : ''}
+                <strong>Website:</strong> ${embassy.website || 'N/A'}<br>
                 ${embassy.id ? `<a href="/embassiees/${embassy.id}/detail" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
             `);
         });
