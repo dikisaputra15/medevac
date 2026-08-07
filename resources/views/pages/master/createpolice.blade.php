@@ -85,26 +85,26 @@
 
                 <input type="hidden" name="icon" id="icon">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input category-radio" type="radio" name="category" value="Royal Papua New Guinea Constabulary (Commissioner HQ)" data-icon="{{ asset('images/dot-blue-ring-royal-papua.png') }}">
-                    <img src="{{ asset('images/dot-blue-ring-royal-papua.png') }}" style="width:12px; height:12px;">
+                    <input class="form-check-input category-radio" type="radio" name="category" value="Royal Papua New Guinea Constabulary (Commissioner HQ)" data-icon="{{ asset('images/Layer1.png') }}">
+                    <img src="{{ asset('images/Layer1.png') }}" style="width:12px; height:12px;">
                     <label class="form-check-label">Royal Papua New Guinea Constabulary (Commissioner HQ)</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input category-radio" type="radio" name="category" value="Divisional Command" data-icon="{{ asset('images/dot-red.png') }}">
-                    <img src="{{ asset('images/dot-red.png') }}" style="width:12px; height:12px;">
+                    <input class="form-check-input category-radio" type="radio" name="category" value="Divisional Command" data-icon="{{ asset('images/Layer2.png') }}">
+                    <img src="{{ asset('images/Layer2.png') }}" style="width:12px; height:12px;">
                     <label class="form-check-label">Divisional Command</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input category-radio" type="radio" name="category" value="Provincial Police Command (PPC)" data-icon="{{ asset('images/dot-orange-ppc.png') }}">
-                    <img src="{{ asset('images/dot-orange-ppc.png') }}" style="width:12px; height:12px;">
+                    <input class="form-check-input category-radio" type="radio" name="category" value="Provincial Police Command (PPC)" data-icon="{{ asset('images/Layer3.png') }}">
+                    <img src="{{ asset('images/Layer3.png') }}" style="width:12px; height:12px;">
                     <label class="form-check-label">Provincial Police Command (PPC)</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input category-radio" type="radio" name="category" value="District Police Command / Police Station" data-icon="{{ asset('images/dot-green.png') }}">
-                    <img src="{{ asset('images/dot-green.png') }}" style="width:12px; height:12px;">
+                    <input class="form-check-input category-radio" type="radio" name="category" value="District Police Command / Police Station" data-icon="{{ asset('images/Layer4.png') }}">
+                    <img src="{{ asset('images/Layer4.png') }}" style="width:12px; height:12px;">
                     <label class="form-check-label">District Police Command / Police Station</label>
                 </div>
             </div>
@@ -200,6 +200,42 @@
           </div>
         </div>
 
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Nearest Airfields, Medical Facilities, Police, and Embassies
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote6" name="nearest_medical_facility">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Accommodation Search
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote7" name="nearest_accommodation">
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
@@ -215,6 +251,8 @@
     $('#summernote3').summernote()
     $('#summernote4').summernote()
     $('#summernote5').summernote()
+    $('#summernote6').summernote()
+    $('#summernote7').summernote()
 
   })
 </script>

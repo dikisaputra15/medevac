@@ -5,7 +5,6 @@
 
 @push('styles')
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <style>
     #map {
         height: 600px;
@@ -76,7 +75,7 @@
         margin-bottom: 0.5rem !important;
     }
 
-    /* Classification section */
+     /* Classification section */
     .classification {
       display: flex;
       width: 100%;
@@ -149,6 +148,32 @@
       width: 16px;
       height: 16px;
       object-fit: contain;
+    }
+
+    .legend-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        width: 100%;
+        align-items: start;
+    }
+
+    .legend-grid-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 6px;
+        width: 100%;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .legend-grid-item img {
+        flex-shrink: 0;
+    }
+
+    .legend-grid-item small {
+        text-align: left;
     }
 
     /* ====== DIRECTIONS PANEL - Modern Styling ====== */
@@ -315,33 +340,21 @@
 <div class="card">
 
 <div class="d-flex justify-content-between p-3" style="background-color: #dfeaf1;">
-        <div class="d-flex flex-column gap-1">
-            <h2 class="fw-bold">{{ $airport->airport_name }}</h2>
-             <span class="fw-bold"><b>Airfield Category:</b> {{ $airport->category }}</span>
+       <div class="d-flex flex-column gap-1">
+            <h2 class="fw-bold mb-0">{{ $police->name_police }}</h2>
+            <span class="fw-bold"><b>Police Classification (Global):</b> {{ $police->level }} | <b>Police Classification (Country):</b> {{ $police->category }}</span>
         </div>
 
         <div class="d-flex gap-2 ms-auto">
 
               <!-- Button 2 -->
-            <a href="{{ url('airports') }}/{{$airport->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/detail') ? 'active' : '' }}">
+            <a href="{{ url('police') }}/{{$police->id}}/detail" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('police/'.$police->id.'/detail') ? 'active' : '' }}">
                 <img src="{{ asset('images/icon-menu-general-info.png') }}" style="width: 18px; height: 24px;">
                 <small>General</small>
             </a>
 
-            <!-- Button 3 -->
-            <a href="{{ url('airports') }}/{{$airport->id}}/navigation" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/navigation') ? 'active' : '' }}">
-                <img src="{{ asset('images/icon-navaids-white.png') }}" style="width: 24px; height: 24px;">
-                <small>Navigation</small>
-            </a>
-
-             <!-- Button 4 -->
-             <a href="{{ url('airports') }}/{{$airport->id}}/airlinesdestination" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/airlinesdestination') ? 'active' : '' }}">
-                <img src="{{ asset('images/icon-destination-white.png') }}" style="width: 24px; height: 24px;">
-                <small>Destination</small>
-            </a>
-
             <!-- Button 5 -->
-            <a href="{{ url('airports') }}/{{$airport->id}}/emergency" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports/'.$airport->id.'/emergency') ? 'active' : '' }}">
+             <a href="{{ url('police') }}/{{$police->id}}/emergency" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('police/'.$police->id.'/emergency') ? 'active' : '' }}">
                 <img src="{{ asset('images/icon-emergency-support-white.png') }}" style="width: 24px; height: 24px;">
                 <small>Emergency</small>
             </a>
@@ -364,7 +377,7 @@
             </a>
 
             <a href="{{ url('police') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('police') ? 'active' : '' }}">
-            <i class="bi bi-person-badge" style="width: 24px; height: 24px;"></i>
+                <i class="bi bi-person-badge" style="width: 24px; height: 24px;"></i>
                 <small>Police</small>
             </a>
 
@@ -379,10 +392,10 @@
 
    <div class="card mb-4 position-relative">
         <div class="card-body" style="padding:0 7px;">
-            <small><i>Last Updated {{ $airport->created_at->format('M Y') }}</i></small>
+            <small><i>Last Updated {{ $police->created_at->format('M Y') }}</i></small>
 
             @role('admin')
-            <a href="{{ route('airportdata.edit', $airport->id) }}"
+            <a href="{{ route('policedata.edit', $police->id) }}"
             style="position:absolute; right:7px;" title="edit">
                 <i class="fas fa-edit"></i>
             </a>
@@ -396,7 +409,7 @@
             <div class="card">
                 <div class="card-header fw-bold"><img src="{{ asset('images/icon-emergency-support.png') }}" style="width: 24px; height: 24px;"> Emergency Support Tools</div>
 
-                <div class="classification">
+                 <div class="classification">
                     <!-- Airfield Classification -->
                     <div class="classification" style="margin-right: 30px; width: 30%;">
                       <!-- Airport -->
@@ -495,8 +508,8 @@
                               </div>
                               <div class="hospital-item">
                                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level22Modal">
-                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:24px; height:24px;">
-                                  <small>Level 2</small>
+                                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:24px; height:24px;">
+                                    <small>Level 2</small>
                                 </button>
                               </div>
                               <div class="hospital-item">
@@ -511,7 +524,7 @@
                       </div>
                     </div>
 
-                     <div class="class-column">
+                    <div class="class-column">
                         <div class="class-header class-airport-category">POLICE CLASSIFICATION</div>
 
                         <div class="airport-list">
@@ -558,9 +571,9 @@
 
         <div class="col-sm-4 d-flex flex-column gap-3">
             <div class="card">
-                <div class="card-header fw-bold"><img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;"> Nearest Airfields and Medical Facilities</div>
+                <div class="card-header fw-bold"><img src="https://concord-consulting.com/static/img/cmt/icon/radar-icon.png" style="width: 24px; height: 24px;"> Nearest Support Facilities</div>
                 <div class="card-body overflow-auto">
-                    <?php echo $airport->nearest_medical_facility; ?>
+                    <?php echo $police->nearest_medical_facility; ?>
                 </div>
             </div>
 
@@ -578,12 +591,6 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header fw-bold"><img src="{{ asset('images/icon-police.png') }}" style="width: 24px; height: 24px;"> Nearest Police Station</div>
-                <div class="card-body overflow-auto">
-                    <?php echo $airport->nearest_police_station; ?>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -601,9 +608,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="p-modal">Also known as private airfields or airstrips are primarily used for general and private aviation are owned by private individuals, groups, corporations, or organizations operated for their exclusive use that may include limited access for authorized personnel by the owner or manager. Owners are responsible to ensure safe operation, maintenance, repair, and control of who can use the facilities. Typically, they are not open to the public or provide scheduled commercial airline services and cater to private pilots, business aviation, and sometimes small charter operations. Services may be provided if authorized by the appropriate regulatory authority.</p>
+        <p class="p-modal text-justify">Also known as private airfields or airstrips are primarily used for general and private aviation are owned by private individuals, groups, corporations, or organizations operated for their exclusive use that may include limited access for authorized personnel by the owner or manager. Owners are responsible to ensure safe operation, maintenance, repair, and control of who can use the facilities. Typically, they are not open to the public or provide scheduled commercial airline services and cater to private pilots, business aviation, and sometimes small charter operations. Services may be provided if authorized by the appropriate regulatory authority.</p>
 
-        <p class="p-modal">A large majority of private airports are grass or dirt strip fields without services or facilities, they may feature amenities such as hangars, fueling facilities, maintenance services, and ground transportation options tailored to the needs of their owners or users. Private airports are not subject to the same level of regulatory oversight as public airports, but must still comply with applicable aviation regulations, safety standards, and environmental requirements. In the event of an emergency, landing at a private airport is authorized without any prior approval and should be done if landing anywhere else compromises the safety of the aircraft, crew, passengers, or cargo.</p>
+        <p class="p-modal text-justify">A large majority of private airports are grass or dirt strip fields without services or facilities, they may feature amenities such as hangars, fueling facilities, maintenance services, and ground transportation options tailored to the needs of their owners or users. Private airports are not subject to the same level of regulatory oversight as public airports, but must still comply with applicable aviation regulations, safety standards, and environmental requirements. In the event of an emergency, landing at a private airport is authorized without any prior approval and should be done if landing anywhere else compromises the safety of the aircraft, crew, passengers, or cargo.</p>
       </div>
     </div>
   </div>
@@ -620,7 +627,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="p-modal">Also called "joint-use airport," are used by both civilian and military aircraft, where a formal agreement exists between the military and a local government agency allowing shared access to infrastructure and facilities, typically with separate passenger terminals and designated operating areas, airspace allocation, and aircraft scheduling. Features can include aircraft maintenance, air traffic control, communications, emergency response, and fuel storage.</p>
+        <p class="p-modal text-justify">Also called "joint-use airport," are used by both civilian and military aircraft, where a formal agreement exists between the military and a local government agency allowing shared access to infrastructure and facilities, typically with separate passenger terminals and designated operating areas, airspace allocation, and aircraft scheduling. Features can include aircraft maintenance, air traffic control, communications, emergency response, and fuel storage.</p>
       </div>
     </div>
   </div>
@@ -637,7 +644,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="p-modal">Facilities where military aircraft operate, also known as a military airport, airbase, or air station. Features include aircraft maintenance, air traffic control, communications, emergency response, fuel and weapon storage, defensive systems, aircraft shelters, and personnel facilities.</p>
+        <p class="p-modal text-justify">Facilities where military aircraft operate, also known as a military airport, airbase, or air station. Features include aircraft maintenance, air traffic control, communications, emergency response, fuel and weapon storage, defensive systems, aircraft shelters, and personnel facilities.</p>
       </div>
     </div>
   </div>
@@ -654,7 +661,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="p-modal">A small or remote regional domestic airfield usually located in a geographically isolated area, far from major population centers, often with difficult terrain or vast distances from other airports with limited passenger traffic. May have shorter runways, basic facilities, and limited amenities, and basic infrastructure, serving primarily local communities providing access to essential services like medical transport or regional travel, rather than large-scale commercial flights.</p>
+        <p class="p-modal text-justify">A small or remote regional domestic airfield usually located in a geographically isolated area, far from major population centers, often with difficult terrain or vast distances from other airports with limited passenger traffic. May have shorter runways, basic facilities, and limited amenities, and basic infrastructure, serving primarily local communities providing access to essential services like medical transport or regional travel, rather than large-scale commercial flights.</p>
       </div>
     </div>
   </div>
@@ -671,7 +678,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="p-modal">Exclusively manages flights that originate and end within the same country, does not have international customs or border control facilities. Airport often has smaller and shorter runways, suitable for smaller regional aircraft used on domestic routes, and cannot support larger haul aircraft having less developed support services. Features can include aircraft maintenance, air traffic control, communications, emergency response, and fuel storage.</p>
+        <p class="p-modal text-justify">Exclusively manages flights that originate and end within the same country, does not have international customs or border control facilities. Airport often has smaller and shorter runways, suitable for smaller regional aircraft used on domestic routes, and cannot support larger haul aircraft having less developed support services. Features can include aircraft maintenance, air traffic control, communications, emergency response, and fuel storage.</p>
       </div>
     </div>
   </div>
@@ -688,7 +695,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="p-modal">Meet standards set by the International Air Transport Association (IATA) and the International Civil Aviation Organization (ICAO), facilitate transnational travel managing flights between countries, have customs and border control facilities to manage passengers and cargo, and may have dedicated terminals for domestic and international flights. International airports have longer runways to accommodate larger, heavier aircraft, are often a main hub for air traffic, and can serve as a base for larger airlines. Features can include aircraft maintenance, air traffic control, communications, emergency response, and fuel storage</p>
+        <p class="p-modal text-justify">Meet standards set by the International Air Transport Association (IATA) and the International Civil Aviation Organization (ICAO), facilitate transnational travel managing flights between countries, have customs and border control facilities to manage passengers and cargo, and may have dedicated terminals for domestic and international flights. International airports have longer runways to accommodate larger, heavier aircraft, are often a main hub for air traffic, and can serve as a base for larger airlines. Features can include aircraft maintenance, air traffic control, communications, emergency response, and fuel storage</p>
       </div>
     </div>
   </div>
@@ -1328,26 +1335,26 @@
 @endsection
 
 @push('service')
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd-WVlGgZFJwAtPZkbAEca2Np6OI7CBTM&libraries=places,geometry"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const airportData = {!! json_encode([
-        'id'        => $airport->id,
-        'name'      => $airport->airport_name,
-        'latitude'  => $airport->latitude,
-        'longitude' => $airport->longitude,
-        'icon'      => $airport->icon ?? '',
-        'image'     => $airport->image ?? '',
-        'address'   => $airport->address ?? '',
-        'telephone' => $airport->telephone ?? '',
-        'website'   => $airport->website ?? '',
+    const policeData = {!! json_encode([
+        'id'        => $police->id,
+        'name'      => $police->name_police,
+        'latitude'  => $police->latitude,
+        'longitude' => $police->longitude,
+        'icon'      => $police->icon ?? '',
+        'location'  => $police->location ?? '',
+        'telephone' => $police->telephone ?? '',
+        'website'   => $police->website ?? '',
     ]) !!};
 
-    const nearbyAirports = @json($nearbyAirports);
     const nearbyHospitals = @json($nearbyHospitals);
+    const nearbyAirports = @json($nearbyAirports);
     const nearbyPolices = @json($nearbyPolices);
     const nearbyEmbassy = @json($nearbyEmbassy);
     let radiusKm = 100; // default radius
@@ -1358,15 +1365,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let searchMarker = null;
 
     // === ICON DEFAULT ===
-    const DEFAULT_MAIN_AIRPORT_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png';
-    const DEFAULT_HOSPITAL_ICON_URL     = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
-    const DEFAULT_AIRPORT_ICON_URL      = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png';
+    const DEFAULT_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
+    const DEFAULT_AIRPORT_ICON_URL  = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png';
+    const DEFAULT_MAIN_POLICE_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png';
     const DEFAULT_POLICE_ICON_URL = 'https://png.pngtree.com/png-vector/20221211/ourmid/pngtree-minimal-location-map-icon-logo-symbol-vector-design-transparent-background-png-image_6520892.png';
     const DEFAULT_EMBASSY_ICON_URL = '/images/embassy-icon-new.png';
 
     // === INISIALISASI PETA ===
     function initializeMap() {
-        const center = new google.maps.LatLng(airportData.latitude, airportData.longitude);
+        const center = new google.maps.LatLng(policeData.latitude, policeData.longitude);
         map = new google.maps.Map(document.getElementById('map'), {
             center: center,
             zoom: 11,
@@ -1434,19 +1441,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function addMainAirportAndCircle() {
+    function addMainPoliceAndCircle() {
         mainMarker = new google.maps.Marker({
-            position: new google.maps.LatLng(airportData.latitude, airportData.longitude),
+            position: new google.maps.LatLng(policeData.latitude, policeData.longitude),
             map: map,
             icon: {
-                url: DEFAULT_MAIN_AIRPORT_ICON_URL,
+                url: DEFAULT_MAIN_POLICE_ICON_URL,
                 scaledSize: new google.maps.Size(25, 41)
             },
-            title: airportData.name
+            title: policeData.name
         });
 
         const infoWindow = new google.maps.InfoWindow({
-            content: `<b>${airportData.name}</b><br>This is the main airport.`
+            content: `<b>${policeData.name}</b><br>This is the main police station.`
         });
 
         mainMarker.addListener('click', () => {
@@ -1460,7 +1467,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fillColor: '#FF0000',
             fillOpacity: 0.1,
             map: map,
-            center: { lat: parseFloat(airportData.latitude), lng: parseFloat(airportData.longitude) },
+            center: { lat: parseFloat(policeData.latitude), lng: parseFloat(policeData.longitude) },
             radius: radiusKm * 1000
         });
     }
@@ -1476,23 +1483,23 @@ document.addEventListener('DOMContentLoaded', () => {
     function addNearbyMarkers(data, defaultIconUrl, type, filters = {}) {
         data.forEach(item => {
             const distance = calculateDistance(
-                airportData.latitude, airportData.longitude,
+                policeData.latitude, policeData.longitude,
                 item.latitude, item.longitude
             );
             if (distance > radiusKm) return;
 
-            // Filter hospital by facility level
+            // Filter hospital
             if (type === 'Hospital' && filters.hospitalLevels?.length > 0) {
-                const itemLevel = (item.facility_level || '').toLowerCase();
+                const level = (item.facility_level || '').toLowerCase();
                 const allowed = filters.hospitalLevels.map(l => l.toLowerCase());
-                if (!allowed.includes(itemLevel)) return;
+                if (!allowed.includes(level)) return;
             }
 
-            // Filter airport by category
+            // Filter airport
             if (type === 'Airport' && filters.airportClassifications?.length > 0) {
-                const airportCategories = (item.category || '').split(',').map(c => c.trim().toLowerCase());
+                const categories = (item.category || '').split(',').map(c => c.trim().toLowerCase());
                 const allowed = filters.airportClassifications.map(c => c.toLowerCase());
-                if (!airportCategories.some(cat => allowed.includes(cat))) return;
+                if (!categories.some(cat => allowed.includes(cat))) return;
             }
 
             // Filter police
@@ -1517,22 +1524,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = item.name || item.airport_name || item.name_police || item.name_embassiees || 'N/A';
             const level = item.facility_level || item.category || '';
 
-            let detailUrl = '#';
-
-            if (type === 'Airport') {
-                detailUrl = `/airports/${item.id}/detail`;
-            } else if (type === 'Hospital') {
-                detailUrl = `/hospitals/${item.id}`;
-            } else if (type === 'Police') {
-                detailUrl = `/police/${item.id}/detail`;
-            } else if (type === 'Embassy') {
-                detailUrl = `/embassiees/${item.id}/detail`;
-            }
+            let url = '#';
+            if (type === 'Airport') url = `/airports/${item.id}/detail`;
+            else if (type === 'Hospital') url = `/hospitals/${item.id}`;
+            else if (type === 'Police') url = `/police/${item.id}/detail`;
+            else if (type === 'Embassy') url = `/embassiees/${item.id}/detail`;
 
             const infoWindow = new google.maps.InfoWindow({
                 content: `
                     <div style="font-size:13px;">
-                        <a href="${detailUrl}" target="_blank">${name}</a><br>
+                        <a href="${url}" target="_blank">${name}</a><br>
                         ${level}<br>
                         <strong>Distance:</strong> ${distance.toFixed(2)} km<br>
                         <button class="btn btn-sm btn-primary mt-2"
@@ -1711,7 +1712,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.getDirection = function(lat, lng) {
         const origin = searchLocation
             ? new google.maps.LatLng(searchLocation.lat, searchLocation.lng)
-            : new google.maps.LatLng(airportData.latitude, airportData.longitude);
+            : new google.maps.LatLng(policeData.latitude, policeData.longitude);
 
         directionsService.route({
             origin: origin,
@@ -1737,7 +1738,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function fitMapToBounds() {
         const bounds = new google.maps.LatLngBounds();
-        bounds.extend(new google.maps.LatLng(airportData.latitude, airportData.longitude));
+        bounds.extend(new google.maps.LatLng(policeData.latitude, policeData.longitude));
         if (searchLocation) {
             bounds.extend(new google.maps.LatLng(searchLocation.lat, searchLocation.lng));
         }
@@ -1754,7 +1755,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateMarkers(filterType, hospitalLevels, airportClassifications, policeCategories) {
         clearNearbyMarkers();
         if (radiusCircle) radiusCircle.setMap(null);
-        addMainAirportAndCircle();
+        addMainPoliceAndCircle();
 
         const filters = { hospitalLevels, airportClassifications, policeCategories };
         if (filterType === 'hospital') {
@@ -1780,7 +1781,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.createElement('div');
         container.className = 'p-2 bg-white rounded';
         container.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
-        container.style.width = '260px';
+        container.style.width = '220px';
         container.style.maxHeight = '75vh';
         container.style.overflowY = 'auto';
         container.style.marginRight = '10px';
@@ -1803,7 +1804,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <select id="mapFilter" class="form-select form-select-sm mb-2" style="display:block;width:100%;">
                 <option value="all">Show All</option>
-                <option value="hospital">Medical</option>
+                <option value="hospital">Hospitals</option>
                 <option value="airport">Aviation</option>
                 <option value="police">Police</option>
                 <option value="embassy">Embassy</option>
@@ -1818,10 +1819,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     { alias: 'Level 3', value: '3 - Health Center / Urban Clinic (HC-UC)' },
                     { alias: 'Level 2', value: '2 - Community Health Post (CHP)' },
                     { alias: 'Level 1', value: '1 - Village Health Post (VHP)' }
-                ].map(lvl => `
-                    <label style="display:block;font-size:13px;">
-                        <input type="checkbox" name="hospitalLevel" value="${lvl.value}"> ${lvl.alias}
-                    </label>`).join('')}
+                  ]
+                   .map(lvl => `<label style="display:block;font-size:13px;">
+                            <input type="checkbox" name="hospitalLevel" value="${lvl}"> ${lvl}
+                        </label>`).join('')}
             </div>
 
             <div id="airportFilter" style="display:none;margin-top:8px;">
@@ -1839,14 +1840,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Divisional Command',
                     'Provincial Police Command (PPC)',
                     'District Police Command / Police Station'
-                ].map(cat => `
+                  ].map(cat => `
                     <label style="display:block;font-size:13px;">
                         <input type="checkbox" name="policeCategory" value="${cat}"> ${cat}
                     </label>
                 `).join('')}
             </div>
 
-            <button id="resetFilter" class="btn btn-sm btn-secondary mt-3 w-100">Reset All</button>
+            <button id="resetFilter" class="btn btn-sm btn-secondary mt-3 w-100">Reset Filter</button>
         `;
 
         // Prevent events from passing to the map
@@ -2058,8 +2059,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <b>${place.name}</b><br>
                         <small>Lat: ${lat.toFixed(5)}, Lng: ${lon.toFixed(5)}</small><br>
                         <button class="btn btn-sm btn-primary mt-2"
-                            onclick="getDirection(${airportData.latitude}, ${airportData.longitude})">
-                            Get Direction to Main Airport
+                            onclick="getDirection(${policeData.latitude}, ${policeData.longitude})">
+                            Get Direction to Main Police Station
                         </button>
                     </div>
                 `
@@ -2081,7 +2082,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === JALANKAN ===
     initializeMap();
-    addMainAirportAndCircle();
+    addMainPoliceAndCircle();
     updateMarkers('all', [], [], []);
     const filterContainer = setupFilterControl();
     setupSearchControl(filterContainer);

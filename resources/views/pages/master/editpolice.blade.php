@@ -103,9 +103,9 @@
                         type="radio"
                         name="category"
                         value="Royal Papua New Guinea Constabulary (Commissioner HQ)"
-                        data-icon="{{ asset('images/dot-blue-ring-royal-papua.png') }}"
+                        data-icon="{{ asset('images/Layer1.png') }}"
                         {{ $police->category == 'Royal Papua New Guinea Constabulary (Commissioner HQ)' ? 'checked' : '' }}>
-                    <img src="{{ asset('images/dot-blue-ring-royal-papua.png') }}" width="16">
+                    <img src="{{ asset('images/Layer1.png') }}" width="16">
                     <label>Royal Papua New Guinea Constabulary (Commissioner HQ)</label>
                 </div>
 
@@ -114,9 +114,9 @@
                         type="radio"
                         name="category"
                         value="Divisional Command"
-                        data-icon="{{ asset('images/dot-red.png') }}"
+                        data-icon="{{ asset('images/Layer2.png') }}"
                         {{ $police->category == 'Divisional Command' ? 'checked' : '' }}>
-                    <img src="{{ asset('images/dot-red.png') }}" width="16">
+                    <img src="{{ asset('images/Layer2.png') }}" width="16">
                     <label>Divisional Command</label>
                 </div>
 
@@ -125,9 +125,9 @@
                         type="radio"
                         name="category"
                         value="Provincial Police Command (PPC)"
-                        data-icon="{{ asset('images/dot-orange-ppc.png') }}"
+                        data-icon="{{ asset('images/Layer3.png') }}"
                         {{ $police->category == 'Provincial Police Command (PPC)' ? 'checked' : '' }}>
-                    <img src="{{ asset('images/dot-orange-ppc.png') }}" width="16">
+                    <img src="{{ asset('images/Layer3.png') }}" width="16">
                     <label>Provincial Police Command (PPC)</label>
                 </div>
 
@@ -136,9 +136,9 @@
                         type="radio"
                         name="category"
                         value="District Police Command / Police Station"
-                        data-icon="{{ asset('images/dot-green.png') }}"
+                        data-icon="{{ asset('images/Layer4.png') }}"
                         {{ $police->category == 'District Police Command / Police Station' ? 'checked' : '' }}>
-                    <img src="{{ asset('images/dot-green.png') }}" width="16">
+                    <img src="{{ asset('images/Layer4.png') }}" width="16">
                     <label>District Police Command / Police Station</label>
                 </div>
             </div>
@@ -239,6 +239,44 @@
           </div>
         </div>
 
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Nearest Airfields, Medical Facilities, Police, and Embassies
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote6" name="nearest_medical_facility">
+                    <?php echo $police->nearest_medical_facility; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
+         <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Accommodation Search
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote7" name="nearest_accommodation">
+                    <?php echo $police->nearest_accommodation; ?>
+                </textarea>
+
+            </div>
+
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
@@ -254,6 +292,8 @@
     $('#summernote3').summernote()
     $('#summernote4').summernote()
     $('#summernote5').summernote()
+    $('#summernote6').summernote()
+    $('#summernote7').summernote()
 
   })
 </script>

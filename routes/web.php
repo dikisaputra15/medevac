@@ -83,6 +83,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('embassiees', EmbassieesController::class);
     // Route::get('/api/embassiees', [EmbassieesController::class, 'api']);
     Route::get('/embassiees/{id}/detail', [EmbassieesController::class, 'showdetail']);
+    Route::get('/embassiees/{id}/emergency', [EmbassieesController::class, 'showdetailemergency']);
     Route::resource('airports', AirportsController::class);
     // Route::get('/api/airports', [AirportsController::class, 'api']);
     Route::get('/airports/{id}/detail', [AirportsController::class, 'showdetail']);
@@ -98,6 +99,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('police', PoliceController::class);
     Route::get('/police/{id}/detail', [PoliceController::class, 'showdetail']);
+    Route::get('/police/{id}/emergency', [PoliceController::class, 'showdetailemergency']);
 
     Route::resource('airportdata', MasterairportController::class);
     Route::resource('hospitaldata', MasterhospitalController::class);
