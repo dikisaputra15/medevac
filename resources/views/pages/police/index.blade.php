@@ -216,6 +216,86 @@
             border-color: #1a73e8 !important;
             box-shadow: 0 0 0 2px rgba(26,115,232,0.2) !important;
         }
+
+        /* Police structure image modals */
+        .image-modal-dialog {
+            width: calc(100vw - 32px);
+            max-width: 1100px;
+            margin: 16px auto;
+        }
+
+        #policeAreaLayerModal .image-modal-dialog {
+            max-width: 720px;
+        }
+
+        .image-modal-dialog .modal-content {
+            max-height: calc(100vh - 32px);
+            overflow: hidden;
+            border: 0;
+            border-radius: 10px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .image-modal-dialog .modal-header {
+            min-height: 46px;
+            padding: 9px 14px !important;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .image-modal-dialog .modal-header img {
+            width: 20px !important;
+            height: 20px !important;
+            object-fit: contain;
+        }
+
+        .image-modal-dialog .modal-title {
+            color: #26384d;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 22px;
+        }
+
+        .image-modal-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 220px;
+            padding: 16px;
+            overflow: auto;
+            background: #eef2f5;
+        }
+
+        .image-modal-body > img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: calc(100vh - 110px);
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        @media (max-width: 575.98px) {
+            .image-modal-dialog {
+                width: calc(100vw - 16px);
+                margin: 8px auto;
+            }
+
+            .image-modal-dialog .modal-content {
+                max-height: calc(100vh - 16px);
+            }
+
+            .image-modal-body {
+                min-height: 160px;
+                padding: 8px;
+            }
+
+            .image-modal-body > img {
+                max-height: calc(100vh - 90px);
+            }
+        }
 </style>
 @endpush
 
@@ -234,7 +314,7 @@
 
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
                 <i class="bi bi-airplane fs-3"></i>
-                <small>Airports</small>
+                <small>Aviation</small>
             </a>
 
             <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
@@ -268,24 +348,36 @@
             <div class="d-flex align-items-center gap-3">
                 <span class="fw-bold me-2">Map Legend:</span>
 
-                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
+                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#police4Modal">
                     <img src="{{ asset('images/Layer1.png') }}" style="width:15px; height:15px;">
-                    <small>Royal Papua New Guinea Constabulary (Commissioner HQ)</small>
+                    <small>National Police HQ</small>
                 </button>
 
-                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
+                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#police3Modal">
                     <img src="{{ asset('images/Layer2.png') }}" style="width:15px; height:15px;">
                     <small>Divisional Command</small>
                 </button>
 
-                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
+                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#police2Modal">
                     <img src="{{ asset('images/Layer3.png') }}" style="width:15px; height:15px;">
                     <small>Provincial Police Command (PPC)</small>
                 </button>
 
-                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
+                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#police1Modal">
                     <img src="{{ asset('images/Layer4.png') }}" style="width:15px; height:15px;">
                     <small>District Police Command / Police Station</small>
+                </button>
+
+                <button type="button" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}"
+                    data-bs-toggle="modal" data-bs-target="#policeAreaLayerModal">
+                    <img src="{{ asset('images/icon-structure.png') }}" style="width: 20px; height: 20px;">
+                    <small>Police Area Layer</small>
+                </button>
+
+                <button type="button" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}"
+                    data-bs-toggle="modal" data-bs-target="#cmdFlowModal">
+                    <img src="{{ asset('images/icon-flow.png') }}" style="width: 20px; height: 20px;">
+                    <small>Cmd Flow</small>
                 </button>
 
             </div>
@@ -311,69 +403,180 @@
   </div>
 </div>
 
-<div class="modal fade" id="level3Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="police1Modal" tabindex="-1" aria-labelledby="police1ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="d-flex align-items-center">
-             <img src="{{ asset('images/Layer4.png') }}" style="width:15px; height:15px;">
-            <h5 class="modal-title" id="disclaimerLabel">District Police Command / Police Station</h5>
+        <div class="d-flex align-items-center gap-2">
+          <img src="{{ asset('images/Layer4.png') }}" alt="District Police Command" style="width:24px; height:24px; object-fit:contain;">
+          <h5 class="modal-title" id="police1ModalLabel">District Police Command / Police Station</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
 
+      <div class="modal-body">
+        <p><strong>Command Level:</strong> Third-tier Territorial Police Command</p>
+        <p><strong>Typical Head Rank:</strong> Superintendent of Police (SP) or Inspector of Police (IP)</p>
+        <p><strong>Administrative Equivalent:</strong> District level</p>
+
+        <p>Supervises police operations within a district by directing police stations and subordinate units, coordinating patrol activities, maintaining public order, supporting criminal investigations, and ensuring effective delivery of policing services within their jurisdiction.</p>
+
+        <p class="mb-2"><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Command district-level police operations.</li>
+          <li>Supervise Police Station Commanders within the district.</li>
+          <li>Coordinate patrol, crime prevention, and law enforcement activities.</li>
+          <li>Direct responses to local emergencies and major incidents.</li>
+          <li>Allocate operational personnel and resources among police stations.</li>
+          <li>Monitor crime trends and operational performance within the district.</li>
+          <li>Coordinate policing with district administrations and community leaders.</li>
+          <li>Ensure implementation of provincial operational directives.</li>
+          <li>Prepare operational reports for the Provincial Police Commander (PPCs).</li>
+          <li>Support community policing and conflict-resolution initiatives.</li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="level4Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="police2Modal" tabindex="-1" aria-labelledby="police2ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="d-flex align-items-center">
-            <img src="{{ asset('images/Layer3.png') }}" style="width:15px; height:15px;">
-            <h5 class="modal-title" id="disclaimerLabel">Provincial Police Command (PPC)</h5>
+        <div class="d-flex align-items-center gap-2">
+          <img src="{{ asset('images/Layer3.png') }}" alt="Provincial Police Command" style="width:24px; height:24px; object-fit:contain;">
+          <h5 class="modal-title" id="police2ModalLabel">Provincial Police Command (PPC)</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
 
+      <div class="modal-body">
+        <p><strong>Command Level:</strong> Second-tier Territorial Police Command</p>
+        <p><strong>Typical Head Rank:</strong> Chief Superintendent of Police (CSP) or Superintendent of Police (SP)</p>
+        <p><strong>Administrative Equivalent:</strong> Provincial (or Metropolitan Command in the National Capital District and Lae) level</p>
+
+        <p>Commands all policing activities within a province or metropolitan area by directing district police commands, managing crime prevention and law enforcement operations, coordinating emergency responses, and implementing national policing policies at the provincial level.</p>
+
+        <p class="mb-2"><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Command all policing operations within a province.</li>
+          <li>Supervise District Police Commanders and Station Commanders.</li>
+          <li>Coordinate crime prevention, patrol, and public order operations.</li>
+          <li>Direct provincial criminal investigations and emergency responses.</li>
+          <li>Manage police personnel, logistics, and operational resources within the province.</li>
+          <li>Coordinate policing activities with provincial administrations and local authorities.</li>
+          <li>Monitor crime patterns and public safety issues.</li>
+          <li>Ensure compliance with national policing standards and operational procedures.</li>
+          <li>Prepare operational reports for the Divisional Police Commander.</li>
+          <li>Promote community policing and public engagement initiatives.</li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="level5Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="police3Modal" tabindex="-1" aria-labelledby="police3ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="d-flex align-items-center">
-            <img src="{{ asset('images/Layer2.png') }}" style="width:15px; height:15px;">
-            <h5 class="modal-title" id="disclaimerLabel">Divisional Command</h5>
+        <div class="d-flex align-items-center gap-2">
+          <img src="{{ asset('images/Layer2.png') }}" alt="Divisional Command" style="width:24px; height:24px; object-fit:contain;">
+          <h5 class="modal-title" id="police3ModalLabel">Divisional Command</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
 
+      <div class="modal-body">
+        <p><strong>Command Level:</strong> Top Territorial Police Command</p>
+        <p><strong>Typical Head Rank:</strong> Assistant Commissioner of Police (ACP)</p>
+        <p><strong>Administrative Equivalent:</strong> Multi-provincial police region (Police Division)</p>
+
+        <p>Exercises operational command over one of the RPNGC's territorial police divisions by supervising provincial and metropolitan police commands, implementing national policing strategies, coordinating regional law enforcement operations, and ensuring the effective delivery of policing services across multiple provinces.</p>
+
+        <p class="mb-2"><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Command a Regional (Divisional) Police Command.</li>
+          <li>Supervise Provincial Police Commanders (PPCs) within the division.</li>
+          <li>Coordinate regional law enforcement operations and public order activities.</li>
+          <li>Allocate personnel and operational resources among provincial commands.</li>
+          <li>Monitor crime trends and operational performance across the division.</li>
+          <li>Coordinate multi-provincial investigations and security operations.</li>
+          <li>Support disaster response and emergency management activities.</li>
+          <li>Ensure implementation of national policing policies and operational directives.</li>
+          <li>Report regional operational performance to the Deputy Commissioner (Regional Operations).</li>
+          <li>Strengthen cooperation with provincial governments and regional stakeholders.</li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="level6Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="police4Modal" tabindex="-1" aria-labelledby="police4ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="d-flex align-items-center">
-            <img src="{{ asset('images/Layer1.png') }}" style="width:15px; height:15px;">
-            <h5 class="modal-title" id="disclaimerLabel">Royal Papua New Guinea Constabulary (Commissioner HQ)</h5>
+        <div class="d-flex align-items-center gap-2">
+          <img src="{{ asset('images/Layer1.png') }}" alt="National Police HQ" style="width:24px; height:24px; object-fit:contain;">
+          <h5 class="modal-title" id="police4ModalLabel">National Police HQ</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
 
+      <div class="modal-body">
+        <p><strong>Command Level:</strong> National Police Commander</p>
+        <p><strong>Typical Head Rank:</strong> Commissioner of Police (COP)</p>
+
+        <p><strong>Role:</strong> Highest commander of the RPNGC and chief executive responsible for national police leadership, strategic direction, and institutional governance.</p>
+
+        <p>Exercises overall command, control, and administration of the RPNGC by directing national policing operations, implementing government policing policies, and ensuring the effective delivery of law enforcement services throughout PNG.</p>
+
+        <p class="mb-2"><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Exercise overall command and control of the RPNGC.</li>
+          <li>Formulate national policing strategies and organizational priorities.</li>
+          <li>Advise the Minister for Police and the National Executive Council on policing and internal security matters.</li>
+          <li>Direct and supervise Deputy Commissioners and senior executive officers.</li>
+          <li>Oversee law enforcement, public order, criminal investigations, and national security-related policing operations.</li>
+          <li>Ensure compliance with the Constitution, the Police Act 1998, and other applicable legislation.</li>
+          <li>Manage institutional governance, accountability, ethics, and professional standards.</li>
+          <li>Represent the RPNGC in intergovernmental, regional, and international policing cooperation.</li>
+          <li>Approve organizational restructuring, resource allocation, and strategic development initiatives.</li>
+          <li>Promote modernization, professionalization, and capacity-building throughout the Constabulary.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="policeAreaLayerModal" tabindex="-1" aria-labelledby="policeAreaLayerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered image-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <div class="d-flex align-items-center gap-2">
+            <img src="{{ asset('images/icon-structure.png') }}" alt="" aria-hidden="true">
+            <h5 class="modal-title mb-0" id="policeAreaLayerLabel">Police Area Layer</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body image-modal-body">
+            <img src="{{ asset('images/police-layer.png') }}" alt="Police Area Layer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cmdFlowModal" tabindex="-1" aria-labelledby="cmdFlowLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered image-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <div class="d-flex align-items-center gap-2">
+            <img src="{{ asset('images/icon-flow.png') }}" alt="" aria-hidden="true">
+            <h5 class="modal-title mb-0" id="cmdFlowLabel">Command Flow</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body image-modal-body">
+            <img src="{{ asset('images/cmd-flow.png') }}" alt="Police Command Flow">
       </div>
     </div>
   </div>
@@ -1137,7 +1340,7 @@ combinedPanelDiv.innerHTML = `
             </select>
             <label>Category:</label>
             ${[
-                'Royal Papua New Guinea Constabulary (Commissioner HQ)',
+                'National Police HQ',
                 'Divisional Command',
                 'Provincial Police Command (PPC)',
                 'District Police Command / Police Station',

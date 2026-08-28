@@ -96,8 +96,8 @@
     }
 
     /* Color bars */
-    .class-medical-classification {border: none; text-align: center;}
-    .class-airport-category {border: none;}
+    .class-medical-classification {border: none; text-align: left; text-transform: uppercase; white-space: nowrap;}
+    .class-airport-category {border: none; text-transform: uppercase; white-space: nowrap;}
     .class-advanced { border-bottom: 3px solid #0070c0; }
     .class-intermediate { border-bottom: 3px solid #00b050; }
     .class-basic { border-bottom: 3px solid #ffc000; }
@@ -149,6 +149,22 @@
       height: 16px;
       object-fit: contain;
     }
+
+    .emergency-legend-toolbar { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; width:100%; padding:10px 14px; overflow-x:auto; }
+    .emergency-legend-section { flex:0 0 auto; }
+    .legend-grid { display:grid; align-items:start; width:max-content; }
+    .legend-grid-item { display:flex; align-items:center; justify-content:flex-start; gap:6px; width:auto; min-height:32px; text-align:left; white-space:nowrap; }
+    .legend-grid-item img { flex-shrink:0; object-fit:contain; }
+    .airfield-legend-grid { grid-template-columns:repeat(3,max-content); column-gap:12px; }
+    .medical-legend-groups { display:flex; align-items:flex-start; }
+    .medical-legend-group { flex:1 0 auto; text-align:left; }
+    .medical-legend-items { display:flex; align-items:flex-start; gap:10px; }
+    .medical-legend-items .legend-grid-item { padding-left:0 !important; }
+    .police-legend-grid { display:grid !important; grid-template-columns:max-content max-content !important; grid-template-rows:auto auto; grid-auto-flow:row !important; column-gap:20px; row-gap:0; width:max-content; }
+    .police-legend-grid .legend-grid-item:nth-child(1) { grid-column:1; grid-row:1; }
+    .police-legend-grid .legend-grid-item:nth-child(2) { grid-column:2; grid-row:1; }
+    .police-legend-grid .legend-grid-item:nth-child(3) { grid-column:1; grid-row:2; }
+    .police-legend-grid .legend-grid-item:nth-child(4) { grid-column:2; grid-row:2; }
 
     .legend-grid {
         display: grid;
@@ -331,6 +347,90 @@
         background: #e8f0fe !important;
         border-radius: 6px;
     }
+
+    /* Medical Facility Classification modals */
+    .medical-info-dialog { width: 95vw; max-width: 1180px !important; }
+    .medical-info-modal {
+        max-height: 88vh;
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        color: #343a40;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .medical-info-modal .modal-header {
+        min-height: 44px;
+        padding: 7px 12px;
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        flex: 0 0 auto;
+    }
+    .medical-info-modal .modal-title {
+        margin-left: 7px;
+        color: #202124;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 24px;
+    }
+    .medical-info-tabs {
+        margin: 0 !important;
+        padding: 9px 6px 0 !important;
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        flex: 0 0 auto;
+        flex-wrap: nowrap;
+        gap: 2px;
+        overflow-x: auto;
+    }
+    .medical-info-tabs .nav-link {
+        min-width: 84px;
+        padding: 8px 14px;
+        border: 1px solid transparent;
+        border-bottom: none;
+        border-radius: 6px 6px 0 0;
+        background: #eceeef;
+        color: #55606e;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+    .medical-info-tabs .nav-link:hover { background: #eef2f7; color: #395272; }
+    .medical-info-tabs .nav-link.active {
+        background: #fff;
+        color: #395272;
+        border-color: #dee2e6 #dee2e6 #fff;
+    }
+    .medical-info-body {
+        padding: 0 !important;
+        overflow: hidden;
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+    .medical-info-content {
+        min-height: 260px;
+        max-height: calc(88vh - 120px);
+        padding: 18px 24px 24px;
+        overflow-y: auto;
+        font-size: 14px;
+        line-height: 19px;
+    }
+    .medical-info-content .tab-pane > h6:first-child { display: none; }
+    .medical-info-content p,
+    .medical-info-content li { font-size: 14px; line-height: 19px; }
+    .medical-info-content ul { padding-left: 20px; margin-bottom: 12px; }
+    .medical-info-content li { margin-bottom: 5px; }
+    .medical-info-content .level66-additional-info { padding: 8px 0 0; }
+
+    @media (max-width: 767.98px) {
+        .medical-info-dialog { width: calc(100vw - 16px); margin: 8px auto; }
+        .medical-info-modal { max-height: calc(100vh - 16px); }
+        .medical-info-modal .modal-title { font-size: 15px; line-height: 20px; }
+        .medical-info-content {
+            max-height: calc(100vh - 126px);
+            min-height: 200px;
+            padding: 14px 16px 18px;
+        }
+    }
 </style>
 
 @endpush
@@ -365,7 +465,7 @@
 
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
                 <i class="bi bi-airplane fs-3"></i>
-                <small>Airports</small>
+                <small>Aviation</small>
             </a>
 
             <!-- Button 6 -->
@@ -407,156 +507,116 @@
             <div class="card">
                 <div class="card-header fw-bold"><img src="{{ asset('images/icon-emergency-support.png') }}" style="width: 24px; height: 24px;"> Emergency Support Tools</div>
 
-                 <div class="classification">
+                  <div class="emergency-legend-toolbar">
                     <!-- Airfield Classification -->
-                    <div class="classification" style="margin-right: 30px; width: 30%;">
-                      <!-- Airport -->
-                      <div class="class-column">
+                    <div class="emergency-legend-section">
                         <div class="class-header class-airport-category">Airfield Classification</div>
-                        <div class="hospital-list">
-                          <div class="hospital-row" style="flex-direction: column;">
-                            <!-- Airport row 1 -->
-                            <div class="hospital-item">
-                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
+                        <div class="legend-grid airfield-legend-grid">
+                              <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level6Modal">
                                   <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png" style="width:18px; height:18px;">
                                   <small>International</small>
                               </button>
 
-                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
+                              <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level5Modal">
                                   <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-airport.png" style="width:18px; height:18px;">
                                   <small>Domestic</small>
                               </button>
 
-                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
+                              <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level4Modal">
                                   <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/regional-domestic-airport.png" style="width:18px; height:18px;">
                                   <small>Regional</small>
                               </button>
-                            </div>
-                            <!-- Airport row 2 -->
-                            <div class="hospital-item">
-                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level2Modal">
+                              <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level2Modal">
                                   <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/civil-military-airport.png" style="width:18px; height:18px;">
                                   <small>Civil-Military</small>
                               </button>
 
-                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
+                              <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level3Modal">
                                   <img src="https://pg.concordreview.com/wp-content/uploads/2024/10/military-airport-red.png" style="width:18px; height:18px;">
                                   <small>Military</small>
                               </button>
 
-                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level1Modal">
+                              <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level1Modal">
                                   <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/private-airport.png" style="width:18px; height:18px;">
                                   <small>Private</small>
                               </button>
-                            </div>
-                          </div>
-
                         </div>
-                      </div>
                     </div>
 
                     <!-- Hospital Classification -->
-                    <div class="classification" style="flex-direction: column; width:100%;">
+                    <div class="emergency-legend-section">
                       <div class="class-header class-medical-classification">Medical Facility Classification</div>
-                      <div class="classification">
+                      <div class="medical-legend-groups">
                         <!-- Advanced -->
-                        <div class="class-column">
+                        <div class="class-column medical-legend-group">
                           <div class="class-header class-advanced">Advanced</div>
-                          <div class="hospital-list">
-                            <div class="hospital-item">
-                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level66Modal">
+                          <div class="medical-legend-items">
+                              <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level66Modal">
                                 <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:24px; height:24px;">
                                 <small>Level 6</small>
                               </button>
-                            </div>
                           </div>
                         </div>
 
                         <!-- Intermediate -->
-                        <div class="class-column">
+                        <div class="class-column medical-legend-group">
                           <div class="class-header class-intermediate">Intermediate</div>
-                          <div class="hospital-list">
-                            <div class="hospital-row">
-                              <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
+                          <div class="medical-legend-items">
+                                <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level55Modal">
                                   <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
                                   <small>Level 5</small>
                                 </button>
-                              </div>
-                              <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level44Modal">
+                                <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level44Modal">
                                   <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
                                   <small>Level 4</small>
                                 </button>
-                              </div>
-                            </div>
                           </div>
                         </div>
 
                         <!-- Basic -->
-                        <div class="class-column">
+                        <div class="class-column medical-legend-group">
                           <div class="class-header class-basic">Basic</div>
-                          <div class="hospital-list">
-                            <div class="hospital-row">
-                              <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level33Modal">
+                          <div class="medical-legend-items">
+                                <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level33Modal">
                                   <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:24px; height:24px;">
                                   <small>Level 3</small>
                                 </button>
-                              </div>
-                              <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level22Modal">
+                                <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level22Modal">
                                     <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-orange.png" style="width:24px; height:24px;">
                                     <small>Level 2</small>
                                 </button>
-                              </div>
-                              <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level11Modal">
+                                <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#level11Modal">
                                     <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24px; height:24px;">
                                     <small>Level 1</small>
                                 </button>
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div class="class-column">
+                    <div class="emergency-legend-section">
                         <div class="class-header class-airport-category">POLICE CLASSIFICATION</div>
 
-                        <div class="airport-list">
-                            <div class="hospital-row" style="flex-direction: column;">
-
-                                <!-- Baris Atas (3) -->
-                                <div class="hospital-item">
-                                    <button class="btn p-1">
+                            <div class="legend-grid police-legend-grid">
+                                    <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#police4Modal">
                                         <img src="{{ asset('images/Layer1.png') }}" style="width:12px; height:12px;">
-                                        <small>Royal Papua New Guinea Constabulary (Commissioner HQ)</small>
+                                        <small>National Police HQ</small>
                                     </button>
 
-                                    <button class="btn p-1">
+                                    <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#police3Modal">
                                         <img src="{{ asset('images/Layer2.png') }}" style="width:12px; height:12px;">
                                         <small>Divisional Command</small>
                                     </button>
-                                </div>
-
-                                <!-- Baris Bawah (2) -->
-                                <div class="hospital-item">
-                                    <button class="btn p-1">
+                                    <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#police2Modal">
                                          <img src="{{ asset('images/Layer3.png') }}" style="width:12px; height:12px;">
                                         <small>Provincial Police Command (PPC)</small>
                                     </button>
 
-                                    <button class="btn p-1">
+                                    <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#police1Modal">
                                         <img src="{{ asset('images/Layer4.png') }}" style="width:12px; height:12px;">
                                         <small>District Police Command / Police Station</small>
                                     </button>
-                                </div>
-
                             </div>
-                        </div>
-
                     </div>
 
                   </div>
@@ -1202,23 +1262,40 @@
   </div>
 </div>
 
-<div class="modal fade" id="level66Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:900px;">
-    <div class="modal-content">
+<div class="modal fade" id="level66Modal" tabindex="-1" aria-labelledby="level66ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable level66-modal-dialog">
+    <div class="modal-content level66-modal">
       <div class="modal-header">
         <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Level 6 – National Referral Specialist Tertiary and Teaching Hospital - Health Services (NHA)</h5>
+            <h5 class="modal-title" id="level66ModalLabel">Level 6 – National Referral Specialist Tertiary and Teaching Hospital - Health Services (NHA)</h5>
         </div>
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+            <ul class="nav nav-tabs mb-3" id="level66Tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="level66-overview-tab" data-bs-toggle="tab" data-bs-target="#level66-overview" type="button" role="tab" aria-controls="level66-overview" aria-selected="true">Overview</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="level66-role-tab" data-bs-toggle="tab" data-bs-target="#level66-role" type="button" role="tab" aria-controls="level66-role" aria-selected="false">Role</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="level66-clinical-tab" data-bs-toggle="tab" data-bs-target="#level66-clinical" type="button" role="tab" aria-controls="level66-clinical" aria-selected="false">Clinical Service</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="level66TabsContent">
+              <div class="tab-pane fade show active" id="level66-overview" role="tabpanel" aria-labelledby="level66-overview-tab" tabindex="0">
             <h6 class="fw-bold">
                 <b>Overview</b>
             </h6>
             <p class="text-justify">
                Level 6 facility is the highest tier of healthcare service in Papua New Guinea, and is the national referral tertiary hospital under the Papua New Guinea National Department of Health (MDOH), providing comprehensive advanced medical, surgical, diagnostic, and subspecialty services supported by highly specialized workforce and national-level infrastructure. Level 6 hospitals are the ultimate referral destination for all lower-level facilities (Levels 1–5), managing the most complex cases while functions as the central hub for clinical governance, specialist training and education, research, and implementation of national health policies, as well as playing a leading role in disaster response coordination, public health surveillance, and overall health system development (e.g. Port Moresby General Hospital).
             </p>
+              </div>
+
+              <div class="tab-pane fade" id="level66-role" role="tabpanel" aria-labelledby="level66-role-tab" tabindex="0">
              <h6 class="fw-bold">
                 <b>Role</b>
             </h6>
@@ -1231,6 +1308,9 @@
                     <li>Provides technical supervision and clinical governance to all lower-level facilities</li>
                 </ul>
             </p>
+              </div>
+
+              <div class="tab-pane fade" id="level66-clinical" role="tabpanel" aria-labelledby="level66-clinical-tab" tabindex="0">
             <h6 class="fw-bold">
                 <b>Clinical Services</b>
             </h6>
@@ -1291,6 +1371,10 @@
                     </li>
                 </ul>
             </p>
+              </div>
+            </div>
+
+            <div class="level66-additional-info">
             <h5 class="fw-bold" style="color:#3c8dbc;">
                 Papua New Guinea Government Health System
             </h5>
@@ -1325,10 +1409,250 @@
                 </ul>
                 This structure emphasizes primary healthcare, disease prevention, and maternal-child health services, but patient choice of provider is limited, particularly in rural areas.
             </p>
+            </div>
       </div>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="police1Modal" tabindex="-1" aria-labelledby="police1ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center gap-2">
+          <img src="{{ asset('images/Layer4.png') }}" alt="District Police Command" style="width:24px; height:24px; object-fit:contain;">
+          <h5 class="modal-title" id="police1ModalLabel">District Police Command / Police Station</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <p><strong>Command Level:</strong> Third-tier Territorial Police Command</p>
+        <p><strong>Typical Head Rank:</strong> Superintendent of Police (SP) or Inspector of Police (IP)</p>
+        <p><strong>Administrative Equivalent:</strong> District level</p>
+
+        <p>Supervises police operations within a district by directing police stations and subordinate units, coordinating patrol activities, maintaining public order, supporting criminal investigations, and ensuring effective delivery of policing services within their jurisdiction.</p>
+
+        <p class="mb-2"><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Command district-level police operations.</li>
+          <li>Supervise Police Station Commanders within the district.</li>
+          <li>Coordinate patrol, crime prevention, and law enforcement activities.</li>
+          <li>Direct responses to local emergencies and major incidents.</li>
+          <li>Allocate operational personnel and resources among police stations.</li>
+          <li>Monitor crime trends and operational performance within the district.</li>
+          <li>Coordinate policing with district administrations and community leaders.</li>
+          <li>Ensure implementation of provincial operational directives.</li>
+          <li>Prepare operational reports for the Provincial Police Commander (PPCs).</li>
+          <li>Support community policing and conflict-resolution initiatives.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="police2Modal" tabindex="-1" aria-labelledby="police2ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center gap-2">
+          <img src="{{ asset('images/Layer3.png') }}" alt="Provincial Police Command" style="width:24px; height:24px; object-fit:contain;">
+          <h5 class="modal-title" id="police2ModalLabel">Provincial Police Command (PPC)</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <p><strong>Command Level:</strong> Second-tier Territorial Police Command</p>
+        <p><strong>Typical Head Rank:</strong> Chief Superintendent of Police (CSP) or Superintendent of Police (SP)</p>
+        <p><strong>Administrative Equivalent:</strong> Provincial (or Metropolitan Command in the National Capital District and Lae) level</p>
+
+        <p>Commands all policing activities within a province or metropolitan area by directing district police commands, managing crime prevention and law enforcement operations, coordinating emergency responses, and implementing national policing policies at the provincial level.</p>
+
+        <p class="mb-2"><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Command all policing operations within a province.</li>
+          <li>Supervise District Police Commanders and Station Commanders.</li>
+          <li>Coordinate crime prevention, patrol, and public order operations.</li>
+          <li>Direct provincial criminal investigations and emergency responses.</li>
+          <li>Manage police personnel, logistics, and operational resources within the province.</li>
+          <li>Coordinate policing activities with provincial administrations and local authorities.</li>
+          <li>Monitor crime patterns and public safety issues.</li>
+          <li>Ensure compliance with national policing standards and operational procedures.</li>
+          <li>Prepare operational reports for the Divisional Police Commander.</li>
+          <li>Promote community policing and public engagement initiatives.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="police3Modal" tabindex="-1" aria-labelledby="police3ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center gap-2">
+          <img src="{{ asset('images/Layer2.png') }}" alt="Divisional Command" style="width:24px; height:24px; object-fit:contain;">
+          <h5 class="modal-title" id="police3ModalLabel">Divisional Command</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <p><strong>Command Level:</strong> Top Territorial Police Command</p>
+        <p><strong>Typical Head Rank:</strong> Assistant Commissioner of Police (ACP)</p>
+        <p><strong>Administrative Equivalent:</strong> Multi-provincial police region (Police Division)</p>
+
+        <p>Exercises operational command over one of the RPNGC's territorial police divisions by supervising provincial and metropolitan police commands, implementing national policing strategies, coordinating regional law enforcement operations, and ensuring the effective delivery of policing services across multiple provinces.</p>
+
+        <p class="mb-2"><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Command a Regional (Divisional) Police Command.</li>
+          <li>Supervise Provincial Police Commanders (PPCs) within the division.</li>
+          <li>Coordinate regional law enforcement operations and public order activities.</li>
+          <li>Allocate personnel and operational resources among provincial commands.</li>
+          <li>Monitor crime trends and operational performance across the division.</li>
+          <li>Coordinate multi-provincial investigations and security operations.</li>
+          <li>Support disaster response and emergency management activities.</li>
+          <li>Ensure implementation of national policing policies and operational directives.</li>
+          <li>Report regional operational performance to the Deputy Commissioner (Regional Operations).</li>
+          <li>Strengthen cooperation with provincial governments and regional stakeholders.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="police4Modal" tabindex="-1" aria-labelledby="police4ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center gap-2">
+          <img src="{{ asset('images/Layer1.png') }}" alt="National Police HQ" style="width:24px; height:24px; object-fit:contain;">
+          <h5 class="modal-title" id="police4ModalLabel">National Police HQ</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <p><strong>Command Level:</strong> National Police Commander</p>
+        <p><strong>Typical Head Rank:</strong> Commissioner of Police (COP)</p>
+
+        <p><strong>Role:</strong> Highest commander of the RPNGC and chief executive responsible for national police leadership, strategic direction, and institutional governance.</p>
+
+        <p>Exercises overall command, control, and administration of the RPNGC by directing national policing operations, implementing government policing policies, and ensuring the effective delivery of law enforcement services throughout PNG.</p>
+
+        <p class="mb-2"><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Exercise overall command and control of the RPNGC.</li>
+          <li>Formulate national policing strategies and organizational priorities.</li>
+          <li>Advise the Minister for Police and the National Executive Council on policing and internal security matters.</li>
+          <li>Direct and supervise Deputy Commissioners and senior executive officers.</li>
+          <li>Oversee law enforcement, public order, criminal investigations, and national security-related policing operations.</li>
+          <li>Ensure compliance with the Constitution, the Police Act 1998, and other applicable legislation.</li>
+          <li>Manage institutional governance, accountability, ethics, and professional standards.</li>
+          <li>Represent the RPNGC in intergovernmental, regional, and international policing cooperation.</li>
+          <li>Approve organizational restructuring, resource allocation, and strategic development initiatives.</li>
+          <li>Promote modernization, professionalization, and capacity-building throughout the Constabulary.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const medicalModals = [
+        { id: 'level11Modal', prefix: 'medical-level-1' },
+        { id: 'level22Modal', prefix: 'medical-level-2' },
+        { id: 'level33Modal', prefix: 'medical-level-3' },
+        { id: 'level44Modal', prefix: 'medical-level-4' },
+        { id: 'level55Modal', prefix: 'medical-level-5' },
+        { id: 'level66Modal', prefix: 'medical-level-6' }
+    ];
+
+    medicalModals.forEach(function (facility) {
+        const modal = document.getElementById(facility.id);
+        if (!modal) return;
+
+        const dialog = modal.querySelector('.modal-dialog');
+        const content = modal.querySelector('.modal-content');
+        const body = modal.querySelector('.modal-body');
+        if (!dialog || !content || !body) return;
+
+        dialog.classList.add('medical-info-dialog');
+        dialog.classList.remove('level66-modal-dialog');
+        dialog.style.maxWidth = '';
+        content.classList.add('medical-info-modal');
+        content.classList.remove('level66-modal');
+
+        /* Level 6 already contains tabs; only normalize its presentation. */
+        const existingTabs = body.querySelector(':scope > .nav-tabs');
+        const existingTabContent = body.querySelector(':scope > .tab-content');
+        if (existingTabs && existingTabContent) {
+            existingTabs.classList.add('medical-info-tabs');
+            existingTabContent.classList.add('medical-info-content');
+            body.before(existingTabs);
+            const additionalInfo = body.querySelector(':scope > .level66-additional-info');
+            if (additionalInfo) {
+                existingTabContent.querySelector('#level66-clinical')?.appendChild(additionalInfo);
+            }
+            body.classList.add('medical-info-body');
+            return;
+        }
+
+        const sections = {
+            overview: document.createDocumentFragment(),
+            role: document.createDocumentFragment(),
+            clinical: document.createDocumentFragment()
+        };
+        let currentSection = 'overview';
+
+        Array.from(body.childNodes).forEach(function (node) {
+            const heading = (node.textContent || '').trim().replace(/\s+/g, ' ');
+            if (/^Role$/i.test(heading)) currentSection = 'role';
+            if (/^Clinical Services?$/i.test(heading)) currentSection = 'clinical';
+            sections[currentSection].appendChild(node);
+        });
+
+        const tabs = [
+            { key: 'overview', label: 'Overview' },
+            { key: 'role', label: 'Role' },
+            { key: 'clinical', label: 'Clinical Service' }
+        ];
+        const nav = document.createElement('ul');
+        nav.className = 'nav nav-tabs medical-info-tabs';
+        nav.id = facility.prefix + '-tabs';
+        nav.setAttribute('role', 'tablist');
+
+        const tabContent = document.createElement('div');
+        tabContent.className = 'tab-content medical-info-content';
+
+        tabs.forEach(function (tab, index) {
+            const paneId = facility.prefix + '-' + tab.key;
+            const buttonId = paneId + '-tab';
+            const item = document.createElement('li');
+            item.className = 'nav-item';
+            item.setAttribute('role', 'presentation');
+            item.innerHTML = `<button class="nav-link${index === 0 ? ' active' : ''}" id="${buttonId}" data-bs-toggle="tab" data-bs-target="#${paneId}" type="button" role="tab" aria-controls="${paneId}" aria-selected="${index === 0}">${tab.label}</button>`;
+            nav.appendChild(item);
+
+            const pane = document.createElement('div');
+            pane.className = 'tab-pane fade' + (index === 0 ? ' show active' : '');
+            pane.id = paneId;
+            pane.setAttribute('role', 'tabpanel');
+            pane.setAttribute('aria-labelledby', buttonId);
+            pane.setAttribute('tabindex', '0');
+            pane.appendChild(sections[tab.key]);
+            tabContent.appendChild(pane);
+        });
+
+        body.before(nav);
+        body.appendChild(tabContent);
+        body.classList.add('medical-info-body');
+    });
+});
+</script>
 
 @endsection
 
@@ -1834,7 +2158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div id="policeFilter" style="display:none;margin-top:8px;">
                 <strong>Police Category:</strong><br>
                 ${[
-                    'Royal Papua New Guinea Constabulary (Commissioner HQ)',
+                    'National Police HQ',
                     'Divisional Command',
                     'Provincial Police Command (PPC)',
                     'District Police Command / Police Station'

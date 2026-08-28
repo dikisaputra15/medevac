@@ -291,6 +291,93 @@
             box-shadow: 0 0 0 2px rgba(26,115,232,0.2) !important;
         }
 
+        /* Medical Facility Classification modals */
+        .medical-info-dialog {
+            width: 95vw;
+            max-width: 1180px !important;
+        }
+        .medical-info-modal {
+            max-height: 88vh;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            color: #343a40;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .medical-info-modal .modal-header {
+            min-height: 44px;
+            padding: 7px 12px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            flex: 0 0 auto;
+        }
+        .medical-info-modal .modal-title {
+            margin-left: 7px;
+            color: #202124;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 24px;
+        }
+        .medical-info-tabs {
+            margin: 0 !important;
+            padding: 9px 6px 0 !important;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            flex: 0 0 auto;
+            flex-wrap: nowrap;
+            gap: 2px;
+            overflow-x: auto;
+        }
+        .medical-info-tabs .nav-link {
+            min-width: 84px;
+            padding: 8px 14px;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            background: #eceeef;
+            color: #55606e;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .medical-info-tabs .nav-link:hover { background: #eef2f7; color: #395272; }
+        .medical-info-tabs .nav-link.active {
+            background: #fff;
+            color: #395272;
+            border-color: #dee2e6 #dee2e6 #fff;
+        }
+        .medical-info-body {
+            padding: 0 !important;
+            overflow: hidden;
+            flex: 1 1 auto;
+            min-height: 0;
+        }
+        .medical-info-content {
+            min-height: 260px;
+            max-height: calc(88vh - 120px);
+            padding: 18px 24px 24px;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 19px;
+        }
+        .medical-info-content .tab-pane > h6:first-child { display: none; }
+        .medical-info-content p,
+        .medical-info-content li { font-size: 14px; line-height: 19px; }
+        .medical-info-content ul { padding-left: 20px; margin-bottom: 12px; }
+        .medical-info-content li { margin-bottom: 5px; }
+        .medical-info-content .level66-additional-info { padding: 8px 0 0; }
+
+        @media (max-width: 767.98px) {
+            .medical-info-dialog { width: calc(100vw - 16px); margin: 8px auto; }
+            .medical-info-modal { max-height: calc(100vh - 16px); }
+            .medical-info-modal .modal-title { font-size: 15px; line-height: 20px; }
+            .medical-info-content {
+                max-height: calc(100vh - 126px);
+                min-height: 200px;
+                padding: 14px 16px 18px;
+            }
+        }
+
 </style>
 @endpush
 
@@ -309,7 +396,7 @@
 
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
                 <i class="bi bi-airplane fs-3"></i>
-                <small>Airports</small>
+                <small>Aviation</small>
             </a>
 
             <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
@@ -936,23 +1023,40 @@
   </div>
 </div>
 
-<div class="modal fade" id="level66Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:900px;">
-    <div class="modal-content">
+<div class="modal fade" id="level66Modal" tabindex="-1" aria-labelledby="level66ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable level66-modal-dialog">
+    <div class="modal-content level66-modal">
       <div class="modal-header">
         <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Level 6 – National Referral Specialist Tertiary and Teaching Hospital - Health Services (NHA)</h5>
+            <h5 class="modal-title" id="level66ModalLabel">Level 6 – National Referral Specialist Tertiary and Teaching Hospital - Health Services (NHA)</h5>
         </div>
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+            <ul class="nav nav-tabs mb-3" id="level66Tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="level66-overview-tab" data-bs-toggle="tab" data-bs-target="#level66-overview" type="button" role="tab" aria-controls="level66-overview" aria-selected="true">Overview</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="level66-role-tab" data-bs-toggle="tab" data-bs-target="#level66-role" type="button" role="tab" aria-controls="level66-role" aria-selected="false">Role</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="level66-clinical-tab" data-bs-toggle="tab" data-bs-target="#level66-clinical" type="button" role="tab" aria-controls="level66-clinical" aria-selected="false">Clinical Service</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="level66TabsContent">
+              <div class="tab-pane fade show active" id="level66-overview" role="tabpanel" aria-labelledby="level66-overview-tab" tabindex="0">
             <h6 class="fw-bold">
                 <b>Overview</b>
             </h6>
             <p class="text-justify">
                Level 6 facility is the highest tier of healthcare service in Papua New Guinea, and is the national referral tertiary hospital under the Papua New Guinea National Department of Health (MDOH), providing comprehensive advanced medical, surgical, diagnostic, and subspecialty services supported by highly specialized workforce and national-level infrastructure. Level 6 hospitals are the ultimate referral destination for all lower-level facilities (Levels 1–5), managing the most complex cases while functions as the central hub for clinical governance, specialist training and education, research, and implementation of national health policies, as well as playing a leading role in disaster response coordination, public health surveillance, and overall health system development (e.g. Port Moresby General Hospital).
             </p>
+              </div>
+
+              <div class="tab-pane fade" id="level66-role" role="tabpanel" aria-labelledby="level66-role-tab" tabindex="0">
              <h6 class="fw-bold">
                 <b>Role</b>
             </h6>
@@ -965,6 +1069,9 @@
                     <li>Provides technical supervision and clinical governance to all lower-level facilities</li>
                 </ul>
             </p>
+              </div>
+
+              <div class="tab-pane fade" id="level66-clinical" role="tabpanel" aria-labelledby="level66-clinical-tab" tabindex="0">
             <h6 class="fw-bold">
                 <b>Clinical Services</b>
             </h6>
@@ -1025,6 +1132,10 @@
                     </li>
                 </ul>
             </p>
+              </div>
+            </div>
+
+            <div class="level66-additional-info">
             <h5 class="fw-bold" style="color:#3c8dbc;">
                 Papua New Guinea Government Health System
             </h5>
@@ -1059,6 +1170,7 @@
                 </ul>
                 This structure emphasizes primary healthcare, disease prevention, and maternal-child health services, but patient choice of provider is limited, particularly in rural areas.
             </p>
+            </div>
       </div>
     </div>
   </div>
@@ -1111,6 +1223,99 @@
 
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const medicalModals = [
+        { id: 'level11Modal', prefix: 'medical-level-1' },
+        { id: 'level22Modal', prefix: 'medical-level-2' },
+        { id: 'level33Modal', prefix: 'medical-level-3' },
+        { id: 'level44Modal', prefix: 'medical-level-4' },
+        { id: 'level55Modal', prefix: 'medical-level-5' },
+        { id: 'level66Modal', prefix: 'medical-level-6' }
+    ];
+
+    medicalModals.forEach(function (facility) {
+        const modal = document.getElementById(facility.id);
+        if (!modal) return;
+
+        const dialog = modal.querySelector('.modal-dialog');
+        const content = modal.querySelector('.modal-content');
+        const body = modal.querySelector('.modal-body');
+        if (!dialog || !content || !body) return;
+
+        dialog.classList.add('medical-info-dialog');
+        dialog.classList.remove('level66-modal-dialog');
+        dialog.style.maxWidth = '';
+        content.classList.add('medical-info-modal');
+        content.classList.remove('level66-modal');
+
+        /* Level 6 already contains tabs; only normalize its presentation. */
+        const existingTabs = body.querySelector(':scope > .nav-tabs');
+        const existingTabContent = body.querySelector(':scope > .tab-content');
+        if (existingTabs && existingTabContent) {
+            existingTabs.classList.add('medical-info-tabs');
+            existingTabContent.classList.add('medical-info-content');
+            body.before(existingTabs);
+            const additionalInfo = body.querySelector(':scope > .level66-additional-info');
+            if (additionalInfo) {
+                existingTabContent.querySelector('#level66-clinical')?.appendChild(additionalInfo);
+            }
+            body.classList.add('medical-info-body');
+            return;
+        }
+
+        const sections = {
+            overview: document.createDocumentFragment(),
+            role: document.createDocumentFragment(),
+            clinical: document.createDocumentFragment()
+        };
+        let currentSection = 'overview';
+
+        Array.from(body.childNodes).forEach(function (node) {
+            const heading = (node.textContent || '').trim().replace(/\s+/g, ' ');
+            if (/^Role$/i.test(heading)) currentSection = 'role';
+            if (/^Clinical Services?$/i.test(heading)) currentSection = 'clinical';
+            sections[currentSection].appendChild(node);
+        });
+
+        const tabs = [
+            { key: 'overview', label: 'Overview' },
+            { key: 'role', label: 'Role' },
+            { key: 'clinical', label: 'Clinical Service' }
+        ];
+        const nav = document.createElement('ul');
+        nav.className = 'nav nav-tabs medical-info-tabs';
+        nav.id = facility.prefix + '-tabs';
+        nav.setAttribute('role', 'tablist');
+
+        const tabContent = document.createElement('div');
+        tabContent.className = 'tab-content medical-info-content';
+
+        tabs.forEach(function (tab, index) {
+            const paneId = facility.prefix + '-' + tab.key;
+            const buttonId = paneId + '-tab';
+            const item = document.createElement('li');
+            item.className = 'nav-item';
+            item.setAttribute('role', 'presentation');
+            item.innerHTML = `<button class="nav-link${index === 0 ? ' active' : ''}" id="${buttonId}" data-bs-toggle="tab" data-bs-target="#${paneId}" type="button" role="tab" aria-controls="${paneId}" aria-selected="${index === 0}">${tab.label}</button>`;
+            nav.appendChild(item);
+
+            const pane = document.createElement('div');
+            pane.className = 'tab-pane fade' + (index === 0 ? ' show active' : '');
+            pane.id = paneId;
+            pane.setAttribute('role', 'tabpanel');
+            pane.setAttribute('aria-labelledby', buttonId);
+            pane.setAttribute('tabindex', '0');
+            pane.appendChild(sections[tab.key]);
+            tabContent.appendChild(pane);
+        });
+
+        body.before(nav);
+        body.appendChild(tabContent);
+        body.classList.add('medical-info-body');
+    });
+});
+</script>
 
 @endsection
 
