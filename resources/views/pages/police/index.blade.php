@@ -225,7 +225,20 @@
         }
 
         #policeAreaLayerModal .image-modal-dialog {
-            max-width: 720px;
+            max-width: 1660px;
+        }
+
+        #policeAreaLayerModal .police-area-layer-body {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #policeAreaLayerModal .police-area-layer-frame {
+            display: block;
+            width: 100%;
+            height: calc(100vh - 110px);
+            height: calc(100dvh - 110px);
+            border: 0;
         }
 
         .image-modal-dialog .modal-content {
@@ -558,8 +571,13 @@
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body image-modal-body">
-            <img src="{{ asset('images/police-layer.png') }}" alt="Police Area Layer">
+      <div class="modal-body police-area-layer-body">
+        <iframe
+            class="police-area-layer-frame"
+            src="{{ asset('police-area-layer.html') }}"
+            title="Police Territorial Areas and Administrative Equivalents"
+            loading="lazy"
+        ></iframe>
       </div>
     </div>
   </div>
